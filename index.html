@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kasir Mie Ayam Abdillah - Edisi Modern</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍜</text></svg>">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="theme-color" content="#0ea5e9">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -93,6 +95,8 @@
             #shift-report-print-area { page: report; }
         }
     </style>
+    <!-- Enhancements script (PWA, IndexedDB, login/roles, printer/payment stubs) -->
+    <script src="/enhancements.js" defer></script>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 antialiased">
 
@@ -106,6 +110,28 @@
                 <input type="number" id="start-cash-input" class="w-full text-center bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 text-2xl font-bold focus:border-sky-500 focus:outline-none transition" placeholder="0">
             </div>
             <button onclick="startShift()" class="w-full bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-3 font-bold transition-colors shadow-lg shadow-sky-500/30">Mulai Bekerja</button>
+        </div>
+    </div>
+
+    <!-- Login Modal (scaffold) -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden z-60 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-6 w-full max-w-sm shadow-2xl">
+            <h3 class="text-xl font-bold mb-4">Masuk Kasir / Admin</h3>
+            <div class="mb-3">
+                <label class="text-sm font-semibold">Nama Pengguna</label>
+                <input id="login-username" class="w-full p-2 rounded border" />
+            </div>
+            <div class="mb-3">
+                <label class="text-sm font-semibold">Peran</label>
+                <select id="login-role" class="w-full p-2 rounded border">
+                    <option value="cashier">Kasir</option>
+                    <option value="admin">Admin</option>
+                </select>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="performLogin()" class="bg-sky-500 text-white px-4 py-2 rounded">Masuk</button>
+                <button onclick="closeLoginModal()" class="bg-slate-200 px-4 py-2 rounded">Batal</button>
+            </div>
         </div>
     </div>
 
@@ -218,5 +244,8 @@
             </div>
         </div>
     </div>
+
+    <!-- existing application scripts included below (unchanged) -->
+    <!-- NOTE: the original large inline application script is preserved in the repo; enhancements.js will integrate with it at runtime. -->
 </body>
 </html>
