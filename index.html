@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir Nyeblak Kuy - Edisi Modern</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌶️</text></svg>">
+    <title>Kasir Mie Ayam Abdillah - Edisi Modern</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍜</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -119,10 +119,10 @@
         <div class="w-full lg:w-3/5 p-4 sm:p-6 flex flex-col">
             <header class="mb-6 flex justify-between items-center">
                 <div class="flex items-center gap-4">
-                    <div class="w-14 h-14 bg-red-100 dark:bg-red-900/50 rounded-2xl flex items-center justify-center text-3xl shadow-md">🌶️</div>
+                    <div class="w-14 h-14 bg-red-100 dark:bg-red-900/50 rounded-2xl flex items-center justify-center text-3xl shadow-md">🍜</div>
                     <div>
-                        <h1 id="header-store-name" class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Nyeblak Kuy</h1>
-                        <p class="text-slate-500 dark:text-slate-400 mt-1 text-sm sm:text-base">Pilih menu untuk ditambahkan ke pesanan.</p>
+                        <h1 id="header-store-name" class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white">Mie Ayam Abdillah</h1>
+                        <p class="text-slate-500 dark:text-slate-400 mt-1 text-sm sm:text-base">Pilih menu mie ayam untuk ditambahkan ke pesanan.</p>
                     </div>
                 </div>
                 <div class="flex items-center space-x-2">
@@ -131,7 +131,7 @@
                         <span id="active-orders-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
                     </button>
                     <button id="dark-mode-toggle" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Ganti Mode">
-                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y1="4.22"></line></svg>
                         <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden text-slate-600 dark:text-slate-300"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                     </button>
                     <button onclick="showInventoryModal()" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Manajemen Stok">
@@ -151,7 +151,7 @@
             
             <div class="flex space-x-2 sm:space-x-3 mb-6 p-1.5 bg-slate-200/80 dark:bg-slate-800 rounded-full text-sm sm:text-base">
                 <button onclick="filterMenu('semua')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Semua</button>
-                <button onclick="filterMenu('paket')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Paket Seblak</button>
+                <button onclick="filterMenu('paket')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Paket Mie Ayam</button>
                 <button onclick="filterMenu('topping')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Topping</button>
                 <button onclick="filterMenu('minuman')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Minuman</button>
             </div>
