@@ -34,12 +34,12 @@
 
         /* Custom styles & Animations */
         .category-tab.active-tab {
-            background-color: #0ea5e9; /* bg-sky-500 */
+            background-color: #0ea5e9;
             color: white;
             box-shadow: 0 4px 14px 0 rgb(14 165 233 / 39%);
         }
         .active-order-type {
-            background-color: #0c4a6e; /* bg-sky-900 */
+            background-color: #0c4a6e;
             color: white;
             font-weight: 700;
         }
@@ -78,7 +78,6 @@
         .toast.error { background-color: #ef4444; }
         .toast.success { background-color: #22c55e; }
 
-
         /* Settings Modal Tabs */
         .settings-tab { border-bottom: 2px solid transparent; }
         .settings-tab.active { border-bottom-color: #0ea5e9; color: #0ea5e9; }
@@ -95,8 +94,6 @@
             #shift-report-print-area { page: report; }
         }
     </style>
-    <!-- Enhancements script (PWA, IndexedDB, login/roles, printer/payment stubs) -->
-    <script src="/enhancements.js" defer></script>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 antialiased">
 
@@ -170,7 +167,7 @@
             </header>
             
             <div class="relative mb-4">
-                <input type="text" id="search-bar" class="w-full bg-white dark:bg-slate-800 rounded-full p-3 pl-12 pr-10 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 border-2 border-slate-200 dark:border-slate-700 focus:border-sky-500 focus:outline-none focus:ring-0 transition" placeholder="Cari menu...">
+                <input type="text" id="search-bar" class="w-full bg-white dark:bg-slate-800 rounded-full p-3 pl-12 pr-10 text-slate-800 dark:text-slate-200 placeholder-slate-400 dark:placeholder-slate-500 border-2 border-slate-200 dark:border-slate-700 focus:border-sky-500 focus:outline-none focus:ring-0 transition" placeholder="Cari menu mie ayam...">
                 <svg class="absolute left-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
                 <button id="search-clear-btn" class="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition hidden">&times;</button>
             </div>
@@ -185,6 +182,7 @@
             <div id="menu-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 overflow-y-auto flex-grow pr-3"></div>
         </div>
 
+        <!-- Right Panel: Order Cart -->
         <div class="w-full lg:w-2/5 bg-white dark:bg-slate-800/50 p-4 sm:p-6 flex flex-col shadow-2xl shadow-slate-300/50 dark:shadow-black/50">
             <div class="flex justify-between items-center mb-4">
                  <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Pesanan Saat Ini</h2>
@@ -245,7 +243,389 @@
         </div>
     </div>
 
-    <!-- existing application scripts included below (unchanged) -->
-    <!-- NOTE: the original large inline application script is preserved in the repo; enhancements.js will integrate with it at runtime. -->
+    <!-- ========== JAVASCRIPT APLIKASI KASIR MIE AYAM ABDILLAH ========== -->
+    <script>
+        (function() {
+            // ----- Data Statis -----
+            // Data Menu Mie Ayam
+            const menuData = [
+                // Paket Mie Ayam (kategori: 'paket')
+                { id: 1, name: 'Mie Ayam Biasa', price: 15000, category: 'paket', stock: 50, image: '🍜' },
+                { id: 2, name: 'Mie Ayam Bakso', price: 20000, category: 'paket', stock: 40, image: '🍜+🍡' },
+                { id: 3, name: 'Mie Ayam Pangsit', price: 18000, category: 'paket', stock: 45, image: '🍜🥟' },
+                { id: 4, name: 'Mie Ayam Ceker', price: 19000, category: 'paket', stock: 35, image: '🍜🐔' },
+                { id: 5, name: 'Mie Ayam Jamur', price: 17000, category: 'paket', stock: 40, image: '🍜🍄' },
+                { id: 6, name: 'Mie Ayam Spesial', price: 25000, category: 'paket', stock: 30, image: '🍜✨' },
+                // Topping (kategori: 'topping')
+                { id: 7, name: 'Bakso (tambah)', price: 5000, category: 'topping', stock: 100, image: '🍡' },
+                { id: 8, name: 'Pangsit (tambah)', price: 4000, category: 'topping', stock: 100, image: '🥟' },
+                { id: 9, name: 'Ceker (tambah)', price: 6000, category: 'topping', stock: 80, image: '🐔' },
+                { id: 10, name: 'Jamur (tambah)', price: 4000, category: 'topping', stock: 90, image: '🍄' },
+                { id: 11, name: 'Telur', price: 3000, category: 'topping', stock: 120, image: '🥚' },
+                // Minuman (kategori: 'minuman')
+                { id: 12, name: 'Es Teh', price: 5000, category: 'minuman', stock: 200, image: '🧋' },
+                { id: 13, name: 'Es Jeruk', price: 7000, category: 'minuman', stock: 150, image: '🍊' },
+                { id: 14, name: 'Teh Hangat', price: 4000, category: 'minuman', stock: 100, image: '☕' },
+                { id: 15, name: 'Kopi', price: 8000, category: 'minuman', stock: 100, image: '☕' },
+                { id: 16, name: 'Air Mineral', price: 3000, category: 'minuman', stock: 300, image: '💧' }
+            ];
+
+            // Data Member (pelanggan)
+            const members = [
+                { id: 1, name: 'Ahmad Fauzi', phone: '08123456789', points: 150 },
+                { id: 2, name: 'Siti Nurhaliza', phone: '08234567890', points: 230 },
+                { id: 3, name: 'Budi Santoso', phone: '08345678901', points: 75 }
+            ];
+
+            // Data Meja (nomor meja dan status)
+            const tables = [
+                { number: 1, status: 'available' },
+                { number: 2, status: 'available' },
+                { number: 3, status: 'available' },
+                { number: 4, status: 'available' },
+                { number: 5, status: 'available' },
+                { number: 6, status: 'available' },
+                { number: 7, status: 'available' },
+                { number: 8, status: 'available' },
+                { number: 9, status: 'available' },
+                { number: 10, status: 'available' }
+            ];
+
+            // ----- State Aplikasi -----
+            let currentOrder = [];                // item dalam keranjang { id, name, price, quantity, category, stock }
+            let orderType = 'Dine-In';             // Dine-In / Take Away / Online
+            let selectedTable = null;               // nomor meja
+            let selectedMember = null;              // objek member
+            let discount = 0;                        // nominal diskon (dalam rupiah)
+            let taxRate = 10;                         // persen pajak
+            let currentFilter = 'semua';              // filter menu
+            let searchQuery = '';
+
+            // ----- Elemen DOM -----
+            const menuGrid = document.getElementById('menu-grid');
+            const orderListEl = document.getElementById('order-list');
+            const emptyCartMsg = document.getElementById('empty-cart-message');
+            const subtotalEl = document.getElementById('subtotal');
+            const discountAmountEl = document.getElementById('discount-amount');
+            const taxEl = document.getElementById('tax');
+            const totalEl = document.getElementById('total');
+            const taxRateDisplay = document.getElementById('tax-rate-display');
+            const tableDisplay = document.getElementById('table-display');
+            const tableNumberDisplay = document.getElementById('table-number-display');
+            const customerSelectionArea = document.getElementById('customer-selection-area');
+            const customerNameDisplay = document.getElementById('customer-name-display');
+            const clearCustomerBtn = document.getElementById('clear-customer-btn');
+            const searchInput = document.getElementById('search-bar');
+            const searchClearBtn = document.getElementById('search-clear-btn');
+            const mainContainer = document.getElementById('main-container');
+            const shiftModal = document.getElementById('shift-modal');
+
+            // ----- Inisialisasi Awal: Sembunyikan shift modal (demo) dan tampilkan konten utama -----
+            setTimeout(() => {
+                shiftModal.style.display = 'flex'; // tampilkan shift modal (untuk demo, nanti hilang setelah start)
+                // Untuk keperluan demo, kita langsung sembunyikan shift modal dan aktifkan main container
+                // Namun sesuai logika, shift harus dimulai terlebih dahulu.
+                // Kita buat fungsi startShift()
+            }, 100);
+
+            // Render Menu
+            function renderMenu() {
+                let filtered = menuData;
+                // Filter berdasarkan kategori
+                if (currentFilter !== 'semua') {
+                    filtered = filtered.filter(item => item.category === currentFilter);
+                }
+                // Filter berdasarkan pencarian
+                if (searchQuery.trim() !== '') {
+                    filtered = filtered.filter(item => item.name.toLowerCase().includes(searchQuery.toLowerCase()));
+                }
+                // Urutkan berdasarkan id
+                filtered.sort((a, b) => a.id - b.id);
+
+                if (filtered.length === 0) {
+                    menuGrid.innerHTML = '<p class="col-span-full text-center text-slate-500 dark:text-slate-400 py-8">Menu tidak ditemukan.</p>';
+                    return;
+                }
+
+                let html = '';
+                filtered.forEach(item => {
+                    const outOfStock = item.stock <= 0;
+                    html += `
+                        <div class="relative bg-white dark:bg-slate-800 rounded-2xl shadow-md hover:shadow-xl transition p-4 flex flex-col items-center text-center cursor-pointer ${outOfStock ? 'item-out-of-stock' : ''}" 
+                             onclick="${!outOfStock ? `addToCart(${item.id})` : ''}">
+                            ${outOfStock ? '<div class="overlay"><span class="overlay-text">Habis</span></div>' : ''}
+                            <div class="text-5xl mb-2">${item.image}</div>
+                            <h3 class="font-bold text-sm sm:text-base">${item.name}</h3>
+                            <p class="text-sky-600 dark:text-sky-400 font-semibold mt-1">Rp ${item.price.toLocaleString()}</p>
+                            <p class="text-xs text-slate-400 mt-1">Stok: ${item.stock}</p>
+                        </div>
+                    `;
+                });
+                menuGrid.innerHTML = html;
+            }
+
+            // Render Order List (keranjang)
+            function renderOrder() {
+                if (currentOrder.length === 0) {
+                    orderListEl.innerHTML = '<p id="empty-cart-message" class="text-slate-400 dark:text-slate-500 text-center mt-16">Keranjang masih kosong.</p>';
+                } else {
+                    let html = '';
+                    currentOrder.forEach((item, index) => {
+                        html += `
+                            <div class="bg-slate-50 dark:bg-slate-900/50 rounded-lg p-3 mb-2 flex justify-between items-center">
+                                <div>
+                                    <h4 class="font-semibold">${item.name}</h4>
+                                    <p class="text-sm text-slate-500">Rp ${item.price.toLocaleString()} x ${item.quantity}</p>
+                                </div>
+                                <div class="flex items-center space-x-2">
+                                    <button onclick="updateQuantity(${index}, -1)" class="w-7 h-7 bg-slate-200 dark:bg-slate-700 rounded-full hover:bg-slate-300 dark:hover:bg-slate-600 font-bold">−</button>
+                                    <span class="w-6 text-center">${item.quantity}</span>
+                                    <button onclick="updateQuantity(${index}, 1)" class="w-7 h-7 bg-slate-200 dark:bg-slate-700 rounded-full hover:bg-slate-300 dark:hover:bg-slate-600 font-bold">+</button>
+                                    <button onclick="removeItem(${index})" class="ml-2 text-red-500 hover:text-red-700">×</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    orderListEl.innerHTML = html;
+                }
+                updateTotals();
+            }
+
+            // Hitung ulang subtotal, pajak, total
+            function updateTotals() {
+                const subtotal = currentOrder.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const tax = (subtotal - discount) * (taxRate / 100);
+                const total = subtotal - discount + tax;
+                subtotalEl.textContent = `Rp ${subtotal.toLocaleString()}`;
+                discountAmountEl.textContent = `- Rp ${discount.toLocaleString()}`;
+                taxEl.textContent = `Rp ${tax.toLocaleString()}`;
+                totalEl.textContent = `Rp ${total.toLocaleString()}`;
+            }
+
+            // Tambah item ke keranjang
+            window.addToCart = function(itemId) {
+                const item = menuData.find(i => i.id === itemId);
+                if (!item || item.stock <= 0) {
+                    showToast('Stok habis!', 'error');
+                    return;
+                }
+                const existing = currentOrder.find(i => i.id === itemId);
+                if (existing) {
+                    if (existing.quantity + 1 > item.stock) {
+                        showToast('Stok tidak mencukupi', 'error');
+                        return;
+                    }
+                    existing.quantity += 1;
+                } else {
+                    currentOrder.push({ ...item, quantity: 1 });
+                }
+                renderOrder();
+                showToast(`${item.name} ditambahkan`, 'success');
+            };
+
+            // Update kuantitas item di keranjang
+            window.updateQuantity = function(index, delta) {
+                const item = currentOrder[index];
+                const original = menuData.find(i => i.id === item.id);
+                const newQty = item.quantity + delta;
+                if (newQty < 1) {
+                    removeItem(index);
+                    return;
+                }
+                if (newQty > original.stock) {
+                    showToast('Stok tidak mencukupi', 'error');
+                    return;
+                }
+                item.quantity = newQty;
+                renderOrder();
+            };
+
+            // Hapus item dari keranjang
+            window.removeItem = function(index) {
+                currentOrder.splice(index, 1);
+                renderOrder();
+            };
+
+            // Filter menu berdasarkan kategori
+            window.filterMenu = function(category) {
+                currentFilter = category;
+                // Update tampilan tab aktif
+                document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active-tab'));
+                event.target.classList.add('active-tab');
+                renderMenu();
+            };
+
+            // Pencarian
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value;
+                if (searchQuery.length > 0) searchClearBtn.classList.remove('hidden');
+                else searchClearBtn.classList.add('hidden');
+                renderMenu();
+            });
+            searchClearBtn.addEventListener('click', () => {
+                searchInput.value = '';
+                searchQuery = '';
+                searchClearBtn.classList.add('hidden');
+                renderMenu();
+            });
+
+            // Set tipe pesanan
+            window.setOrderType = function(type) {
+                orderType = type;
+                document.querySelectorAll('.order-type-btn').forEach(btn => btn.classList.remove('active-order-type'));
+                if (type === 'Dine-In') document.getElementById('order-type-dine-in').classList.add('active-order-type');
+                else if (type === 'Take Away') document.getElementById('order-type-take-away').classList.add('active-order-type');
+                else if (type === 'Online') document.getElementById('order-type-online').classList.add('active-order-type');
+
+                // Jika bukan Dine-In, sembunyikan pilihan meja
+                if (type !== 'Dine-In') {
+                    document.getElementById('table-management-section').classList.add('hidden');
+                    selectedTable = null;
+                    tableDisplay.classList.add('hidden');
+                } else {
+                    document.getElementById('table-management-section').classList.remove('hidden');
+                }
+            };
+
+            // Pilih meja
+            window.showTableModal = function() {
+                // Implementasi sederhana: buat prompt atau modal simulasi
+                let tableNumbers = tables.filter(t => t.status === 'available').map(t => t.number);
+                let tableChoice = prompt('Pilih nomor meja (tersedia: ' + tableNumbers.join(', ') + ')');
+                if (tableChoice && !isNaN(tableChoice)) {
+                    const num = parseInt(tableChoice);
+                    if (tables.find(t => t.number === num && t.status === 'available')) {
+                        selectedTable = num;
+                        tableNumberDisplay.textContent = num;
+                        tableDisplay.classList.remove('hidden');
+                    } else {
+                        alert('Meja tidak tersedia');
+                    }
+                }
+            };
+
+            // Set tipe pelanggan
+            window.setCustomerType = function(type) {
+                if (type === 'member') {
+                    customerSelectionArea.classList.remove('hidden');
+                } else {
+                    customerSelectionArea.classList.add('hidden');
+                    selectedMember = null;
+                    clearCustomerBtn.classList.add('hidden');
+                    customerNameDisplay.textContent = 'Pilih Member...';
+                }
+            };
+
+            window.showCustomerModal = function() {
+                // Simulasi pilih member
+                let memberList = members.map(m => `${m.id}: ${m.name}`).join('\n');
+                let choice = prompt('Pilih member (masukkan ID):\n' + memberList);
+                if (choice && !isNaN(choice)) {
+                    const member = members.find(m => m.id === parseInt(choice));
+                    if (member) {
+                        selectedMember = member;
+                        customerNameDisplay.textContent = member.name;
+                        clearCustomerBtn.classList.remove('hidden');
+                    } else {
+                        alert('Member tidak ditemukan');
+                    }
+                }
+            };
+
+            window.clearSelectedCustomer = function() {
+                selectedMember = null;
+                customerNameDisplay.textContent = 'Pilih Member...';
+                clearCustomerBtn.classList.add('hidden');
+            };
+
+            // Atur diskon
+            window.showDiscountModal = function() {
+                let disc = prompt('Masukkan nominal diskon (Rp):', discount);
+                if (disc !== null) {
+                    disc = parseInt(disc);
+                    if (!isNaN(disc) && disc >= 0) {
+                        discount = disc;
+                        updateTotals();
+                    }
+                }
+            };
+
+            // Selesaikan pesanan
+            window.completeOrder = function() {
+                if (currentOrder.length === 0) {
+                    showToast('Keranjang kosong', 'error');
+                    return;
+                }
+                // Kurangi stok
+                currentOrder.forEach(item => {
+                    const original = menuData.find(m => m.id === item.id);
+                    if (original) original.stock -= item.quantity;
+                });
+                // Reset keranjang
+                currentOrder = [];
+                renderOrder();
+                // Reset diskon
+                discount = 0;
+                updateTotals();
+                showToast('Pesanan selesai!', 'success');
+                renderMenu(); // perbarui tampilan stok menu
+            };
+
+            // Mulai shift
+            window.startShift = function() {
+                const cash = document.getElementById('start-cash-input').value;
+                showToast(`Shift dimulai dengan modal Rp ${parseInt(cash).toLocaleString()}`, 'success');
+                document.getElementById('shift-modal').style.display = 'none';
+                mainContainer.classList.remove('opacity-20', 'pointer-events-none');
+            };
+
+            // Toast
+            function showToast(message, type = 'info') {
+                const container = document.getElementById('toast-container');
+                const toast = document.createElement('div');
+                toast.className = `toast ${type}`;
+                toast.textContent = message;
+                container.appendChild(toast);
+                setTimeout(() => toast.classList.add('show'), 10);
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                    setTimeout(() => toast.remove(), 300);
+                }, 3000);
+            }
+            window.showToast = showToast;
+
+            // Dark mode toggle
+            document.getElementById('dark-mode-toggle').addEventListener('click', () => {
+                document.documentElement.classList.toggle('dark');
+                // Ikon sun/moon
+                document.getElementById('sun-icon').classList.toggle('hidden');
+                document.getElementById('moon-icon').classList.toggle('hidden');
+            });
+
+            // Placeholder untuk fungsi yang dipanggil dari tombol (modal)
+            window.showActiveOrdersModal = () => showToast('Fitur pesanan aktif belum diimplementasikan', 'info');
+            window.showInventoryModal = () => showToast('Fitur manajemen stok belum diimplementasikan', 'info');
+            window.showSettingsModal = () => showToast('Fitur pengaturan belum diimplementasikan', 'info');
+            window.performLogin = () => { showToast('Login berhasil', 'success'); closeLoginModal(); };
+            window.closeLoginModal = () => document.getElementById('login-modal').classList.add('hidden');
+
+            // Render awal
+            renderMenu();
+            setOrderType('Dine-In'); // default
+
+            // Aktifkan kategori 'Semua'
+            document.querySelectorAll('.category-tab')[0].classList.add('active-tab');
+
+            // Untuk demo, sembunyikan shift modal setelah 2 detik (agar user bisa lihat)
+            setTimeout(() => {
+                if (shiftModal.style.display !== 'none') {
+                    shiftModal.style.display = 'none';
+                    mainContainer.classList.remove('opacity-20', 'pointer-events-none');
+                }
+            }, 2000);
+        })();
+    </script>
+    <!-- Enhancements script (PWA, IndexedDB, login/roles, printer/payment stubs) -->
+    <script src="/enhancements.js" defer></script>
 </body>
 </html>
