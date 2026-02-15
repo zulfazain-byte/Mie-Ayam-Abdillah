@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kasir Mie Ayam Abdillah - Edisi Modern</title>
+    <title>Kasir Mie Ayam Abdillah - Pro</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍜</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,16 +12,10 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
     <script>
-        // --- Konfigurasi Tailwind untuk Dark Mode ---
-        tailwind.config = {
-            darkMode: 'class',
-        }
+        tailwind.config = { darkMode: 'class' }
     </script>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-        }
-        /* Custom scrollbar */
+        body { font-family: 'Inter', sans-serif; }
         ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: #e2e8f0; }
         ::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 10px; }
@@ -30,58 +24,42 @@
         .dark ::-webkit-scrollbar-thumb { background: #475569; }
         .dark ::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
-        /* Custom styles & Animations */
         .category-tab.active-tab {
-            background-color: #0ea5e9; /* bg-sky-500 */
-            color: white;
+            background-color: #0ea5e9; color: white;
             box-shadow: 0 4px 14px 0 rgb(14 165 233 / 39%);
         }
         .active-order-type {
-            background-color: #0c4a6e; /* bg-sky-900 */
-            color: white;
-            font-weight: 700;
+            background-color: #0c4a6e; color: white; font-weight: 700;
         }
         .item-out-of-stock { position: relative; cursor: not-allowed; }
         .item-out-of-stock .overlay {
-            position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background-color: rgba(255, 255, 255, 0.6);
+            position: absolute; top:0; left:0; right:0; bottom:0;
+            background-color: rgba(255,255,255,0.6);
             display: flex; align-items: center; justify-content: center;
             border-radius: 1rem;
         }
-        .dark .item-out-of-stock .overlay { background-color: rgba(30, 41, 59, 0.7); }
+        .dark .item-out-of-stock .overlay { background-color: rgba(30,41,59,0.7); }
         .item-out-of-stock .overlay-text {
-            background-color: rgba(15, 23, 42, 0.8); color: white;
-            padding: 8px 16px; border-radius: 9999px;
-            font-weight: bold; font-size: 14px;
+            background-color: rgba(15,23,42,0.8); color: white;
+            padding: 8px 16px; border-radius: 9999px; font-weight: bold; font-size: 14px;
         }
-        .modal-backdrop {  
-            backdrop-filter: blur(4px);  
-            transition: opacity 0.3s ease;
-        }
+        .modal-backdrop { backdrop-filter: blur(4px); transition: opacity 0.3s ease; }
         .modal-content {
             transition: transform 0.3s ease-out, opacity 0.3s ease-out;
-            transform: scale(0.95) translateY(10px);
-            opacity: 0;
+            transform: scale(0.95) translateY(10px); opacity: 0;
         }
         .modal-backdrop.show { opacity: 1; }
-        .modal-backdrop.show .modal-content {
-            transform: scale(1) translateY(0);
-            opacity: 1;
-        }
+        .modal-backdrop.show .modal-content { transform: scale(1) translateY(0); opacity: 1; }
 
-        /* Toast Notification */
         #toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); z-index: 100; display: flex; flex-direction: column; align-items: center; }
         .toast { background-color: #0f172a; color: white; padding: 12px 20px; border-radius: 9999px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); margin-top: 10px; opacity: 0; transform: translateY(20px); transition: opacity 0.3s ease, transform 0.3s ease; }
         .toast.show { opacity: 1; transform: translateY(0); }
         .toast.error { background-color: #ef4444; }
         .toast.success { background-color: #22c55e; }
 
-
-        /* Settings Modal Tabs */
         .settings-tab { border-bottom: 2px solid transparent; }
         .settings-tab.active { border-bottom-color: #0ea5e9; color: #0ea5e9; }
 
-        /* Print styles */
         @media print {
             body * { visibility: hidden; }
             .printable-area, .printable-area * { visibility: visible; }
@@ -92,12 +70,35 @@
             #eod-report-print-area { page: report; }
             #shift-report-print-area { page: report; }
         }
+
+        /* Skeleton loading */
+        .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 8px; }
+        .dark .skeleton { background: linear-gradient(90deg, #2d3748 25%, #4a5568 50%, #2d3748 75%); background-size: 200% 100%; }
+        @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 antialiased">
 
-    <!-- Shift Start Overlay -->
-    <div id="shift-modal" class="fixed inset-0 bg-slate-900 bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-[60] p-4">
+    <!-- Login Overlay -->
+    <div id="login-modal" class="fixed inset-0 bg-slate-900 bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-[70] p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl text-center">
+            <div class="w-20 h-20 bg-amber-100 dark:bg-amber-900/50 rounded-full flex items-center justify-center text-4xl mx-auto mb-4">🍜</div>
+            <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Mie Ayam Abdillah</h3>
+            <p class="text-slate-500 dark:text-slate-400 mb-6">Silakan login untuk memulai</p>
+            <div class="mb-4">
+                <select id="login-role" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 mb-3">
+                    <option value="admin">Admin</option>
+                    <option value="kasir">Kasir</option>
+                </select>
+                <input type="password" id="login-password" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3" placeholder="Password">
+            </div>
+            <button onclick="handleLogin()" class="w-full bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-3 font-bold transition">Login</button>
+            <p class="text-xs text-slate-400 mt-4">Demo: admin123 / kasir123</p>
+        </div>
+    </div>
+
+    <!-- Shift Start Overlay (untuk admin) -->
+    <div id="shift-modal" class="fixed inset-0 bg-slate-900 bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-[60] p-4 hidden">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl text-center">
             <h3 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">Mulai Shift Baru</h3>
             <p class="text-slate-500 dark:text-slate-400 mb-6">Masukkan jumlah modal awal tunai di laci kasir.</p>
@@ -114,7 +115,6 @@
 
     <!-- Main Container -->
     <div id="main-container" class="flex flex-col lg:flex-row h-screen opacity-20 pointer-events-none">
-
         <!-- Left Panel: Menu & Categories -->
         <div class="w-full lg:w-3/5 p-4 sm:p-6 flex flex-col">
             <header class="mb-6 flex justify-between items-center">
@@ -134,10 +134,10 @@
                         <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                         <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden text-slate-600 dark:text-slate-300"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                     </button>
-                    <button onclick="showInventoryModal()" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Manajemen Stok">
+                    <button onclick="showInventoryModal()" id="inventory-btn" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Manajemen Stok">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     </button>
-                    <button onclick="showSettingsModal()" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Pengaturan">
+                    <button onclick="showSettingsModal()" id="settings-btn" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Pengaturan">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                     </button>
                 </div>
@@ -156,9 +156,15 @@
                 <button onclick="filterMenu('minuman')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Minuman</button>
             </div>
 
+            <!-- Skeleton loader for menu -->
+            <div id="menu-skeleton" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 hidden">
+                <div class="skeleton h-48"></div><div class="skeleton h-48"></div><div class="skeleton h-48"></div><div class="skeleton h-48"></div>
+                <div class="skeleton h-48"></div><div class="skeleton h-48"></div><div class="skeleton h-48"></div><div class="skeleton h-48"></div>
+            </div>
             <div id="menu-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 overflow-y-auto flex-grow pr-3"></div>
         </div>
 
+        <!-- Right Panel: Cart -->
         <div class="w-full lg:w-2/5 bg-white dark:bg-slate-800/50 p-4 sm:p-6 flex flex-col shadow-2xl shadow-slate-300/50 dark:shadow-black/50">
             <div class="flex justify-between items-center mb-4">
                  <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Pesanan Saat Ini</h2>
@@ -231,7 +237,9 @@
         </div>
     </div>
 
-    <!-- Modals -->
+    <!-- ==================== MODALS ==================== -->
+
+    <!-- Split Bill Modal -->
     <div id="split-bill-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-4xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
             <div class="flex justify-between items-center mb-6">
@@ -265,6 +273,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Active Orders Modal -->
     <div id="active-orders-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-2xl shadow-2xl flex flex-col modal-content" style="height: 85vh;">
             <div class="flex justify-between items-center mb-6">
@@ -274,6 +284,8 @@
             <div id="active-orders-list" class="flex-grow overflow-y-auto pr-2 -mr-2 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4"></div>
         </div>
     </div>
+
+    <!-- Payment Modal (dengan QRIS dan catatan) -->
     <div id="payment-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm sm:max-w-md shadow-2xl modal-content">
              <h3 class="text-2xl font-bold mb-6 text-center text-slate-900 dark:text-white">Detail Pembayaran</h3>
@@ -304,6 +316,16 @@
                          </div>
                      </div>
                  </div>
+                 <!-- Bagian QRIS -->
+                 <div id="qris-payment-section" class="hidden mb-4">
+                     <label for="qris-code" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Kode QRIS / ID Transaksi</label>
+                     <input type="text" id="qris-code" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" placeholder="Masukkan kode atau ID">
+                 </div>
+                 <!-- Catatan untuk seluruh pesanan (opsional) -->
+                 <div class="mb-4">
+                     <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Catatan Pesanan (opsional)</label>
+                     <textarea id="order-note" rows="2" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" placeholder="Contoh: Tidak pakai bawang, Pedas ekstra..."></textarea>
+                 </div>
              </div>
              <button onclick="showSplitBillModal()" id="split-bill-button" class="w-full mt-2 mb-4 bg-indigo-500 hover:bg-indigo-600 text-white rounded-xl py-3 font-bold transition-colors">Pecah Tagihan</button>
              <div id="change-section" class="flex justify-between items-center text-xl bg-green-50 dark:bg-green-900/50 p-4 rounded-lg mb-6">
@@ -316,6 +338,8 @@
              </div>
          </div>
     </div>
+
+    <!-- Receipt Modal -->
     <div id="receipt-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 text-slate-900 dark:text-white rounded-2xl p-6 w-full max-w-sm shadow-2xl modal-content flex flex-col" style="height: 80vh;">
             <h3 class="text-xl font-bold text-center mb-4">Pratinjau Nota</h3>
@@ -328,13 +352,117 @@
             </div>
         </div>
     </div>
-    <div id="history-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4"><div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-3xl shadow-2xl flex flex-col modal-content" style="height: 85vh;"><div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold text-slate-900 dark:text-white">Riwayat Transaksi</h3><button onclick="closeModal('history-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button></div><div id="history-list" class="flex-grow overflow-y-auto pr-2 -mr-2"></div></div></div>
-    <div id="dashboard-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4"><div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-6xl shadow-2xl flex flex-col modal-content" style="height: 90vh;"><div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold text-slate-900 dark:text-white">Dashboard Penjualan</h3><div class="flex space-x-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-lg"><button onclick="renderDashboard('today', event)" class="dashboard-range-btn px-3 py-1 rounded-md text-sm font-semibold">Hari Ini</button><button onclick="renderDashboard('7days', event)" class="dashboard-range-btn px-3 py-1 rounded-md text-sm font-semibold">7 Hari</button><button onclick="renderDashboard('30days', event)" class="dashboard-range-btn px-3 py-1 rounded-md text-sm font-semibold">30 Hari</button></div><button onclick="closeModal('dashboard-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button></div><div id="dashboard-content" class="flex-grow overflow-y-auto pr-2 -mr-2"></div></div></div>
-    <div id="discount-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4"><div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl modal-content"><h3 class="text-2xl font-bold mb-6 text-center text-slate-900 dark:text-white">Atur Diskon</h3><div class="mb-4"><label for="discount-type" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Tipe Diskon</label><select id="discount-type" class="w-full bg-slate-100 dark:bg-slate-700 dark:text-white rounded-lg p-3 border-2 border-transparent focus:border-sky-500 focus:outline-none transition"><option value="percentage">Persentase (%)</option><option value="fixed">Nominal (Rp)</option></select></div><div class="mb-6"><label for="discount-value" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Nilai Diskon</label><input type="number" id="discount-value" class="w-full bg-white dark:bg-slate-700 dark:text-white border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" placeholder="0" min="0"></div><div class="grid grid-cols-2 gap-4"><button onclick="removeDiscount()" class="bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-900/50 dark:hover:bg-red-900/80 dark:text-red-300 rounded-xl py-3 font-bold transition">Hapus</button><button onclick="applyDiscount()" class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-3 font-bold transition">Terapkan</button></div><button onclick="closeModal('discount-modal')" class="w-full mt-4 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl py-3 font-bold transition">Tutup</button></div></div>
-    <div id="confirm-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4"><div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl text-center modal-content"><h3 id="confirm-title" class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Konfirmasi</h3><p id="confirm-message" class="text-slate-500 dark:text-slate-400 mb-6">Apakah Anda yakin?</p><div class="grid grid-cols-2 gap-4"><button id="confirm-cancel-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl py-2 font-bold transition">Batal</button><button id="confirm-ok-btn" class="bg-red-500 hover:bg-red-600 text-white rounded-xl py-2 font-bold transition">Yakin</button></div></div></div>
-    <div id="table-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4"><div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-2xl shadow-2xl modal-content"><div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold text-slate-900 dark:text-white">Manajemen Meja</h3><button onclick="closeModal('table-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button></div><div id="table-grid" class="grid grid-cols-4 md:grid-cols-6 gap-4"></div></div></div>
-    <div id="inventory-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4"><div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-4xl shadow-2xl flex flex-col modal-content" style="height: 90vh;"><div class="flex justify-between items-center mb-6"><h3 class="text-2xl font-bold text-slate-900 dark:text-white">Manajemen Stok & HPP</h3><button onclick="closeModal('inventory-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button></div><div id="inventory-list" class="flex-grow overflow-y-auto pr-2 -mr-2"></div><div class="mt-6 flex justify-end"><button onclick="closeModal('inventory-modal')" class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-2 px-5 font-bold transition">Selesai</button></div></div></div>
-    <div id="spice-level-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4"><div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-md shadow-2xl text-center modal-content"><h3 id="spice-modal-title" class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Pilih Level Pedas</h3><div class="grid grid-cols-3 sm:grid-cols-5 gap-3"><button onclick="confirmSpiceLevel(1)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-amber-400 hover:text-white h-20">1<span id="spice-cost-1" class="text-xs font-normal mt-1"></span></button><button onclick="confirmSpiceLevel(2)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-amber-500 hover:text-white h-20">2<span id="spice-cost-2" class="text-xs font-normal mt-1"></span></button><button onclick="confirmSpiceLevel(3)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-orange-500 hover:text-white h-20">3<span id="spice-cost-3" class="text-xs font-normal mt-1"></span></button><button onclick="confirmSpiceLevel(4)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-red-500 hover:text-white h-20">4<span id="spice-cost-4" class="text-xs font-normal mt-1"></span></button><button onclick="confirmSpiceLevel(5)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-red-700 hover:text-white h-20">5<span id="spice-cost-5" class="block text-xs font-normal"></span></button></div><button onclick="closeModal('spice-level-modal')" class="w-full mt-6 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl py-3 font-bold transition">Batal</button></div></div>
+
+    <!-- History Modal (dengan tombol Export CSV) -->
+    <div id="history-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-3xl shadow-2xl flex flex-col modal-content" style="height: 85vh;">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Riwayat Transaksi</h3>
+                <div class="flex gap-2">
+                    <button onclick="exportToCSV()" class="bg-green-500 hover:bg-green-600 text-white rounded-lg py-2 px-4 font-bold transition text-sm">Ekspor CSV</button>
+                    <button onclick="closeModal('history-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button>
+                </div>
+            </div>
+            <div id="history-list" class="flex-grow overflow-y-auto pr-2 -mr-2"></div>
+        </div>
+    </div>
+
+    <!-- Dashboard Modal (dengan filter kasir dan rentang kustom) -->
+    <div id="dashboard-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-6xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Dashboard Penjualan</h3>
+                <div class="flex space-x-2">
+                    <select id="dashboard-cashier-filter" class="bg-slate-100 dark:bg-slate-700 rounded-lg px-3 py-1 text-sm">
+                        <option value="all">Semua Kasir</option>
+                    </select>
+                    <div class="flex space-x-2 p-1 bg-slate-100 dark:bg-slate-900 rounded-lg">
+                        <button onclick="renderDashboard('today', event)" class="dashboard-range-btn px-3 py-1 rounded-md text-sm font-semibold">Hari Ini</button>
+                        <button onclick="renderDashboard('7days', event)" class="dashboard-range-btn px-3 py-1 rounded-md text-sm font-semibold">7 Hari</button>
+                        <button onclick="renderDashboard('30days', event)" class="dashboard-range-btn px-3 py-1 rounded-md text-sm font-semibold">30 Hari</button>
+                        <button onclick="renderDashboard('custom', event)" class="dashboard-range-btn px-3 py-1 rounded-md text-sm font-semibold">Kustom</button>
+                    </div>
+                    <button onclick="closeModal('dashboard-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button>
+                </div>
+            </div>
+            <div id="dashboard-content" class="flex-grow overflow-y-auto pr-2 -mr-2"></div>
+        </div>
+    </div>
+
+    <!-- Discount Modal -->
+    <div id="discount-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl modal-content">
+            <h3 class="text-2xl font-bold mb-6 text-center text-slate-900 dark:text-white">Atur Diskon</h3>
+            <div class="mb-4">
+                <label for="discount-type" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Tipe Diskon</label>
+                <select id="discount-type" class="w-full bg-slate-100 dark:bg-slate-700 dark:text-white rounded-lg p-3 border-2 border-transparent focus:border-sky-500 focus:outline-none transition">
+                    <option value="percentage">Persentase (%)</option>
+                    <option value="fixed">Nominal (Rp)</option>
+                </select>
+            </div>
+            <div class="mb-6">
+                <label for="discount-value" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Nilai Diskon</label>
+                <input type="number" id="discount-value" class="w-full bg-white dark:bg-slate-700 dark:text-white border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" placeholder="0" min="0">
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <button onclick="removeDiscount()" class="bg-red-100 hover:bg-red-200 text-red-800 dark:bg-red-900/50 dark:hover:bg-red-900/80 dark:text-red-300 rounded-xl py-3 font-bold transition">Hapus</button>
+                <button onclick="applyDiscount()" class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-3 font-bold transition">Terapkan</button>
+            </div>
+            <button onclick="closeModal('discount-modal')" class="w-full mt-4 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl py-3 font-bold transition">Tutup</button>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="confirm-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl text-center modal-content">
+            <h3 id="confirm-title" class="text-xl font-bold mb-4 text-slate-900 dark:text-white">Konfirmasi</h3>
+            <p id="confirm-message" class="text-slate-500 dark:text-slate-400 mb-6">Apakah Anda yakin?</p>
+            <div class="grid grid-cols-2 gap-4">
+                <button id="confirm-cancel-btn" class="bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl py-2 font-bold transition">Batal</button>
+                <button id="confirm-ok-btn" class="bg-red-500 hover:bg-red-600 text-white rounded-xl py-2 font-bold transition">Yakin</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Table Modal -->
+    <div id="table-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-2xl shadow-2xl modal-content">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Manajemen Meja</h3>
+                <button onclick="closeModal('table-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button>
+            </div>
+            <div id="table-grid" class="grid grid-cols-4 md:grid-cols-6 gap-4"></div>
+        </div>
+    </div>
+
+    <!-- Inventory Modal -->
+    <div id="inventory-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-4xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Manajemen Stok & HPP</h3>
+                <button onclick="closeModal('inventory-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button>
+            </div>
+            <div id="inventory-list" class="flex-grow overflow-y-auto pr-2 -mr-2"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('inventory-modal')" class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-2 px-5 font-bold transition">Selesai</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Spice Level Modal -->
+    <div id="spice-level-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-md shadow-2xl text-center modal-content">
+            <h3 id="spice-modal-title" class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Pilih Level Pedas</h3>
+            <div class="grid grid-cols-3 sm:grid-cols-5 gap-3">
+                <button onclick="confirmSpiceLevel(1)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-amber-400 hover:text-white h-20">1<span id="spice-cost-1" class="text-xs font-normal mt-1"></span></button>
+                <button onclick="confirmSpiceLevel(2)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-amber-500 hover:text-white h-20">2<span id="spice-cost-2" class="text-xs font-normal mt-1"></span></button>
+                <button onclick="confirmSpiceLevel(3)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-orange-500 hover:text-white h-20">3<span id="spice-cost-3" class="text-xs font-normal mt-1"></span></button>
+                <button onclick="confirmSpiceLevel(4)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-red-500 hover:text-white h-20">4<span id="spice-cost-4" class="text-xs font-normal mt-1"></span></button>
+                <button onclick="confirmSpiceLevel(5)" class="flex flex-col items-center justify-center p-3 rounded-lg font-bold text-lg transition bg-slate-100 dark:bg-slate-700 hover:bg-red-700 hover:text-white h-20">5<span id="spice-cost-5" class="block text-xs font-normal"></span></button>
+            </div>
+            <button onclick="closeModal('spice-level-modal')" class="w-full mt-6 bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl py-3 font-bold transition">Batal</button>
+        </div>
+    </div>
 
     <!-- Customer Management Modal -->
     <div id="customer-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
@@ -385,7 +513,7 @@
         </div>
     </div>
 
-
+    <!-- Settings Modal (dengan tab Shift) -->
     <div id="settings-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-lg sm:max-w-2xl shadow-2xl modal-content">
             <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Pengaturan Aplikasi</h3>
@@ -393,9 +521,10 @@
             <div class="border-b border-slate-200 dark:border-slate-700 mb-6">
                 <nav class="-mb-px flex space-x-6" aria-label="Tabs">
                     <button onclick="switchSettingsTab(event, 'umum')" class="settings-tab active whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Umum</button>
-                    <button onclick="switchSettingsTab(event, 'finansial')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200">Finansial</button>
-                    <button onclick="switchSettingsTab(event, 'struk')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200">Struk</button>
-                    <button onclick="switchSettingsTab(event, 'data')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200">Data & Laporan</button>
+                    <button onclick="switchSettingsTab(event, 'finansial')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Finansial</button>
+                    <button onclick="switchSettingsTab(event, 'struk')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Struk</button>
+                    <button onclick="switchSettingsTab(event, 'data')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Data & Laporan</button>
+                    <button onclick="switchSettingsTab(event, 'shift')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Shift</button>
                 </nav>
             </div>
 
@@ -431,16 +560,6 @@
                     </div>
                 </div>
                 <div id="settings-tab-data" class="settings-tab-content space-y-4 hidden">
-                    <div class="p-4 bg-lime-50 dark:bg-lime-900/30 rounded-lg">
-                        <h4 class="font-bold text-lime-800 dark:text-lime-300">Manajemen Shift</h4>
-                        <p class="text-sm text-lime-600 dark:text-lime-400 mb-3">Tutup shift saat ini untuk mencatat laporan penjualan dan serah terima kasir.</p>
-                        <button onclick="showEndOfShiftReport()" class="bg-lime-500 hover:bg-lime-600 text-white rounded-lg py-2 px-4 font-bold transition text-sm">Akhiri Shift</button>
-                    </div>
-                    <div class="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
-                        <h4 class="font-bold text-slate-800 dark:text-slate-200">Laporan Harian (EOD)</h4>
-                        <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Cetak ringkasan total penjualan hari ini dalam format A4.</p>
-                        <button onclick="showEndOfDayReport()" class="bg-sky-500 hover:bg-sky-600 text-white rounded-lg py-2 px-4 font-bold transition text-sm">Cetak Laporan Harian</button>
-                    </div>
                     <div class="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
                         <h4 class="font-bold text-slate-800 dark:text-slate-200">Ekspor Semua Data</h4>
                         <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Unduh semua data transaksi sebagai file JSON untuk backup.</p>
@@ -452,15 +571,74 @@
                         <button onclick="confirmResetData()" class="bg-red-500 hover:bg-red-600 text-white rounded-lg py-2 px-4 font-bold transition text-sm">Reset Data Aplikasi</button>
                     </div>
                 </div>
+                <div id="settings-tab-shift" class="settings-tab-content space-y-4 hidden">
+                    <div class="p-4 bg-lime-50 dark:bg-lime-900/30 rounded-lg">
+                        <h4 class="font-bold text-lime-800 dark:text-lime-300">Manajemen Shift</h4>
+                        <p class="text-sm text-lime-600 dark:text-lime-400 mb-3">Kelola shift kasir dan lihat laporan per shift.</p>
+                        <button onclick="showClockInModal()" class="bg-lime-500 hover:bg-lime-600 text-white rounded-lg py-2 px-4 font-bold transition text-sm mr-2">Clock In</button>
+                        <button onclick="showClockOutModal()" class="bg-orange-500 hover:bg-orange-600 text-white rounded-lg py-2 px-4 font-bold transition text-sm">Clock Out</button>
+                        <div class="mt-4">
+                            <h5 class="font-semibold mb-2">Riwayat Shift</h5>
+                            <div id="shift-history-list" class="max-h-40 overflow-y-auto text-sm space-y-1"></div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <div class="mt-8 flex justify-end space-x-4">
                 <button onclick="closeModal('settings-modal')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl py-2 px-5 font-bold transition">Batal</button>
-                <button onclick="saveSettings()" class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-2 px-5 font-bold transition">Simpan</button>
+                <button onclick="saveSettings()" id="save-settings-btn" class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-2 px-5 font-bold transition">Simpan</button>
             </div>
         </div>
     </div>
-    
+
+    <!-- Modal Clock In -->
+    <div id="clockin-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-center">Clock In</h3>
+            <div class="mb-4">
+                <label for="clockin-cashier" class="block text-slate-500 dark:text-slate-400 mb-2">Nama Kasir</label>
+                <input type="text" id="clockin-cashier" class="w-full bg-white dark:bg-slate-700 rounded-lg p-3 border-2 border-slate-200 dark:border-slate-600" value="Kasir 1">
+            </div>
+            <div class="mb-4">
+                <label for="clockin-startcash" class="block text-slate-500 dark:text-slate-400 mb-2">Modal Awal</label>
+                <input type="number" id="clockin-startcash" class="w-full bg-white dark:bg-slate-700 rounded-lg p-3 border-2 border-slate-200 dark:border-slate-600" value="0">
+            </div>
+            <button onclick="clockIn()" class="w-full bg-lime-500 hover:bg-lime-600 text-white rounded-xl py-3 font-bold">Mulai Shift</button>
+            <button onclick="closeModal('clockin-modal')" class="w-full mt-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl py-2 font-bold">Batal</button>
+        </div>
+    </div>
+
+    <!-- Modal Clock Out -->
+    <div id="clockout-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl modal-content">
+            <h3 class="text-2xl font-bold mb-4 text-center">Clock Out</h3>
+            <p class="text-center mb-4">Apakah Anda yakin ingin mengakhiri shift?</p>
+            <div id="shift-summary" class="bg-slate-100 dark:bg-slate-900 p-4 rounded-lg mb-4 text-sm">
+                <div class="flex justify-between"><span>Modal Awal:</span> <span id="summary-startcash">Rp 0</span></div>
+                <div class="flex justify-between"><span>Penjualan Tunai:</span> <span id="summary-cashsales">Rp 0</span></div>
+                <div class="flex justify-between font-bold"><span>Total di Laci:</span> <span id="summary-totalcash">Rp 0</span></div>
+            </div>
+            <button onclick="clockOut()" class="w-full bg-red-500 hover:bg-red-600 text-white rounded-xl py-3 font-bold">Akhiri Shift</button>
+            <button onclick="closeModal('clockout-modal')" class="w-full mt-2 bg-slate-200 hover:bg-slate-300 text-slate-800 rounded-xl py-2 font-bold">Batal</button>
+        </div>
+    </div>
+
+    <!-- Modal Laporan Shift -->
+    <div id="shift-report-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-2xl shadow-2xl modal-content">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-bold">Laporan Shift</h3>
+                <p id="shift-report-detail" class="text-slate-500"></p>
+            </div>
+            <div id="shift-report-content" class="space-y-4"></div>
+            <div class="mt-6 flex justify-end">
+                <button onclick="closeModal('shift-report-modal')" class="bg-sky-500 hover:bg-sky-600 text-white rounded-lg py-2 px-5 font-bold">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of Shift Report Modal -->
     <div id="end-of-shift-report-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-200 rounded-2xl p-6 w-full max-w-2xl shadow-2xl modal-content">
             <div id="shift-report-print-area" class="printable-area p-8">
@@ -491,6 +669,8 @@
             </div>
         </div>
     </div>
+
+    <!-- EOD Report Modal -->
     <div id="eod-report-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white text-slate-900 rounded-2xl p-6 w-full max-w-2xl shadow-2xl modal-content">
             <div id="eod-report-print-area" class="printable-area p-8">
@@ -517,7 +697,7 @@
     </div>
 
     <script>
-        // --- ICONS & DATABASE ---
+        // ==================== ICONS & DATABASE ====================
         const ICONS = { note: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.4z"></path><path d="M13 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>`, minus: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`, plus: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>` };
         
         // Data Menu Mie Ayam Abdillah
@@ -589,6 +769,11 @@
         let currentPaymentMethod = 'Tunai';
         const spiceLevelCosts = { 1: 0, 2: 0, 3: 2000, 4: 4000, 5: 6000 };
 
+        // --- FITUR TAMBAHAN ---
+        let currentUser = { role: null, name: '' };
+        const validPasswords = { admin: 'admin123', kasir: 'kasir123' };
+        let shiftHistory = [];
+
         // --- DOM ELEMENTS ---
         const allDOM = {
             mainContainer: document.getElementById('main-container'),
@@ -632,7 +817,14 @@
             endOfShiftReportModal: document.getElementById('end-of-shift-report-modal'),
         };
 
-        // --- UTILITY FUNCTIONS ---
+        // Elemen tambahan
+        const qrisSection = document.getElementById('qris-payment-section');
+        const qrisInput = document.getElementById('qris-code');
+        const orderNote = document.getElementById('order-note');
+        const menuSkeleton = document.getElementById('menu-skeleton');
+        const dashboardCashierFilter = document.getElementById('dashboard-cashier-filter');
+
+        // ==================== UTILITY FUNCTIONS ====================
         const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
         
         function showConfirm(title, message, onOk) {
@@ -664,25 +856,33 @@
 
         // --- RENDER FUNCTIONS (OPTIMIZED) ---
         function renderMenu(searchTerm = '') {
-            const lowerSearchTerm = searchTerm.toLowerCase();
-            const filteredItems = menuItems.filter(item => 
-                (currentFilter === 'semua' || item.category === currentFilter) &&
-                item.name.toLowerCase().includes(lowerSearchTerm)
-            );
+            // Tampilkan skeleton
+            menuSkeleton.classList.remove('hidden');
+            allDOM.menuGrid.classList.add('hidden');
             
-            const menuHTML = filteredItems.map(item => {
-                const isOutOfStock = item.stock <= 0;
-                const stockColor = item.stock <= 5 ? 'text-red-500' : 'text-slate-400 dark:text-slate-500';
-                return `<div class="bg-white dark:bg-slate-800 rounded-2xl p-4 flex flex-col text-center transition-all duration-300 shadow-lg shadow-slate-200/50 dark:shadow-black/20 hover:shadow-xl hover:-translate-y-1 ${isOutOfStock ? 'item-out-of-stock' : 'cursor-pointer'}" onclick="${isOutOfStock ? '' : `handleItemClick(${item.id})`}">
-                    <img src="${item.image}" alt="${item.name}" class="w-full h-32 object-cover rounded-xl mb-3" onerror="this.onerror=null;this.src='https://placehold.co/300x300/ef4444/white?text=Error';">
-                    <h3 class="font-bold text-sm sm:text-md flex-grow text-slate-800 dark:text-slate-200">${item.name}</h3>
-                    <p class="text-sky-600 font-semibold mt-1">${formatRupiah(item.price)}</p>
-                    <p class="text-xs ${stockColor} font-semibold mt-2">Stok: ${item.stock}</p>
-                    ${isOutOfStock ? '<div class="overlay"><span class="overlay-text">Stok Habis</span></div>' : ''}
-                </div>`;
-            }).join('');
-            
-            allDOM.menuGrid.innerHTML = menuHTML || `<p class="col-span-full text-center text-slate-500 mt-8">Menu tidak ditemukan.</p>`;
+            setTimeout(() => {
+                const lowerSearchTerm = searchTerm.toLowerCase();
+                const filteredItems = menuItems.filter(item => 
+                    (currentFilter === 'semua' || item.category === currentFilter) &&
+                    item.name.toLowerCase().includes(lowerSearchTerm)
+                );
+                
+                const menuHTML = filteredItems.map(item => {
+                    const isOutOfStock = item.stock <= 0;
+                    const stockColor = item.stock <= 5 ? 'text-red-500' : 'text-slate-400 dark:text-slate-500';
+                    return `<div class="bg-white dark:bg-slate-800 rounded-2xl p-4 flex flex-col text-center transition-all duration-300 shadow-lg shadow-slate-200/50 dark:shadow-black/20 hover:shadow-xl hover:-translate-y-1 ${isOutOfStock ? 'item-out-of-stock' : 'cursor-pointer'}" onclick="${isOutOfStock ? '' : `handleItemClick(${item.id})`}">
+                        <img src="${item.image}" alt="${item.name}" class="w-full h-32 object-cover rounded-xl mb-3" onerror="this.onerror=null;this.src='https://placehold.co/300x300/ef4444/white?text=Error';">
+                        <h3 class="font-bold text-sm sm:text-md flex-grow text-slate-800 dark:text-slate-200">${item.name}</h3>
+                        <p class="text-sky-600 font-semibold mt-1">${formatRupiah(item.price)}</p>
+                        <p class="text-xs ${stockColor} font-semibold mt-2">Stok: ${item.stock}</p>
+                        ${isOutOfStock ? '<div class="overlay"><span class="overlay-text">Stok Habis</span></div>' : ''}
+                    </div>`;
+                }).join('');
+                
+                allDOM.menuGrid.innerHTML = menuHTML || `<p class="col-span-full text-center text-slate-500 mt-8">Menu tidak ditemukan.</p>`;
+                menuSkeleton.classList.add('hidden');
+                allDOM.menuGrid.classList.remove('hidden');
+            }, 300);
         }
 
         function renderCart() {
@@ -810,11 +1010,26 @@
             renderMenu(allDOM.searchBar.value); renderCart(); saveData();
         }
         
+        // Fungsi addNoteToItem dengan opsi cepat
         function addNoteToItem(cartId) {
             const itemInCart = cart.find(item => item.cartId === cartId);
             if (itemInCart) {
-                const note = prompt('Masukkan catatan untuk item ini:', itemInCart.note);
-                if (note !== null) { itemInCart.note = note; renderCart(); }
+                const quickOptions = ['Tidak pakai bawang', 'Pedas ekstra', 'Kuah banyak', 'Kuah sedikit', 'Pisah wadah'];
+                const note = prompt('Masukkan catatan untuk item ini (atau pilih opsi di bawah):\n' + quickOptions.join(', '), itemInCart.note);
+                if (note !== null) { 
+                    itemInCart.note = note; 
+                    renderCart(); 
+                }
+            }
+        }
+
+        // Fungsi untuk opsi cepat (dipanggil dari tombol jika kita ingin buat UI, tapi di sini kita pakai prompt saja)
+        function setQuickNote(cartId, note) {
+            const item = cart.find(i => i.cartId === cartId);
+            if (item) {
+                item.note = note;
+                renderCart();
+                showToast(`Catatan: ${note}`, 'success');
             }
         }
 
@@ -930,13 +1145,27 @@
             if (method === 'Tunai') {
                 allDOM.cashPaymentSection.style.display = 'block';
                 allDOM.changeSection.style.display = 'flex';
+                qrisSection.classList.add('hidden');
+                allDOM.confirmPaymentButton.disabled = false;
                 calculateChange();
+            } else if (method === 'QRIS') {
+                allDOM.cashPaymentSection.style.display = 'none';
+                allDOM.changeSection.style.display = 'none';
+                qrisSection.classList.remove('hidden');
+                validateQrisInput();
             } else {
                 allDOM.cashPaymentSection.style.display = 'none';
                 allDOM.changeSection.style.display = 'none';
+                qrisSection.classList.add('hidden');
                 allDOM.confirmPaymentButton.disabled = false;
             }
         }
+
+        function validateQrisInput() {
+            const isQrisValid = currentPaymentMethod === 'QRIS' ? qrisInput.value.trim() !== '' : true;
+            allDOM.confirmPaymentButton.disabled = !isQrisValid;
+        }
+        qrisInput.addEventListener('input', validateQrisInput);
 
         function processPayment() {
             const cartForTx = splitBillState.active ? splitBillState.newCart : cart;
@@ -959,8 +1188,37 @@
                 if(customer) customerName = customer.name;
             }
 
+            // Ambil kode QRIS jika metode QRIS
+            let qrisCode = null;
+            if (currentPaymentMethod === 'QRIS') {
+                qrisCode = qrisInput.value.trim();
+                if (!qrisCode) {
+                    showToast('Kode QRIS harus diisi!', 'error');
+                    return;
+                }
+            }
+
+            // Ambil catatan pesanan
+            const orderNoteText = orderNote.value.trim();
+
             const transaction = { 
-                id: Date.now(), items: JSON.parse(JSON.stringify(cartForTx)), subtotal, discount: discountValue, tax, total, paid: diterima, change: diterima - total, date: new Date().toISOString(), type: currentOrderType, table: currentTable, paymentMethod: currentPaymentMethod, cashierName: settings.cashierName, customerName: customerName, customerId: currentCustomerId 
+                id: Date.now(), 
+                items: JSON.parse(JSON.stringify(cartForTx)), 
+                subtotal, 
+                discount: discountValue, 
+                tax, 
+                total, 
+                paid: diterima, 
+                change: diterima - total, 
+                date: new Date().toISOString(), 
+                type: currentOrderType, 
+                table: currentTable, 
+                paymentMethod: currentPaymentMethod, 
+                cashierName: settings.cashierName, 
+                customerName: customerName, 
+                customerId: currentCustomerId,
+                qrisCode: qrisCode,
+                orderNote: orderNoteText
             };
             
             transactions.push(transaction);
@@ -997,6 +1255,10 @@
             generateReceipt(transaction); 
             showModal('receipt-modal'); 
             closeModal('payment-modal'); 
+            
+            // Reset input QRIS dan catatan
+            qrisInput.value = '';
+            orderNote.value = '';
         }
         
         function generateReceipt(transaction) {
@@ -1018,6 +1280,8 @@
             const cashierHTML = settings.receiptShowCashier ? `<p>Kasir: ${transaction.cashierName}</p>` : '';
             const orderTypeHTML = settings.receiptShowOrderType ? `<p>Tipe: ${transaction.type}${transaction.table ? ` / Meja ${transaction.table}` : ''}</p>` : '';
             const customerHTML = transaction.customerName !== 'Tamu Biasa' ? `<p>Pelanggan: ${transaction.customerName}</p>`: '';
+            const qrisHTML = transaction.qrisCode ? `<p>Kode QRIS: ${transaction.qrisCode}</p>` : '';
+            const orderNoteHTML = transaction.orderNote ? `<p>Catatan: ${transaction.orderNote}</p>` : '';
 
             const receiptBase = `<div style="font-family: 'Courier New', monospace; font-size: 12px; color: #000;">
                 ${logoHTML}
@@ -1028,6 +1292,8 @@
                 ${orderTypeHTML}
                 ${cashierHTML}
                 ${customerHTML}
+                ${qrisHTML}
+                ${orderNoteHTML}
                 <p>Pembayaran: ${transaction.paymentMethod}</p>
                 <hr style="border-top: 1px dashed #000; margin: 8px 0;">
                 <table style="width: 100%; border-collapse: collapse;"><tbody>${itemsHTML}</tbody></table>
@@ -1339,7 +1605,9 @@
             }).join('');
             historyListEl.innerHTML = historyHTML;
         }
+
         function renderDashboard(range, event) {
+            // Set active class
             document.querySelectorAll('.dashboard-range-btn').forEach(btn => btn.classList.remove('bg-sky-500', 'text-white'));
             if(event) {
                 event.target.classList.add('bg-sky-500', 'text-white');
@@ -1347,15 +1615,34 @@
                 document.querySelector(`.dashboard-range-btn[onclick*="'${range}'"]`).classList.add('bg-sky-500', 'text-white');
             }
             
+            // Tentukan rentang tanggal
             const now = new Date();
-            const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            let startDate;
-            if (range === '7days') { startDate = new Date(new Date().setDate(now.getDate() - 6)); }
-            else if (range === '30days') { startDate = new Date(new Date().setDate(now.getDate() - 29)); }
-            else { startDate = startOfToday; }
+            let startDate, endDate = new Date(now);
+            if (range === 'today') {
+                startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            } else if (range === '7days') {
+                startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 6);
+            } else if (range === '30days') {
+                startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - 29);
+            } else if (range === 'custom') {
+                const startStr = prompt('Tanggal mulai (YYYY-MM-DD):', '2025-01-01');
+                const endStr = prompt('Tanggal akhir (YYYY-MM-DD):', '2025-12-31');
+                if (!startStr || !endStr) return;
+                startDate = new Date(startStr + 'T00:00:00');
+                endDate = new Date(endStr + 'T23:59:59');
+            }
             startDate.setHours(0,0,0,0);
+            endDate.setHours(23,59,59,999);
             
-            const filteredTx = transactions.filter(tx => new Date(tx.date) >= startDate);
+            // Filter berdasarkan kasir
+            const cashierFilter = dashboardCashierFilter.value;
+            let filteredTx = transactions.filter(tx => {
+                const txDate = new Date(tx.date);
+                return txDate >= startDate && txDate <= endDate;
+            });
+            if (cashierFilter !== 'all') {
+                filteredTx = filteredTx.filter(tx => tx.cashierName === cashierFilter);
+            }
 
             const dashboardContentEl = document.getElementById('dashboard-content');
             if (filteredTx.length === 0) { dashboardContentEl.innerHTML = '<p class="text-slate-400 dark:text-slate-500 text-center">Tidak ada data penjualan untuk rentang waktu ini.</p>'; return; }
@@ -1414,7 +1701,6 @@
             const ctxHourly = document.getElementById('hourlySalesChart').getContext('2d');
             if(hourlySalesChart) hourlySalesChart.destroy();
             hourlySalesChart = new Chart(ctxHourly, { type: 'bar', data: { labels: Array.from({length: 24}, (_, i) => `${i}:00`), datasets: [{ label: 'Pendapatan (Rp)', data: salesByHour, backgroundColor: 'rgba(132, 204, 22, 0.6)', borderColor: 'rgba(132, 204, 22, 1)', borderWidth: 1, borderRadius: 8 }] }, options: { scales: { y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } }, x: { grid: { display: false }, ticks: { color: textColor } } }, plugins: { legend: { display: false } } } });
-
         }
 
         // --- CUSTOMER MANAGEMENT ---
@@ -1599,7 +1885,7 @@
             if (button) button.classList.add('active');
         }
         function exportData() {
-            const dataStr = JSON.stringify({ transactions, menuItems, settings, customers, heldOrders, currentShift }, null, 2);
+            const dataStr = JSON.stringify({ transactions, menuItems, settings, customers, heldOrders, currentShift, shiftHistory }, null, 2);
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
             const exportFileDefaultName = `mieayamabdillah_backup_${new Date().toISOString().slice(0,10)}.json`;
             const linkElement = document.createElement('a');
@@ -1681,12 +1967,140 @@
         }
         function printEndOfDayReport() { window.print(); }
 
+        // --- FITUR TAMBAHAN: LOGIN, SHIFT, CSV, DLL ---
+        function handleLogin() {
+            const role = document.getElementById('login-role').value;
+            const pwd = document.getElementById('login-password').value;
+            if (pwd === validPasswords[role]) {
+                currentUser.role = role;
+                currentUser.name = role === 'admin' ? 'Admin' : 'Kasir';
+                document.getElementById('login-modal').classList.add('hidden');
+                if (!currentShift.active) {
+                    document.getElementById('shift-modal').style.display = 'flex';
+                } else {
+                    document.getElementById('main-container').classList.remove('opacity-20', 'pointer-events-none');
+                }
+                if (role === 'kasir') {
+                    document.getElementById('inventory-btn').style.display = 'none';
+                    document.getElementById('settings-btn').style.display = 'none';
+                }
+                showToast(`Selamat datang, ${currentUser.name}!`, 'success');
+            } else {
+                showToast('Password salah!', 'error');
+            }
+        }
+
+        function showClockInModal() {
+            document.getElementById('clockin-cashier').value = settings.cashierName;
+            document.getElementById('clockin-startcash').value = 0;
+            showModal('clockin-modal');
+        }
+        function clockIn() {
+            const cashier = document.getElementById('clockin-cashier').value;
+            const startCash = parseFloat(document.getElementById('clockin-startcash').value) || 0;
+            currentShift = {
+                active: true,
+                startTime: new Date().toISOString(),
+                startCash: startCash,
+                cashier: cashier,
+                transactions: []
+            };
+            saveData();
+            closeModal('clockin-modal');
+            showToast(`Shift dimulai oleh ${cashier} dengan modal ${formatRupiah(startCash)}`, 'success');
+            document.getElementById('shift-modal').style.display = 'none';
+            document.getElementById('main-container').classList.remove('opacity-20', 'pointer-events-none');
+        }
+
+        function showClockOutModal() {
+            if (!currentShift.active) {
+                showToast('Tidak ada shift yang aktif', 'error');
+                return;
+            }
+            const shiftTx = transactions.filter(tx => currentShift.transactions.includes(tx.id) && tx.paymentMethod === 'Tunai');
+            const cashSales = shiftTx.reduce((sum, tx) => sum + tx.total, 0);
+            const expectedCash = currentShift.startCash + cashSales;
+            document.getElementById('summary-startcash').textContent = formatRupiah(currentShift.startCash);
+            document.getElementById('summary-cashsales').textContent = formatRupiah(cashSales);
+            document.getElementById('summary-totalcash').textContent = formatRupiah(expectedCash);
+            showModal('clockout-modal');
+        }
+        function clockOut() {
+            const shiftTx = transactions.filter(tx => currentShift.transactions.includes(tx.id));
+            const cashSales = shiftTx.filter(tx => tx.paymentMethod === 'Tunai').reduce((sum, tx) => sum + tx.total, 0);
+            const totalCash = currentShift.startCash + cashSales;
+            shiftHistory.push({
+                id: Date.now(),
+                cashier: currentShift.cashier,
+                startTime: currentShift.startTime,
+                endTime: new Date().toISOString(),
+                startCash: currentShift.startCash,
+                cashSales: cashSales,
+                totalCash: totalCash,
+                transactions: currentShift.transactions
+            });
+            currentShift.active = false;
+            saveData();
+            closeModal('clockout-modal');
+            showToast('Shift berakhir. Laporan tersimpan.', 'success');
+            showShiftReport(shiftHistory[shiftHistory.length-1]);
+        }
+        function showShiftReport(shift) {
+            const content = document.getElementById('shift-report-content');
+            const start = new Date(shift.startTime).toLocaleString('id-ID');
+            const end = new Date(shift.endTime).toLocaleString('id-ID');
+            content.innerHTML = `
+                <div class="border-b pb-2"><strong>Kasir:</strong> ${shift.cashier}</div>
+                <div class="border-b pb-2"><strong>Mulai:</strong> ${start}</div>
+                <div class="border-b pb-2"><strong>Selesai:</strong> ${end}</div>
+                <div class="border-b pb-2"><strong>Modal Awal:</strong> ${formatRupiah(shift.startCash)}</div>
+                <div class="border-b pb-2"><strong>Penjualan Tunai:</strong> ${formatRupiah(shift.cashSales)}</div>
+                <div class="border-b pb-2 font-bold"><strong>Total Tunai di Laci:</strong> ${formatRupiah(shift.totalCash)}</div>
+                <div><strong>Jumlah Transaksi:</strong> ${shift.transactions.length}</div>
+            `;
+            document.getElementById('shift-report-detail').textContent = `Shift #${shift.id}`;
+            showModal('shift-report-modal');
+        }
+        function renderShiftHistory() {
+            const list = document.getElementById('shift-history-list');
+            if (shiftHistory.length === 0) {
+                list.innerHTML = '<p class="text-slate-400">Belum ada shift</p>';
+                return;
+            }
+            list.innerHTML = shiftHistory.slice().reverse().map(s => `
+                <div class="flex justify-between items-center p-2 bg-slate-100 dark:bg-slate-900 rounded cursor-pointer hover:bg-sky-100" onclick='showShiftReport(${JSON.stringify(s).replace(/'/g, "\\'")})'>
+                    <span>${new Date(s.startTime).toLocaleDateString()} - ${s.cashier}</span>
+                    <span class="font-bold">${formatRupiah(s.cashSales)}</span>
+                </div>
+            `).join('');
+        }
+
+        function exportToCSV() {
+            if (transactions.length === 0) {
+                showToast('Tidak ada data untuk diekspor', 'error');
+                return;
+            }
+            let csv = "ID,Tanggal,Kasir,Pelanggan,Total,Metode,Item\n";
+            transactions.forEach(tx => {
+                const items = tx.items.map(i => `${i.quantity}x ${i.name}`).join('; ');
+                csv += `${tx.id},${new Date(tx.date).toLocaleString()},${tx.cashierName},${tx.customerName},${tx.total},${tx.paymentMethod},"${items}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `transaksi_${new Date().toISOString().slice(0,10)}.csv`;
+            a.click();
+            window.URL.revokeObjectURL(url);
+            showToast('Data diekspor sebagai CSV', 'success');
+        }
+
         // --- DATA PERSISTENCE ---
         function saveData() {
-            localStorage.setItem('seblakAppData', JSON.stringify({ menuItems, transactions, tables, settings, customers, heldOrders, currentShift }));
+            localStorage.setItem('mieayamAppData', JSON.stringify({ menuItems, transactions, tables, settings, customers, heldOrders, currentShift, shiftHistory }));
         }
         function loadData() {
-            const savedData = localStorage.getItem('seblakAppData');
+            const savedData = localStorage.getItem('mieayamAppData');
             if (savedData) {
                 const appData = JSON.parse(savedData);
                 transactions = appData.transactions || [];
@@ -1694,6 +2108,7 @@
                 customers = appData.customers || [];
                 heldOrders = appData.heldOrders || [];
                 currentShift = appData.currentShift || { active: false, startTime: null, startCash: 0, transactions: [] };
+                shiftHistory = appData.shiftHistory || [];
                 settings = { ...settings, ...appData.settings };
                 
                 const savedMenuItems = appData.menuItems || [];
@@ -1728,7 +2143,7 @@
             applyTheme();
             saveData();
             if (!allDOM.dashboardModal.classList.contains('hidden')) {
-                 const activeRange = document.querySelector('.dashboard-range-btn.bg-sky-500').onclick.toString().match(/'(.*?)'/)[1];
+                 const activeRange = document.querySelector('.dashboard-range-btn.bg-sky-500')?.onclick.toString().match(/'(.*?)'/)[1] || 'today';
                  renderDashboard(activeRange);
             }
         }
@@ -1745,13 +2160,9 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
             
-            if (!currentShift.active) {
-                allDOM.shiftModal.style.display = 'flex';
-                allDOM.mainContainer.classList.add('opacity-20', 'pointer-events-none');
-            } else {
-                allDOM.shiftModal.style.display = 'none';
-                allDOM.mainContainer.classList.remove('opacity-20', 'pointer-events-none');
-            }
+            // Tampilkan login terlebih dahulu, shift modal akan muncul setelah login jika perlu
+            document.getElementById('login-modal').style.display = 'flex';
+            allDOM.mainContainer.classList.add('opacity-20', 'pointer-events-none');
             
             applyTheme();
             allDOM.headerStoreName.textContent = settings.storeName;
@@ -1769,6 +2180,18 @@
             allDOM.darkModeToggle.addEventListener('click', toggleTheme);
             allDOM.customerSearchInput.addEventListener('input', (e) => renderCustomerList(e.target.value));
 
+            // Isi dropdown kasir di dashboard
+            setTimeout(() => {
+                const uniqueCashiers = [...new Set(transactions.map(tx => tx.cashierName))];
+                uniqueCashiers.forEach(name => {
+                    const option = document.createElement('option');
+                    option.value = name;
+                    option.textContent = name;
+                    dashboardCashierFilter.appendChild(option);
+                });
+                dashboardCashierFilter.addEventListener('change', () => renderDashboard('today'));
+            }, 500);
+
             renderMenu(); 
             renderCart(); 
             filterMenu('semua'); 
@@ -1776,6 +2199,7 @@
             setCustomerType('guest');
             updateSummary();
             updateActiveOrdersBadge();
+            renderShiftHistory();
         });
     </script>
 </body>
