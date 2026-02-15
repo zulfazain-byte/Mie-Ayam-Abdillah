@@ -97,7 +97,7 @@
         </div>
     </div>
 
-    <!-- Shift Start Overlay (untuk admin) -->
+    <!-- Shift Start Overlay -->
     <div id="shift-modal" class="fixed inset-0 bg-slate-900 bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-[60] p-4 hidden">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl text-center">
             <h3 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">Mulai Shift Baru</h3>
@@ -115,7 +115,7 @@
 
     <!-- Main Container -->
     <div id="main-container" class="flex flex-col lg:flex-row h-screen opacity-20 pointer-events-none">
-        <!-- Left Panel: Menu & Categories -->
+        <!-- Left Panel -->
         <div class="w-full lg:w-3/5 p-4 sm:p-6 flex flex-col">
             <header class="mb-6 flex justify-between items-center">
                 <div class="flex items-center gap-4">
@@ -156,7 +156,7 @@
                 <button onclick="filterMenu('minuman')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Minuman</button>
             </div>
 
-            <!-- Skeleton loader for menu -->
+            <!-- Skeleton loader -->
             <div id="menu-skeleton" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 hidden">
                 <div class="skeleton h-48"></div><div class="skeleton h-48"></div><div class="skeleton h-48"></div><div class="skeleton h-48"></div>
                 <div class="skeleton h-48"></div><div class="skeleton h-48"></div><div class="skeleton h-48"></div><div class="skeleton h-48"></div>
@@ -164,7 +164,7 @@
             <div id="menu-grid" class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 overflow-y-auto flex-grow pr-3"></div>
         </div>
 
-        <!-- Right Panel: Cart -->
+        <!-- Right Panel -->
         <div class="w-full lg:w-2/5 bg-white dark:bg-slate-800/50 p-4 sm:p-6 flex flex-col shadow-2xl shadow-slate-300/50 dark:shadow-black/50">
             <div class="flex justify-between items-center mb-4">
                  <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Pesanan Saat Ini</h2>
@@ -238,7 +238,6 @@
     </div>
 
     <!-- ==================== MODALS ==================== -->
-
     <!-- Split Bill Modal -->
     <div id="split-bill-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-4xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
@@ -285,7 +284,7 @@
         </div>
     </div>
 
-    <!-- Payment Modal (dengan QRIS dan catatan) -->
+    <!-- Payment Modal -->
     <div id="payment-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm sm:max-w-md shadow-2xl modal-content">
              <h3 class="text-2xl font-bold mb-6 text-center text-slate-900 dark:text-white">Detail Pembayaran</h3>
@@ -316,12 +315,12 @@
                          </div>
                      </div>
                  </div>
-                 <!-- Bagian QRIS -->
+                 <!-- QRIS section -->
                  <div id="qris-payment-section" class="hidden mb-4">
                      <label for="qris-code" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Kode QRIS / ID Transaksi</label>
                      <input type="text" id="qris-code" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" placeholder="Masukkan kode atau ID">
                  </div>
-                 <!-- Catatan untuk seluruh pesanan (opsional) -->
+                 <!-- Catatan pesanan -->
                  <div class="mb-4">
                      <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Catatan Pesanan (opsional)</label>
                      <textarea id="order-note" rows="2" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" placeholder="Contoh: Tidak pakai bawang, Pedas ekstra..."></textarea>
@@ -353,7 +352,7 @@
         </div>
     </div>
 
-    <!-- History Modal (dengan tombol Export CSV) -->
+    <!-- History Modal -->
     <div id="history-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-3xl shadow-2xl flex flex-col modal-content" style="height: 85vh;">
             <div class="flex justify-between items-center mb-6">
@@ -367,7 +366,7 @@
         </div>
     </div>
 
-    <!-- Dashboard Modal (dengan filter kasir dan rentang kustom) -->
+    <!-- Dashboard Modal -->
     <div id="dashboard-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-6xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
             <div class="flex justify-between items-center mb-6">
@@ -464,7 +463,7 @@
         </div>
     </div>
 
-    <!-- Customer Management Modal -->
+    <!-- Customer Modal -->
     <div id="customer-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-4xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
             <div class="flex justify-between items-center mb-6">
@@ -513,7 +512,7 @@
         </div>
     </div>
 
-    <!-- Settings Modal (dengan tab Shift) -->
+    <!-- Settings Modal -->
     <div id="settings-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-lg sm:max-w-2xl shadow-2xl modal-content">
             <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Pengaturan Aplikasi</h3>
@@ -592,7 +591,7 @@
         </div>
     </div>
 
-    <!-- Modal Clock In -->
+    <!-- Clock In Modal -->
     <div id="clockin-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl modal-content">
             <h3 class="text-2xl font-bold mb-4 text-center">Clock In</h3>
@@ -609,7 +608,7 @@
         </div>
     </div>
 
-    <!-- Modal Clock Out -->
+    <!-- Clock Out Modal -->
     <div id="clockout-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl modal-content">
             <h3 class="text-2xl font-bold mb-4 text-center">Clock Out</h3>
@@ -624,7 +623,7 @@
         </div>
     </div>
 
-    <!-- Modal Laporan Shift -->
+    <!-- Shift Report Modal -->
     <div id="shift-report-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-2xl shadow-2xl modal-content">
             <div class="text-center mb-6">
@@ -702,7 +701,6 @@
         
         // Data Menu Mie Ayam Abdillah
         let initialMenuItems = [
-            // Mie (category: 'mie')
             { id: 1, name: 'Mie Ayam Biasa', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/ef4444/white?text=Mie+Ayam+Biasa', stock: 20, hpp: 6000 },
             { id: 2, name: 'Mie Ayam Bakso', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/f97316/white?text=Mie+Ayam+Bakso', stock: 15, hpp: 8000 },
             { id: 3, name: 'Mie Ayam Ceker', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/84cc16/white?text=Mie+Ayam+Ceker', stock: 25, hpp: 8000 },
@@ -743,7 +741,6 @@
         let heldOrders = [];
         let currentShift = { active: false, startTime: null, startCash: 0, transactions: [] };
         let splitBillState = { active: false, originalCart: [], newCart: [] };
-
         let currentCustomerId = null;
         let currentCustomerType = 'guest';
         let currentFilter = 'semua';
@@ -752,7 +749,7 @@
         let salesChart = null;
         let hourlySalesChart = null;
         let currentTable = null;
-        let tables = Array.from({ length: 12 }, (_, i) => ({ id: i + 1, name: `M${i + 1}`, status: 'available' })); // status: 'available', 'occupied', 'needsCleaning'
+        let tables = Array.from({ length: 12 }, (_, i) => ({ id: i + 1, name: `M${i + 1}`, status: 'available' }));
         let settings = {
             storeName: 'Mie Ayam Abdillah',
             storeAddress: 'Jl. Mie Ayam No. 1, Wonosobo',
@@ -778,24 +775,39 @@
         const allDOM = {
             mainContainer: document.getElementById('main-container'),
             shiftModal: document.getElementById('shift-modal'),
-            menuGrid: document.getElementById('menu-grid'), orderList: document.getElementById('order-list'),
-            subtotalEl: document.getElementById('subtotal'), taxEl: document.getElementById('tax'),
-            totalEl: document.getElementById('total'), payButton: document.getElementById('pay-button'),
+            menuGrid: document.getElementById('menu-grid'),
+            orderList: document.getElementById('order-list'),
+            subtotalEl: document.getElementById('subtotal'),
+            taxEl: document.getElementById('tax'),
+            totalEl: document.getElementById('total'),
+            payButton: document.getElementById('pay-button'),
             holdButton: document.getElementById('hold-button'),
-            emptyCartMessage: document.getElementById('empty-cart-message'), paymentModal: document.getElementById('payment-modal'),
-            totalTagihanInput: document.getElementById('total-tagihan'), uangDiterimaInput: document.getElementById('uang-diterima'),
-            kembalianEl: document.getElementById('kembalian'), confirmPaymentButton: document.getElementById('confirm-payment-button'),
-            receiptModal: document.getElementById('receipt-modal'), historyModal: document.getElementById('history-modal'),
-            dashboardModal: document.getElementById('dashboard-modal'), discountModal: document.getElementById('discount-modal'),
+            emptyCartMessage: document.getElementById('empty-cart-message'),
+            paymentModal: document.getElementById('payment-modal'),
+            totalTagihanInput: document.getElementById('total-tagihan'),
+            uangDiterimaInput: document.getElementById('uang-diterima'),
+            kembalianEl: document.getElementById('kembalian'),
+            confirmPaymentButton: document.getElementById('confirm-payment-button'),
+            receiptModal: document.getElementById('receipt-modal'),
+            historyModal: document.getElementById('history-modal'),
+            dashboardModal: document.getElementById('dashboard-modal'),
+            discountModal: document.getElementById('discount-modal'),
             discountAmountEl: document.getElementById('discount-amount'),
-            customerNameDisplay: document.getElementById('customer-name-display'), clearCustomerBtn: document.getElementById('clear-customer-btn'),
+            customerNameDisplay: document.getElementById('customer-name-display'),
+            clearCustomerBtn: document.getElementById('clear-customer-btn'),
             customerSelectionArea: document.getElementById('customer-selection-area'),
-            tableModal: document.getElementById('table-modal'), tableGrid: document.getElementById('table-grid'),
-            tableManagementSection: document.getElementById('table-management-section'), tableDisplay: document.getElementById('table-display'),
-            tableNumberDisplay: document.getElementById('table-number-display'), settingsModal: document.getElementById('settings-modal'),
-            inventoryModal: document.getElementById('inventory-modal'), inventoryList: document.getElementById('inventory-list'),
-            headerStoreName: document.getElementById('header-store-name'), taxRateDisplay: document.getElementById('tax-rate-display'),
-            spiceLevelModal: document.getElementById('spice-level-modal'), spiceModalTitle: document.getElementById('spice-modal-title'),
+            tableModal: document.getElementById('table-modal'),
+            tableGrid: document.getElementById('table-grid'),
+            tableManagementSection: document.getElementById('table-management-section'),
+            tableDisplay: document.getElementById('table-display'),
+            tableNumberDisplay: document.getElementById('table-number-display'),
+            settingsModal: document.getElementById('settings-modal'),
+            inventoryModal: document.getElementById('inventory-modal'),
+            inventoryList: document.getElementById('inventory-list'),
+            headerStoreName: document.getElementById('header-store-name'),
+            taxRateDisplay: document.getElementById('tax-rate-display'),
+            spiceLevelModal: document.getElementById('spice-level-modal'),
+            spiceModalTitle: document.getElementById('spice-modal-title'),
             taxRow: document.getElementById('tax-row'),
             searchBar: document.getElementById('search-bar'),
             searchClearBtn: document.getElementById('search-clear-btn'),
@@ -854,9 +866,9 @@
             }, 3000);
         }
 
-        // --- RENDER FUNCTIONS (OPTIMIZED) ---
+        // --- RENDER FUNCTIONS ---
         function renderMenu(searchTerm = '') {
-            // Tampilkan skeleton
+            if (!menuSkeleton || !allDOM.menuGrid) return;
             menuSkeleton.classList.remove('hidden');
             allDOM.menuGrid.classList.add('hidden');
             
@@ -886,11 +898,12 @@
         }
 
         function renderCart() {
+            if (!allDOM.orderList) return;
             if (cart.length === 0) {
                 allDOM.orderList.innerHTML = '';
-                allDOM.emptyCartMessage.style.display = 'block';
+                if (allDOM.emptyCartMessage) allDOM.emptyCartMessage.style.display = 'block';
             } else {
-                allDOM.emptyCartMessage.style.display = 'none';
+                if (allDOM.emptyCartMessage) allDOM.emptyCartMessage.style.display = 'none';
                 
                 const cartHTML = cart.map(item => {
                     const noteHTML = item.note ? `<p class="text-xs text-amber-600 truncate italic">"${item.note}"</p>` : '';
@@ -919,7 +932,6 @@
             const currentCart = splitBillState.active ? splitBillState.newCart : cart;
             const subtotal = currentCart.reduce((sum, item) => sum + (item.finalPrice * item.quantity), 0);
             let discountValue = 0;
-            // Disable discount during split bill
             if (!splitBillState.active) {
                  discountValue = discount.type === 'percentage' ? subtotal * (discount.value / 100) : discount.value;
                  discountValue = Math.min(subtotal, discountValue);
@@ -929,26 +941,27 @@
             let tax = 0;
             if (settings.taxEnabled) {
                 tax = totalAfterDiscount * (settings.taxRate / 100);
-                allDOM.taxRow.style.display = 'flex';
+                if (allDOM.taxRow) allDOM.taxRow.style.display = 'flex';
             } else {
-                allDOM.taxRow.style.display = 'none';
+                if (allDOM.taxRow) allDOM.taxRow.style.display = 'none';
             }
             
             const total = totalAfterDiscount + tax;
-            allDOM.subtotalEl.textContent = formatRupiah(subtotal);
-            allDOM.discountAmountEl.textContent = `- ${formatRupiah(discountValue)}`;
-            allDOM.taxEl.textContent = formatRupiah(tax);
-            allDOM.totalEl.textContent = formatRupiah(total);
-            allDOM.payButton.disabled = currentCart.length === 0;
-            allDOM.holdButton.disabled = currentCart.length === 0 || currentOrderType !== 'Dine-In';
+            if (allDOM.subtotalEl) allDOM.subtotalEl.textContent = formatRupiah(subtotal);
+            if (allDOM.discountAmountEl) allDOM.discountAmountEl.textContent = `- ${formatRupiah(discountValue)}`;
+            if (allDOM.taxEl) allDOM.taxEl.textContent = formatRupiah(tax);
+            if (allDOM.totalEl) allDOM.totalEl.textContent = formatRupiah(total);
+            if (allDOM.payButton) allDOM.payButton.disabled = currentCart.length === 0;
+            if (allDOM.holdButton) allDOM.holdButton.disabled = currentCart.length === 0 || currentOrderType !== 'Dine-In';
         }
 
         // --- CART LOGIC ---
         function handleItemClick(itemId) {
             const item = menuItems.find(i => i.id === itemId);
+            if (!item) return;
             if (item.category === 'mie') {
                 pendingItemForLevel = item;
-                allDOM.spiceModalTitle.textContent = `Pilih Level Pedas untuk ${item.name}`;
+                if (allDOM.spiceModalTitle) allDOM.spiceModalTitle.textContent = `Pilih Level Pedas untuk ${item.name}`;
                 renderSpiceLevelCosts();
                 showModal('spice-level-modal');
             } else {
@@ -959,9 +972,10 @@
         function renderSpiceLevelCosts() {
             for (let i = 1; i <= 5; i++) {
                 const costEl = document.getElementById(`spice-cost-${i}`);
-                const cost = spiceLevelCosts[i];
-                if (cost > 0) { costEl.textContent = `+${formatRupiah(cost)}`; } 
-                else { costEl.textContent = 'Gratis'; }
+                if (costEl) {
+                    const cost = spiceLevelCosts[i];
+                    costEl.textContent = cost > 0 ? `+${formatRupiah(cost)}` : 'Gratis';
+                }
             }
         }
 
@@ -974,6 +988,7 @@
 
         function addToCart(itemId, level = null) {
             const itemData = menuItems.find(item => item.id === itemId);
+            if (!itemData) return;
             if (itemData.stock <= 0) { showToast('Stok produk habis!', 'error'); return; }
 
             const spiceCost = level ? (spiceLevelCosts[level] || 0) : 0;
@@ -988,13 +1003,16 @@
             }
             itemData.stock--;
             showToast(`${itemData.name} ${level ? `Lv. ${level}`: ''} ditambahkan`);
-            renderMenu(allDOM.searchBar.value); renderCart(); saveData();
+            renderMenu(allDOM.searchBar ? allDOM.searchBar.value : ''); 
+            renderCart(); 
+            saveData();
         }
 
         function updateQuantity(cartId, change) {
             const itemInCart = cart.find(item => item.cartId === cartId);
-            const menuItem = menuItems.find(item => item.id === itemInCart.id);
             if (!itemInCart) return;
+            const menuItem = menuItems.find(item => item.id === itemInCart.id);
+            if (!menuItem) return;
             if (change > 0 && menuItem.stock <= 0) { showToast(`Stok ${menuItem.name} habis.`, 'error'); return; }
             
             itemInCart.quantity += change;
@@ -1007,10 +1025,11 @@
                     cart.splice(cartIndex, 1);
                 }
             }
-            renderMenu(allDOM.searchBar.value); renderCart(); saveData();
+            renderMenu(allDOM.searchBar ? allDOM.searchBar.value : ''); 
+            renderCart(); 
+            saveData();
         }
         
-        // Fungsi addNoteToItem dengan opsi cepat
         function addNoteToItem(cartId) {
             const itemInCart = cart.find(item => item.cartId === cartId);
             if (itemInCart) {
@@ -1020,16 +1039,6 @@
                     itemInCart.note = note; 
                     renderCart(); 
                 }
-            }
-        }
-
-        // Fungsi untuk opsi cepat (dipanggil dari tombol jika kita ingin buat UI, tapi di sini kita pakai prompt saja)
-        function setQuickNote(cartId, note) {
-            const item = cart.find(i => i.cartId === cartId);
-            if (item) {
-                item.note = note;
-                renderCart();
-                showToast(`Catatan: ${note}`, 'success');
             }
         }
 
@@ -1051,29 +1060,28 @@
                 }
             }
             currentTable = null;
-            allDOM.tableDisplay.classList.add('hidden');
+            if (allDOM.tableDisplay) allDOM.tableDisplay.classList.add('hidden');
             removeDiscount();
             renderCart();
-            renderMenu(allDOM.searchBar.value);
+            renderMenu(allDOM.searchBar ? allDOM.searchBar.value : '');
             saveData();
         }
 
-        function cancelOrder() {
-            resetOrderState(true);
-        }
+        function cancelOrder() { resetOrderState(true); }
 
         function setOrderType(type) {
             currentOrderType = type;
             document.querySelectorAll('.order-type-btn').forEach(btn => btn.classList.remove('active-order-type'));
-            document.getElementById(`order-type-${type.toLowerCase().replace(' ', '-')}`).classList.add('active-order-type');
-            allDOM.tableManagementSection.style.display = type === 'Dine-In' ? 'block' : 'none';
-            allDOM.holdButton.disabled = type !== 'Dine-In';
+            const btn = document.getElementById(`order-type-${type.toLowerCase().replace(' ', '-')}`);
+            if (btn) btn.classList.add('active-order-type');
+            if (allDOM.tableManagementSection) allDOM.tableManagementSection.style.display = type === 'Dine-In' ? 'block' : 'none';
+            if (allDOM.holdButton) allDOM.holdButton.disabled = type !== 'Dine-In';
 
             if(type !== 'Dine-In' && currentTable) {
                 const table = tables.find(t => t.id === currentTable);
                 if(table) table.status = 'available';
                 currentTable = null;
-                allDOM.tableDisplay.classList.add('hidden');
+                if (allDOM.tableDisplay) allDOM.tableDisplay.classList.add('hidden');
             }
         }
         
@@ -1109,63 +1117,73 @@
             if (currentOrderType === 'Dine-In' && currentTable === null) { showToast('Pilih meja terlebih dahulu untuk pesanan Dine-In!', 'error'); return; }
             
             const total = calculateTotal();
-            allDOM.totalTagihanInput.value = formatRupiah(total);
-            allDOM.uangDiterimaInput.value = '';
-            allDOM.kembalianEl.textContent = formatRupiah(0);
-            document.getElementById('split-bill-button').style.display = cart.length > 1 ? 'block' : 'none';
-            selectPaymentMethod('Tunai', { target: document.querySelector('.payment-method-btn')}); 
+            if (allDOM.totalTagihanInput) allDOM.totalTagihanInput.value = formatRupiah(total);
+            if (allDOM.uangDiterimaInput) allDOM.uangDiterimaInput.value = '';
+            if (allDOM.kembalianEl) allDOM.kembalianEl.textContent = formatRupiah(0);
+            const splitBtn = document.getElementById('split-bill-button');
+            if (splitBtn) splitBtn.style.display = cart.length > 1 ? 'block' : 'none';
+            selectPaymentMethod('Tunai', { target: document.querySelector('.payment-method-btn') }); 
             showModal('payment-modal');
-            allDOM.uangDiterimaInput.focus();
+            if (allDOM.uangDiterimaInput) allDOM.uangDiterimaInput.focus();
         }
         
         function calculateChange() {
             const total = calculateTotal(splitBillState.active ? splitBillState.newCart : cart);
-            const diterima = parseFloat(allDOM.uangDiterimaInput.value) || 0;
+            const diterima = parseFloat(allDOM.uangDiterimaInput ? allDOM.uangDiterimaInput.value : 0) || 0;
             const kembalian = diterima - total;
-            allDOM.confirmPaymentButton.disabled = kembalian < 0;
-            allDOM.kembalianEl.textContent = formatRupiah(kembalian >= 0 ? kembalian : 0);
+            if (allDOM.confirmPaymentButton) allDOM.confirmPaymentButton.disabled = kembalian < 0;
+            if (allDOM.kembalianEl) allDOM.kembalianEl.textContent = formatRupiah(kembalian >= 0 ? kembalian : 0);
         }
-        allDOM.uangDiterimaInput.addEventListener('input', calculateChange);
+        if (allDOM.uangDiterimaInput) allDOM.uangDiterimaInput.addEventListener('input', calculateChange);
         
         function setQuickCash(amount) {
             const total = calculateTotal(splitBillState.active ? splitBillState.newCart : cart);
-            if (amount === 'pas') {
-                allDOM.uangDiterimaInput.value = Math.ceil(total);
-            } else { allDOM.uangDiterimaInput.value = amount; }
+            if (allDOM.uangDiterimaInput) {
+                if (amount === 'pas') {
+                    allDOM.uangDiterimaInput.value = Math.ceil(total);
+                } else { 
+                    allDOM.uangDiterimaInput.value = amount; 
+                }
+            }
             calculateChange();
         }
 
-        function applyDiscount() { discount.type = document.getElementById('discount-type').value; discount.value = parseFloat(document.getElementById('discount-value').value) || 0; updateSummary(); closeModal('discount-modal'); }
+        function applyDiscount() { 
+            discount.type = document.getElementById('discount-type').value; 
+            discount.value = parseFloat(document.getElementById('discount-value').value) || 0; 
+            updateSummary(); 
+            closeModal('discount-modal'); 
+        }
         function removeDiscount() { discount = { type: 'fixed', value: 0 }; updateSummary(); }
 
         function selectPaymentMethod(method, event) {
             currentPaymentMethod = method;
             document.querySelectorAll('.payment-method-btn').forEach(btn => btn.classList.remove('active-order-type'));
-            event.target.classList.add('active-order-type');
+            if (event && event.target) event.target.classList.add('active-order-type');
             if (method === 'Tunai') {
-                allDOM.cashPaymentSection.style.display = 'block';
-                allDOM.changeSection.style.display = 'flex';
-                qrisSection.classList.add('hidden');
-                allDOM.confirmPaymentButton.disabled = false;
+                if (allDOM.cashPaymentSection) allDOM.cashPaymentSection.style.display = 'block';
+                if (allDOM.changeSection) allDOM.changeSection.style.display = 'flex';
+                if (qrisSection) qrisSection.classList.add('hidden');
+                if (allDOM.confirmPaymentButton) allDOM.confirmPaymentButton.disabled = false;
                 calculateChange();
             } else if (method === 'QRIS') {
-                allDOM.cashPaymentSection.style.display = 'none';
-                allDOM.changeSection.style.display = 'none';
-                qrisSection.classList.remove('hidden');
+                if (allDOM.cashPaymentSection) allDOM.cashPaymentSection.style.display = 'none';
+                if (allDOM.changeSection) allDOM.changeSection.style.display = 'none';
+                if (qrisSection) qrisSection.classList.remove('hidden');
                 validateQrisInput();
             } else {
-                allDOM.cashPaymentSection.style.display = 'none';
-                allDOM.changeSection.style.display = 'none';
-                qrisSection.classList.add('hidden');
-                allDOM.confirmPaymentButton.disabled = false;
+                if (allDOM.cashPaymentSection) allDOM.cashPaymentSection.style.display = 'none';
+                if (allDOM.changeSection) allDOM.changeSection.style.display = 'none';
+                if (qrisSection) qrisSection.classList.add('hidden');
+                if (allDOM.confirmPaymentButton) allDOM.confirmPaymentButton.disabled = false;
             }
         }
 
         function validateQrisInput() {
-            const isQrisValid = currentPaymentMethod === 'QRIS' ? qrisInput.value.trim() !== '' : true;
-            allDOM.confirmPaymentButton.disabled = !isQrisValid;
+            const isQrisValid = currentPaymentMethod === 'QRIS' ? (qrisInput ? qrisInput.value.trim() !== '' : true) : true;
+            if (allDOM.confirmPaymentButton) allDOM.confirmPaymentButton.disabled = !isQrisValid;
         }
-        qrisInput.addEventListener('input', validateQrisInput);
+        if (qrisInput) qrisInput.addEventListener('input', validateQrisInput);
 
         function processPayment() {
             const cartForTx = splitBillState.active ? splitBillState.newCart : cart;
@@ -1180,7 +1198,7 @@
             const totalAfterDiscount = subtotal - discountValue;
             const tax = settings.taxEnabled ? totalAfterDiscount * (settings.taxRate / 100) : 0;
             const total = totalAfterDiscount + tax;
-            const diterima = (currentPaymentMethod !== 'Tunai') ? total : parseFloat(allDOM.uangDiterimaInput.value);
+            const diterima = (currentPaymentMethod !== 'Tunai') ? total : parseFloat(allDOM.uangDiterimaInput ? allDOM.uangDiterimaInput.value : 0);
             
             let customerName = 'Tamu Biasa';
             if(currentCustomerId) {
@@ -1188,9 +1206,8 @@
                 if(customer) customerName = customer.name;
             }
 
-            // Ambil kode QRIS jika metode QRIS
             let qrisCode = null;
-            if (currentPaymentMethod === 'QRIS') {
+            if (currentPaymentMethod === 'QRIS' && qrisInput) {
                 qrisCode = qrisInput.value.trim();
                 if (!qrisCode) {
                     showToast('Kode QRIS harus diisi!', 'error');
@@ -1198,8 +1215,7 @@
                 }
             }
 
-            // Ambil catatan pesanan
-            const orderNoteText = orderNote.value.trim();
+            const orderNoteText = orderNote ? orderNote.value.trim() : '';
 
             const transaction = { 
                 id: Date.now(), 
@@ -1222,7 +1238,7 @@
             };
             
             transactions.push(transaction);
-            currentShift.transactions.push(transaction.id);
+            if (currentShift) currentShift.transactions.push(transaction.id);
 
             if (currentCustomerId) {
                 const customer = customers.find(c => c.id === currentCustomerId);
@@ -1241,13 +1257,19 @@
                 splitBillState = { active: false, originalCart: [], newCart: [] };
                 closeModal('split-bill-modal');
                 if (cart.length === 0) {
-                    if (currentTable) tables.find(t => t.id === currentTable).status = 'needsCleaning';
+                    if (currentTable) {
+                        const table = tables.find(t => t.id === currentTable);
+                        if (table) table.status = 'needsCleaning';
+                    }
                     resetOrderState(false);
                 } else {
                     renderCart();
                 }
             } else {
-                if (currentTable) tables.find(t => t.id === currentTable).status = 'needsCleaning';
+                if (currentTable) {
+                    const table = tables.find(t => t.id === currentTable);
+                    if (table) table.status = 'needsCleaning';
+                }
                 resetOrderState(false);
             }
 
@@ -1256,9 +1278,8 @@
             showModal('receipt-modal'); 
             closeModal('payment-modal'); 
             
-            // Reset input QRIS dan catatan
-            qrisInput.value = '';
-            orderNote.value = '';
+            if (qrisInput) qrisInput.value = '';
+            if (orderNote) orderNote.value = '';
         }
         
         function generateReceipt(transaction) {
@@ -1309,13 +1330,15 @@
                 <p style="text-align: center; margin-top: 16px;">${settings.receiptFooter}</p>
             </div>`;
 
-            document.getElementById('receipt-print-area').innerHTML = `<div class="receipt-copy">${receiptBase}</div>`;
+            const receiptArea = document.getElementById('receipt-print-area');
+            if (receiptArea) receiptArea.innerHTML = `<div class="receipt-copy">${receiptBase}</div>`;
         }
         function printReceipt() { window.print(); }
         
         // --- TABLE MANAGEMENT ---
         function showTableModal() { renderTables(); showModal('table-modal'); }
         function renderTables() {
+            if (!allDOM.tableGrid) return;
             allDOM.tableGrid.innerHTML = tables.map(table => {
                 let buttonClass = 'bg-slate-100 dark:bg-slate-700 hover:bg-sky-100 dark:hover:bg-sky-600 text-slate-800 dark:text-slate-200';
                 let action = `selectTable(${table.id})`;
@@ -1339,6 +1362,7 @@
 
         function selectTable(tableId) {
             const table = tables.find(t => t.id === tableId);
+            if (!table) return;
             if (cart.length > 0 && currentTable !== null && currentTable !== tableId) {
                 showToast('Selesaikan atau simpan pesanan saat ini terlebih dahulu!', 'error');
                 return;
@@ -1348,8 +1372,8 @@
                 return;
             }
             currentTable = tableId;
-            allDOM.tableNumberDisplay.textContent = table.id;
-            allDOM.tableDisplay.classList.remove('hidden');
+            if (allDOM.tableNumberDisplay) allDOM.tableNumberDisplay.textContent = table.id;
+            if (allDOM.tableDisplay) allDOM.tableDisplay.classList.remove('hidden');
             closeModal('table-modal');
         }
 
@@ -1414,8 +1438,8 @@
             }
             setOrderType(orderToOpen.orderType);
 
-            allDOM.tableNumberDisplay.textContent = currentTable;
-            allDOM.tableDisplay.classList.remove('hidden');
+            if (allDOM.tableNumberDisplay) allDOM.tableNumberDisplay.textContent = currentTable;
+            if (allDOM.tableDisplay) allDOM.tableDisplay.classList.remove('hidden');
             
             heldOrders.splice(orderIndex, 1);
             
@@ -1431,6 +1455,7 @@
             showModal('active-orders-modal');
         }
         function renderActiveOrders() {
+            if (!allDOM.activeOrdersList) return;
             if (heldOrders.length === 0) {
                 allDOM.activeOrdersList.innerHTML = `<p class="col-span-full text-center text-slate-400 dark:text-slate-500">Tidak ada pesanan yang disimpan.</p>`;
                 return;
@@ -1448,6 +1473,7 @@
 
         function updateActiveOrdersBadge() {
             const count = heldOrders.length;
+            if (!allDOM.activeOrdersBadge) return;
             if (count > 0) {
                 allDOM.activeOrdersBadge.textContent = count;
                 allDOM.activeOrdersBadge.classList.remove('hidden');
@@ -1458,21 +1484,23 @@
         
         function startShift() {
             const startCashInput = document.getElementById('start-cash-input');
-            const startCash = parseFloat(startCashInput.value) || 0;
+            const startCash = startCashInput ? parseFloat(startCashInput.value) || 0 : 0;
 
             currentShift = {
                 active: true,
                 startTime: new Date().toISOString(),
                 startCash: startCash,
+                cashier: settings.cashierName,
                 transactions: []
             };
             saveData();
-            allDOM.shiftModal.style.display = 'none';
-            allDOM.mainContainer.classList.remove('opacity-20', 'pointer-events-none');
+            if (allDOM.shiftModal) allDOM.shiftModal.style.display = 'none';
+            if (allDOM.mainContainer) allDOM.mainContainer.classList.remove('opacity-20', 'pointer-events-none');
             showToast(`Shift dimulai dengan modal ${formatRupiah(startCash)}`, 'success');
         }
 
         function showEndOfShiftReport() {
+            if (!currentShift || !currentShift.active) return;
             const shiftTransactions = transactions.filter(tx => currentShift.transactions.includes(tx.id));
 
             const cashSales = shiftTransactions.filter(tx => tx.paymentMethod === 'Tunai').reduce((sum, tx) => sum + tx.total, 0);
@@ -1481,16 +1509,25 @@
             const grossSales = cashSales + nonCashSales;
             const expectedCash = currentShift.startCash + cashSales;
 
-            document.getElementById('shift-report-store-name').textContent = settings.storeName;
-            document.getElementById('shift-report-cashier').textContent = `Kasir: ${settings.cashierName}`;
-            document.getElementById('shift-report-time').textContent = `Mulai: ${new Date(currentShift.startTime).toLocaleTimeString('id-ID')} - Sekarang`;
+            const elStoreName = document.getElementById('shift-report-store-name');
+            const elCashier = document.getElementById('shift-report-cashier');
+            const elTime = document.getElementById('shift-report-time');
+            const elStartCash = document.getElementById('shift-report-start-cash');
+            const elCashSales = document.getElementById('shift-report-cash-sales');
+            const elExpectedCash = document.getElementById('shift-report-expected-cash');
+            const elNonCash = document.getElementById('shift-report-noncash-sales');
+            const elDiscount = document.getElementById('shift-report-total-discount');
+            const elGross = document.getElementById('shift-report-gross-sales');
 
-            document.getElementById('shift-report-start-cash').textContent = formatRupiah(currentShift.startCash);
-            document.getElementById('shift-report-cash-sales').textContent = formatRupiah(cashSales);
-            document.getElementById('shift-report-expected-cash').textContent = formatRupiah(expectedCash);
-            document.getElementById('shift-report-noncash-sales').textContent = formatRupiah(nonCashSales);
-            document.getElementById('shift-report-total-discount').textContent = `- ${formatRupiah(totalDiscount)}`;
-            document.getElementById('shift-report-gross-sales').textContent = formatRupiah(grossSales);
+            if (elStoreName) elStoreName.textContent = settings.storeName;
+            if (elCashier) elCashier.textContent = `Kasir: ${currentShift.cashier || settings.cashierName}`;
+            if (elTime) elTime.textContent = `Mulai: ${new Date(currentShift.startTime).toLocaleTimeString('id-ID')} - Sekarang`;
+            if (elStartCash) elStartCash.textContent = formatRupiah(currentShift.startCash);
+            if (elCashSales) elCashSales.textContent = formatRupiah(cashSales);
+            if (elExpectedCash) elExpectedCash.textContent = formatRupiah(expectedCash);
+            if (elNonCash) elNonCash.textContent = formatRupiah(nonCashSales);
+            if (elDiscount) elDiscount.textContent = `- ${formatRupiah(totalDiscount)}`;
+            if (elGross) elGross.textContent = formatRupiah(grossSales);
             
             showModal('end-of-shift-report-modal');
         }
@@ -1516,19 +1553,21 @@
         function renderSplitBillUI() {
             const originalContainer = document.querySelector('#split-bill-original-items div');
             const newContainer = document.querySelector('#split-bill-new-bill div');
+            if (!originalContainer || !newContainer) return;
 
             originalContainer.innerHTML = splitBillState.originalCart.map(item => renderSplitItem(item, 'original')).join('');
             newContainer.innerHTML = splitBillState.newCart.map(item => renderSplitItem(item, 'new')).join('');
 
-            document.getElementById('split-original-count').textContent = splitBillState.originalCart.reduce((sum, i) => sum + i.quantity, 0);
-            document.getElementById('split-new-count').textContent = splitBillState.newCart.reduce((sum, i) => sum + i.quantity, 0);
-
-            const newTotal = calculateTotal(splitBillState.newCart);
-            document.getElementById('split-new-total').textContent = formatRupiah(newTotal);
+            const origCount = document.getElementById('split-original-count');
+            const newCount = document.getElementById('split-new-count');
+            const newTotal = document.getElementById('split-new-total');
+            if (origCount) origCount.textContent = splitBillState.originalCart.reduce((sum, i) => sum + i.quantity, 0);
+            if (newCount) newCount.textContent = splitBillState.newCart.reduce((sum, i) => sum + i.quantity, 0);
+            if (newTotal) newTotal.textContent = formatRupiah(calculateTotal(splitBillState.newCart));
         }
 
         function renderSplitItem(item, type) {
-             const action = type === 'original' ? `moveItemToNewBill(${item.cartId})` : `moveItemToOriginalBill(${item.cartId})`;
+            const action = type === 'original' ? `moveItemToNewBill(${item.cartId})` : `moveItemToOriginalBill(${item.cartId})`;
             const icon = type === 'original' ? '→' : '←';
             return `<div class="flex items-center p-2 bg-white dark:bg-slate-800 rounded-lg">
                 <span class="flex-grow">${item.quantity}x ${item.name}</span>
@@ -1570,14 +1609,17 @@
         }
         
         function splitBillEvenly() {
-            const count = parseInt(document.getElementById('split-evenly-input').value);
+            const input = document.getElementById('split-evenly-input');
+            const resultDiv = document.getElementById('split-evenly-result');
+            if (!input || !resultDiv) return;
+            const count = parseInt(input.value);
             if (!count || count < 2) {
-                document.getElementById('split-evenly-result').textContent = 'Masukkan jumlah orang (min 2).';
+                resultDiv.textContent = 'Masukkan jumlah orang (min 2).';
                 return;
             }
             const total = calculateTotal(cart);
             const amountPerPerson = total / count;
-            document.getElementById('split-evenly-result').textContent = `${count} orang @ ${formatRupiah(amountPerPerson)}`;
+            resultDiv.textContent = `${count} orang @ ${formatRupiah(amountPerPerson)}`;
         }
         
         // --- HISTORY & DASHBOARD ---
@@ -1586,6 +1628,7 @@
         function showDiscountModal() { showModal('discount-modal'); }
         function renderHistory() {
             const historyListEl = document.getElementById('history-list');
+            if (!historyListEl) return;
             if (transactions.length === 0) { historyListEl.innerHTML = '<p class="text-slate-400 dark:text-slate-500 text-center">Belum ada transaksi.</p>'; return; }
             const historyHTML = [...transactions].reverse().map(tx => {
                 const date = new Date(tx.date);
@@ -1607,15 +1650,16 @@
         }
 
         function renderDashboard(range, event) {
+            if (!dashboardCashierFilter) return;
             // Set active class
             document.querySelectorAll('.dashboard-range-btn').forEach(btn => btn.classList.remove('bg-sky-500', 'text-white'));
-            if(event) {
+            if(event && event.target) {
                 event.target.classList.add('bg-sky-500', 'text-white');
             } else {
-                document.querySelector(`.dashboard-range-btn[onclick*="'${range}'"]`).classList.add('bg-sky-500', 'text-white');
+                const btn = document.querySelector(`.dashboard-range-btn[onclick*="'${range}'"]`);
+                if (btn) btn.classList.add('bg-sky-500', 'text-white');
             }
             
-            // Tentukan rentang tanggal
             const now = new Date();
             let startDate, endDate = new Date(now);
             if (range === 'today') {
@@ -1630,11 +1674,12 @@
                 if (!startStr || !endStr) return;
                 startDate = new Date(startStr + 'T00:00:00');
                 endDate = new Date(endStr + 'T23:59:59');
+            } else {
+                startDate = new Date(now.getFullYear(), now.getMonth(), now.getDate());
             }
             startDate.setHours(0,0,0,0);
             endDate.setHours(23,59,59,999);
             
-            // Filter berdasarkan kasir
             const cashierFilter = dashboardCashierFilter.value;
             let filteredTx = transactions.filter(tx => {
                 const txDate = new Date(tx.date);
@@ -1645,6 +1690,7 @@
             }
 
             const dashboardContentEl = document.getElementById('dashboard-content');
+            if (!dashboardContentEl) return;
             if (filteredTx.length === 0) { dashboardContentEl.innerHTML = '<p class="text-slate-400 dark:text-slate-500 text-center">Tidak ada data penjualan untuk rentang waktu ini.</p>'; return; }
             
             const totalRevenue = filteredTx.reduce((sum, tx) => sum + tx.total, 0);
@@ -1692,39 +1738,42 @@
             const gridColor = isDarkMode ? '#334155' : '#e2e8f0';
             const textColor = isDarkMode ? '#cbd5e1' : '#64748b';
             
-            // Daily Sales Chart
-            const ctxSales = document.getElementById('salesChart').getContext('2d');
-            if(salesChart) salesChart.destroy();
-            salesChart = new Chart(ctxSales, { type: 'bar', data: { datasets: [{ label: 'Pendapatan (Rp)', data: chartData, backgroundColor: 'rgba(14, 165, 233, 0.6)', borderColor: 'rgba(14, 165, 233, 1)', borderWidth: 1, borderRadius: 8 }] }, options: { scales: { y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } }, x: { type: 'time', time: { unit: 'day' }, grid: { display: false }, ticks: { color: textColor } } }, plugins: { legend: { display: false } } } });
-
-            // Hourly Sales Chart
-            const ctxHourly = document.getElementById('hourlySalesChart').getContext('2d');
-            if(hourlySalesChart) hourlySalesChart.destroy();
-            hourlySalesChart = new Chart(ctxHourly, { type: 'bar', data: { labels: Array.from({length: 24}, (_, i) => `${i}:00`), datasets: [{ label: 'Pendapatan (Rp)', data: salesByHour, backgroundColor: 'rgba(132, 204, 22, 0.6)', borderColor: 'rgba(132, 204, 22, 1)', borderWidth: 1, borderRadius: 8 }] }, options: { scales: { y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } }, x: { grid: { display: false }, ticks: { color: textColor } } }, plugins: { legend: { display: false } } } });
+            const ctxSales = document.getElementById('salesChart');
+            const ctxHourly = document.getElementById('hourlySalesChart');
+            if (ctxSales) {
+                if(salesChart) salesChart.destroy();
+                salesChart = new Chart(ctxSales.getContext('2d'), { type: 'bar', data: { datasets: [{ label: 'Pendapatan (Rp)', data: chartData, backgroundColor: 'rgba(14, 165, 233, 0.6)', borderColor: 'rgba(14, 165, 233, 1)', borderWidth: 1, borderRadius: 8 }] }, options: { scales: { y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } }, x: { type: 'time', time: { unit: 'day' }, grid: { display: false }, ticks: { color: textColor } } }, plugins: { legend: { display: false } } } });
+            }
+            if (ctxHourly) {
+                if(hourlySalesChart) hourlySalesChart.destroy();
+                hourlySalesChart = new Chart(ctxHourly.getContext('2d'), { type: 'bar', data: { labels: Array.from({length: 24}, (_, i) => `${i}:00`), datasets: [{ label: 'Pendapatan (Rp)', data: salesByHour, backgroundColor: 'rgba(132, 204, 22, 0.6)', borderColor: 'rgba(132, 204, 22, 1)', borderWidth: 1, borderRadius: 8 }] }, options: { scales: { y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } }, x: { grid: { display: false }, ticks: { color: textColor } } }, plugins: { legend: { display: false } } } });
+            }
         }
 
         // --- CUSTOMER MANAGEMENT ---
         function setCustomerType(type) {
             currentCustomerType = type;
             document.querySelectorAll('.customer-type-btn').forEach(btn => btn.classList.remove('active-order-type'));
-            document.getElementById(`customer-type-${type}`).classList.add('active-order-type');
+            const btn = document.getElementById(`customer-type-${type}`);
+            if (btn) btn.classList.add('active-order-type');
 
             if (type === 'member') {
-                allDOM.customerSelectionArea.classList.remove('hidden');
+                if (allDOM.customerSelectionArea) allDOM.customerSelectionArea.classList.remove('hidden');
             } else {
-                allDOM.customerSelectionArea.classList.add('hidden');
+                if (allDOM.customerSelectionArea) allDOM.customerSelectionArea.classList.add('hidden');
                 clearSelectedCustomer(); 
             }
         }
 
         function showCustomerModal() {
             renderCustomerList();
-            allDOM.addCustomerView.classList.remove('hidden');
-            allDOM.customerDetailsView.classList.add('hidden');
+            if (allDOM.addCustomerView) allDOM.addCustomerView.classList.remove('hidden');
+            if (allDOM.customerDetailsView) allDOM.customerDetailsView.classList.add('hidden');
             showModal('customer-modal');
         }
 
         function renderCustomerList(searchTerm = '') {
+            if (!allDOM.customerList) return;
             const lowerSearchTerm = searchTerm.toLowerCase();
             const filteredCustomers = customers.filter(c => c.name.toLowerCase().includes(lowerSearchTerm));
 
@@ -1744,6 +1793,7 @@
         function addNewCustomer() {
             const nameInput = document.getElementById('new-customer-name');
             const phoneInput = document.getElementById('new-customer-phone');
+            if (!nameInput) return;
             const name = nameInput.value.trim();
 
             if (!name) {
@@ -1754,15 +1804,15 @@
             const newCustomer = {
                 id: Date.now(),
                 name: name,
-                phone: phoneInput.value.trim(),
+                phone: phoneInput ? phoneInput.value.trim() : '',
                 visits: 0,
             };
 
             customers.push(newCustomer);
             saveData();
             showToast('Pelanggan baru ditambahkan!', 'success');
-            nameInput.value = '';
-            phoneInput.value = '';
+            if (nameInput) nameInput.value = '';
+            if (phoneInput) phoneInput.value = '';
             renderCustomerList();
             viewCustomerDetails(newCustomer.id);
         }
@@ -1771,87 +1821,114 @@
             const customer = customers.find(c => c.id === customerId);
             if (!customer) return;
 
-            document.getElementById('details-customer-name').textContent = customer.name;
-            document.getElementById('details-customer-phone').textContent = customer.phone || 'No. HP tidak ada';
-            document.getElementById('details-customer-visits').textContent = customer.visits || 0;
+            const nameEl = document.getElementById('details-customer-name');
+            const phoneEl = document.getElementById('details-customer-phone');
+            const visitsEl = document.getElementById('details-customer-visits');
+            const rewardEl = document.getElementById('details-customer-reward');
+            const historyEl = document.getElementById('details-customer-history');
+            if (nameEl) nameEl.textContent = customer.name;
+            if (phoneEl) phoneEl.textContent = customer.phone || 'No. HP tidak ada';
+            if (visitsEl) visitsEl.textContent = customer.visits || 0;
             
             const nextReward = 10 - ((customer.visits || 0) % 10);
-            document.getElementById('details-customer-reward').textContent = `${nextReward} kunjungan lagi`;
+            if (rewardEl) rewardEl.textContent = `${nextReward} kunjungan lagi`;
 
             const customerHistory = transactions.filter(tx => tx.customerId === customerId).reverse();
-            const historyEl = document.getElementById('details-customer-history');
-            if (customerHistory.length > 0) {
-                historyEl.innerHTML = customerHistory.map(tx => `
-                    <div class="text-sm bg-white dark:bg-slate-800 p-2 rounded-md">
-                        <div class="flex justify-between">
-                            <span class="font-semibold">${new Date(tx.date).toLocaleDateString('id-ID')}</span>
-                            <span class="font-bold">${formatRupiah(tx.total)}</span>
+            if (historyEl) {
+                if (customerHistory.length > 0) {
+                    historyEl.innerHTML = customerHistory.map(tx => `
+                        <div class="text-sm bg-white dark:bg-slate-800 p-2 rounded-md">
+                            <div class="flex justify-between">
+                                <span class="font-semibold">${new Date(tx.date).toLocaleDateString('id-ID')}</span>
+                                <span class="font-bold">${formatRupiah(tx.total)}</span>
+                            </div>
                         </div>
-                    </div>
-                `).join('');
-            } else {
-                historyEl.innerHTML = `<p class="text-slate-400 text-sm text-center">Belum ada riwayat transaksi.</p>`;
+                    `).join('');
+                } else {
+                    historyEl.innerHTML = `<p class="text-slate-400 text-sm text-center">Belum ada riwayat transaksi.</p>`;
+                }
             }
 
-            document.getElementById('select-customer-btn').onclick = () => selectCustomerForOrder(customerId);
+            const selectBtn = document.getElementById('select-customer-btn');
+            if (selectBtn) selectBtn.onclick = () => selectCustomerForOrder(customerId);
 
-            allDOM.addCustomerView.classList.add('hidden');
-            allDOM.customerDetailsView.classList.remove('hidden');
+            if (allDOM.addCustomerView) allDOM.addCustomerView.classList.add('hidden');
+            if (allDOM.customerDetailsView) allDOM.customerDetailsView.classList.remove('hidden');
         }
 
         function selectCustomerForOrder(customerId) {
             currentCustomerId = customerId;
             const customer = customers.find(c => c.id === customerId);
-            if (customer) {
+            if (customer && allDOM.customerNameDisplay) {
                 allDOM.customerNameDisplay.textContent = customer.name;
                 allDOM.customerNameDisplay.classList.remove('text-slate-500', 'dark:text-slate-400');
-                allDOM.clearCustomerBtn.classList.remove('hidden');
+                if (allDOM.clearCustomerBtn) allDOM.clearCustomerBtn.classList.remove('hidden');
             }
             closeModal('customer-modal');
         }
         
         function clearSelectedCustomer() {
             currentCustomerId = null;
-            allDOM.customerNameDisplay.textContent = 'Pilih Member...';
-            allDOM.customerNameDisplay.classList.add('text-slate-500', 'dark:text-slate-400');
-            allDOM.clearCustomerBtn.classList.add('hidden');
+            if (allDOM.customerNameDisplay) {
+                allDOM.customerNameDisplay.textContent = 'Pilih Member...';
+                allDOM.customerNameDisplay.classList.add('text-slate-500', 'dark:text-slate-400');
+            }
+            if (allDOM.clearCustomerBtn) allDOM.clearCustomerBtn.classList.add('hidden');
         }
 
         // --- SETTINGS & INVENTORY ---
         function showSettingsModal() {
-            document.getElementById('setting-store-name').value = settings.storeName;
-            document.getElementById('setting-store-address').value = settings.storeAddress;
-            document.getElementById('setting-cashier-name').value = settings.cashierName;
-            document.getElementById('setting-tax-rate').value = settings.taxRate;
-            document.getElementById('setting-tax-enabled').checked = settings.taxEnabled;
-            document.getElementById('setting-receipt-footer').value = settings.receiptFooter;
-            
-            document.getElementById('logo-preview').src = settings.storeLogo || 'https://placehold.co/80x80/e2e8f0/94a3b8?text=Logo';
-            document.getElementById('setting-receipt-show-cashier').checked = settings.receiptShowCashier;
-            document.getElementById('setting-receipt-show-order-type').checked = settings.receiptShowOrderType;
-            document.getElementById('setting-receipt-logo').value = '';
+            const storeNameInput = document.getElementById('setting-store-name');
+            const storeAddressInput = document.getElementById('setting-store-address');
+            const cashierNameInput = document.getElementById('setting-cashier-name');
+            const taxRateInput = document.getElementById('setting-tax-rate');
+            const taxEnabledCheck = document.getElementById('setting-tax-enabled');
+            const footerInput = document.getElementById('setting-receipt-footer');
+            const showCashierCheck = document.getElementById('setting-receipt-show-cashier');
+            const showOrderTypeCheck = document.getElementById('setting-receipt-show-order-type');
+            const logoPreview = document.getElementById('logo-preview');
+
+            if (storeNameInput) storeNameInput.value = settings.storeName;
+            if (storeAddressInput) storeAddressInput.value = settings.storeAddress;
+            if (cashierNameInput) cashierNameInput.value = settings.cashierName;
+            if (taxRateInput) taxRateInput.value = settings.taxRate;
+            if (taxEnabledCheck) taxEnabledCheck.checked = settings.taxEnabled;
+            if (footerInput) footerInput.value = settings.receiptFooter;
+            if (logoPreview) logoPreview.src = settings.storeLogo || 'https://placehold.co/80x80/e2e8f0/94a3b8?text=Logo';
+            if (showCashierCheck) showCashierCheck.checked = settings.receiptShowCashier;
+            if (showOrderTypeCheck) showOrderTypeCheck.checked = settings.receiptShowOrderType;
+            const receiptLogo = document.getElementById('setting-receipt-logo');
+            if (receiptLogo) receiptLogo.value = '';
 
             showModal('settings-modal');
             switchSettingsTab(null, 'umum');
         }
         
         async function saveSettings() {
-            settings.storeName = document.getElementById('setting-store-name').value;
-            settings.storeAddress = document.getElementById('setting-store-address').value;
-            settings.cashierName = document.getElementById('setting-cashier-name').value;
-            settings.taxRate = parseFloat(document.getElementById('setting-tax-rate').value) || 10;
-            settings.taxEnabled = document.getElementById('setting-tax-enabled').checked;
-            settings.receiptFooter = document.getElementById('setting-receipt-footer').value;
-            
-            settings.receiptShowCashier = document.getElementById('setting-receipt-show-cashier').checked;
-            settings.receiptShowOrderType = document.getElementById('setting-receipt-show-order-type').checked;
+            const storeNameInput = document.getElementById('setting-store-name');
+            const storeAddressInput = document.getElementById('setting-store-address');
+            const cashierNameInput = document.getElementById('setting-cashier-name');
+            const taxRateInput = document.getElementById('setting-tax-rate');
+            const taxEnabledCheck = document.getElementById('setting-tax-enabled');
+            const footerInput = document.getElementById('setting-receipt-footer');
+            const showCashierCheck = document.getElementById('setting-receipt-show-cashier');
+            const showOrderTypeCheck = document.getElementById('setting-receipt-show-order-type');
 
-            const logoFile = document.getElementById('setting-receipt-logo').files[0];
-            if (logoFile) {
+            if (storeNameInput) settings.storeName = storeNameInput.value;
+            if (storeAddressInput) settings.storeAddress = storeAddressInput.value;
+            if (cashierNameInput) settings.cashierName = cashierNameInput.value;
+            if (taxRateInput) settings.taxRate = parseFloat(taxRateInput.value) || 10;
+            if (taxEnabledCheck) settings.taxEnabled = taxEnabledCheck.checked;
+            if (footerInput) settings.receiptFooter = footerInput.value;
+            if (showCashierCheck) settings.receiptShowCashier = showCashierCheck.checked;
+            if (showOrderTypeCheck) settings.receiptShowOrderType = showOrderTypeCheck.checked;
+
+            const logoFile = document.getElementById('setting-receipt-logo');
+            if (logoFile && logoFile.files[0]) {
                 try {
                     const base64Logo = await new Promise((resolve, reject) => {
                         const reader = new FileReader();
-                        reader.readAsDataURL(logoFile);
+                        reader.readAsDataURL(logoFile.files[0]);
                         reader.onload = () => resolve(reader.result);
                         reader.onerror = error => reject(error);
                     });
@@ -1862,8 +1939,8 @@
                 }
             }
             
-            allDOM.headerStoreName.textContent = settings.storeName;
-            allDOM.taxRateDisplay.textContent = settings.taxRate;
+            if (allDOM.headerStoreName) allDOM.headerStoreName.textContent = settings.storeName;
+            if (allDOM.taxRateDisplay) allDOM.taxRateDisplay.textContent = settings.taxRate;
             updateSummary();
             saveData();
             showToast('Pengaturan disimpan!');
@@ -1872,18 +1949,22 @@
 
         function removeLogo() {
             settings.storeLogo = null;
-            document.getElementById('logo-preview').src = 'https://placehold.co/80x80/e2e8f0/94a3b8?text=Logo';
-            document.getElementById('setting-receipt-logo').value = '';
+            const logoPreview = document.getElementById('logo-preview');
+            if (logoPreview) logoPreview.src = 'https://placehold.co/80x80/e2e8f0/94a3b8?text=Logo';
+            const receiptLogo = document.getElementById('setting-receipt-logo');
+            if (receiptLogo) receiptLogo.value = '';
             showToast('Logo dihapus.');
         }
 
         function switchSettingsTab(event, tabName) {
             document.querySelectorAll('.settings-tab-content').forEach(el => el.classList.add('hidden'));
             document.querySelectorAll('.settings-tab').forEach(el => el.classList.remove('active'));
-            document.getElementById(`settings-tab-${tabName}`).classList.remove('hidden');
+            const tab = document.getElementById(`settings-tab-${tabName}`);
+            if (tab) tab.classList.remove('hidden');
             const button = event ? event.target : document.querySelector(`.settings-tab[onclick*="'${tabName}'"]`);
             if (button) button.classList.add('active');
         }
+
         function exportData() {
             const dataStr = JSON.stringify({ transactions, menuItems, settings, customers, heldOrders, currentShift, shiftHistory }, null, 2);
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
@@ -1898,13 +1979,14 @@
             showConfirm('Reset Seluruh Data?', 'Semua transaksi, pelanggan, dan stok akan dihapus. Tindakan ini tidak dapat diurungkan!', resetData);
         }
         function resetData() {
-            localStorage.removeItem('seblakAppData');
+            localStorage.removeItem('mieayamAppData');
             showToast('Data aplikasi berhasil direset!', 'error');
             location.reload(); 
         }
 
         function showInventoryModal() { renderInventory(); showModal('inventory-modal'); }
         function renderInventory() {
+            if (!allDOM.inventoryList) return;
             allDOM.inventoryList.innerHTML = menuItems.map(item => 
                 `<div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center p-3 rounded-lg odd:bg-slate-50 dark:odd:bg-slate-900/50">
                     <div class="md:col-span-2 flex items-center">
@@ -1927,6 +2009,7 @@
         function updateItemDetails(itemId) {
             const stockInput = document.getElementById(`stock-update-${itemId}`);
             const hppInput = document.getElementById(`hpp-update-${itemId}`);
+            if (!stockInput || !hppInput) return;
             const newStock = parseInt(stockInput.value) || 0;
             const newHpp = parseInt(hppInput.value) || 0;
             
@@ -1936,7 +2019,7 @@
                 item.hpp = newHpp < 0 ? 0 : newHpp;
                 showToast(`Detail ${item.name} diperbarui!`, 'success');
                 saveData();
-                renderMenu();
+                renderMenu(allDOM.searchBar ? allDOM.searchBar.value : '');
             }
         }
 
@@ -1951,17 +2034,25 @@
                 return acc;
             }, {});
 
-            document.getElementById('eod-store-name').textContent = settings.storeName;
-            document.getElementById('eod-date').textContent = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            document.getElementById('eod-cashier-name').textContent = settings.cashierName;
-            document.getElementById('eod-total-revenue').textContent = formatRupiah(totalRevenue);
-            document.getElementById('eod-total-transactions').textContent = todaysTransactions.length;
-            
+            const storeNameEl = document.getElementById('eod-store-name');
+            const dateEl = document.getElementById('eod-date');
+            const cashierEl = document.getElementById('eod-cashier-name');
+            const revenueEl = document.getElementById('eod-total-revenue');
+            const txCountEl = document.getElementById('eod-total-transactions');
             const paymentMethodsEl = document.getElementById('eod-payment-methods');
-            paymentMethodsEl.innerHTML = '';
-            Object.keys(paymentMethods).forEach(method => {
-                paymentMethodsEl.innerHTML += `<div class="flex justify-between border-b pb-1"><span class="text-slate-600">${method}:</span><span class="font-semibold">${formatRupiah(paymentMethods[method])}</span></div>`;
-            });
+
+            if (storeNameEl) storeNameEl.textContent = settings.storeName;
+            if (dateEl) dateEl.textContent = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            if (cashierEl) cashierEl.textContent = settings.cashierName;
+            if (revenueEl) revenueEl.textContent = formatRupiah(totalRevenue);
+            if (txCountEl) txCountEl.textContent = todaysTransactions.length;
+            
+            if (paymentMethodsEl) {
+                paymentMethodsEl.innerHTML = '';
+                Object.keys(paymentMethods).forEach(method => {
+                    paymentMethodsEl.innerHTML += `<div class="flex justify-between border-b pb-1"><span class="text-slate-600">${method}:</span><span class="font-semibold">${formatRupiah(paymentMethods[method])}</span></div>`;
+                });
+            }
             
             showModal('eod-report-modal');
         }
@@ -1969,20 +2060,27 @@
 
         // --- FITUR TAMBAHAN: LOGIN, SHIFT, CSV, DLL ---
         function handleLogin() {
-            const role = document.getElementById('login-role').value;
-            const pwd = document.getElementById('login-password').value;
+            const roleSelect = document.getElementById('login-role');
+            const pwdInput = document.getElementById('login-password');
+            if (!roleSelect || !pwdInput) return;
+            const role = roleSelect.value;
+            const pwd = pwdInput.value;
             if (pwd === validPasswords[role]) {
                 currentUser.role = role;
                 currentUser.name = role === 'admin' ? 'Admin' : 'Kasir';
-                document.getElementById('login-modal').classList.add('hidden');
-                if (!currentShift.active) {
-                    document.getElementById('shift-modal').style.display = 'flex';
+                const loginModal = document.getElementById('login-modal');
+                if (loginModal) loginModal.classList.add('hidden');
+                if (!currentShift || !currentShift.active) {
+                    const shiftModal = document.getElementById('shift-modal');
+                    if (shiftModal) shiftModal.style.display = 'flex';
                 } else {
-                    document.getElementById('main-container').classList.remove('opacity-20', 'pointer-events-none');
+                    if (allDOM.mainContainer) allDOM.mainContainer.classList.remove('opacity-20', 'pointer-events-none');
                 }
                 if (role === 'kasir') {
-                    document.getElementById('inventory-btn').style.display = 'none';
-                    document.getElementById('settings-btn').style.display = 'none';
+                    const invBtn = document.getElementById('inventory-btn');
+                    const setBtn = document.getElementById('settings-btn');
+                    if (invBtn) invBtn.style.display = 'none';
+                    if (setBtn) setBtn.style.display = 'none';
                 }
                 showToast(`Selamat datang, ${currentUser.name}!`, 'success');
             } else {
@@ -1991,13 +2089,18 @@
         }
 
         function showClockInModal() {
-            document.getElementById('clockin-cashier').value = settings.cashierName;
-            document.getElementById('clockin-startcash').value = 0;
+            const cashierInput = document.getElementById('clockin-cashier');
+            const startCashInput = document.getElementById('clockin-startcash');
+            if (cashierInput) cashierInput.value = settings.cashierName;
+            if (startCashInput) startCashInput.value = 0;
             showModal('clockin-modal');
         }
         function clockIn() {
-            const cashier = document.getElementById('clockin-cashier').value;
-            const startCash = parseFloat(document.getElementById('clockin-startcash').value) || 0;
+            const cashierInput = document.getElementById('clockin-cashier');
+            const startCashInput = document.getElementById('clockin-startcash');
+            if (!cashierInput || !startCashInput) return;
+            const cashier = cashierInput.value;
+            const startCash = parseFloat(startCashInput.value) || 0;
             currentShift = {
                 active: true,
                 startTime: new Date().toISOString(),
@@ -2008,21 +2111,25 @@
             saveData();
             closeModal('clockin-modal');
             showToast(`Shift dimulai oleh ${cashier} dengan modal ${formatRupiah(startCash)}`, 'success');
-            document.getElementById('shift-modal').style.display = 'none';
-            document.getElementById('main-container').classList.remove('opacity-20', 'pointer-events-none');
+            const shiftModal = document.getElementById('shift-modal');
+            if (shiftModal) shiftModal.style.display = 'none';
+            if (allDOM.mainContainer) allDOM.mainContainer.classList.remove('opacity-20', 'pointer-events-none');
         }
 
         function showClockOutModal() {
-            if (!currentShift.active) {
+            if (!currentShift || !currentShift.active) {
                 showToast('Tidak ada shift yang aktif', 'error');
                 return;
             }
             const shiftTx = transactions.filter(tx => currentShift.transactions.includes(tx.id) && tx.paymentMethod === 'Tunai');
             const cashSales = shiftTx.reduce((sum, tx) => sum + tx.total, 0);
             const expectedCash = currentShift.startCash + cashSales;
-            document.getElementById('summary-startcash').textContent = formatRupiah(currentShift.startCash);
-            document.getElementById('summary-cashsales').textContent = formatRupiah(cashSales);
-            document.getElementById('summary-totalcash').textContent = formatRupiah(expectedCash);
+            const summaryStart = document.getElementById('summary-startcash');
+            const summaryCash = document.getElementById('summary-cashsales');
+            const summaryTotal = document.getElementById('summary-totalcash');
+            if (summaryStart) summaryStart.textContent = formatRupiah(currentShift.startCash);
+            if (summaryCash) summaryCash.textContent = formatRupiah(cashSales);
+            if (summaryTotal) summaryTotal.textContent = formatRupiah(expectedCash);
             showModal('clockout-modal');
         }
         function clockOut() {
@@ -2047,6 +2154,8 @@
         }
         function showShiftReport(shift) {
             const content = document.getElementById('shift-report-content');
+            const detail = document.getElementById('shift-report-detail');
+            if (!content || !detail) return;
             const start = new Date(shift.startTime).toLocaleString('id-ID');
             const end = new Date(shift.endTime).toLocaleString('id-ID');
             content.innerHTML = `
@@ -2058,21 +2167,24 @@
                 <div class="border-b pb-2 font-bold"><strong>Total Tunai di Laci:</strong> ${formatRupiah(shift.totalCash)}</div>
                 <div><strong>Jumlah Transaksi:</strong> ${shift.transactions.length}</div>
             `;
-            document.getElementById('shift-report-detail').textContent = `Shift #${shift.id}`;
+            detail.textContent = `Shift #${shift.id}`;
             showModal('shift-report-modal');
         }
         function renderShiftHistory() {
             const list = document.getElementById('shift-history-list');
+            if (!list) return;
             if (shiftHistory.length === 0) {
                 list.innerHTML = '<p class="text-slate-400">Belum ada shift</p>';
                 return;
             }
-            list.innerHTML = shiftHistory.slice().reverse().map(s => `
-                <div class="flex justify-between items-center p-2 bg-slate-100 dark:bg-slate-900 rounded cursor-pointer hover:bg-sky-100" onclick='showShiftReport(${JSON.stringify(s).replace(/'/g, "\\'")})'>
+            list.innerHTML = shiftHistory.slice().reverse().map(s => {
+                // Escape untuk onclick
+                const safeShift = JSON.stringify(s).replace(/'/g, "\\'");
+                return `<div class="flex justify-between items-center p-2 bg-slate-100 dark:bg-slate-900 rounded cursor-pointer hover:bg-sky-100" onclick='showShiftReport(${safeShift})'>
                     <span>${new Date(s.startTime).toLocaleDateString()} - ${s.cashier}</span>
                     <span class="font-bold">${formatRupiah(s.cashSales)}</span>
-                </div>
-            `).join('');
+                </div>`;
+            }).join('');
         }
 
         function exportToCSV() {
@@ -2102,24 +2214,28 @@
         function loadData() {
             const savedData = localStorage.getItem('mieayamAppData');
             if (savedData) {
-                const appData = JSON.parse(savedData);
-                transactions = appData.transactions || [];
-                tables = appData.tables || tables;
-                customers = appData.customers || [];
-                heldOrders = appData.heldOrders || [];
-                currentShift = appData.currentShift || { active: false, startTime: null, startCash: 0, transactions: [] };
-                shiftHistory = appData.shiftHistory || [];
-                settings = { ...settings, ...appData.settings };
-                
-                const savedMenuItems = appData.menuItems || [];
-                const updatedMenuItems = initialMenuItems.map(initialItem => {
-                    const savedItem = savedMenuItems.find(saved => saved.id === initialItem.id);
-                    if (savedItem) {
-                        return { ...initialItem, stock: savedItem.stock, hpp: savedItem.hpp !== undefined ? savedItem.hpp : initialItem.hpp };
-                    }
-                    return initialItem;
-                });
-                menuItems = updatedMenuItems;
+                try {
+                    const appData = JSON.parse(savedData);
+                    transactions = appData.transactions || [];
+                    tables = appData.tables || tables;
+                    customers = appData.customers || [];
+                    heldOrders = appData.heldOrders || [];
+                    currentShift = appData.currentShift || { active: false, startTime: null, startCash: 0, transactions: [] };
+                    shiftHistory = appData.shiftHistory || [];
+                    settings = { ...settings, ...appData.settings };
+                    
+                    const savedMenuItems = appData.menuItems || [];
+                    const updatedMenuItems = initialMenuItems.map(initialItem => {
+                        const savedItem = savedMenuItems.find(saved => saved.id === initialItem.id);
+                        if (savedItem) {
+                            return { ...initialItem, stock: savedItem.stock, hpp: savedItem.hpp !== undefined ? savedItem.hpp : initialItem.hpp };
+                        }
+                        return initialItem;
+                    });
+                    menuItems = updatedMenuItems;
+                } catch (e) {
+                    console.error('Error loading data', e);
+                }
             } else {
                 menuItems = JSON.parse(JSON.stringify(initialMenuItems));
             }
@@ -2129,12 +2245,12 @@
         function applyTheme() {
             if (settings.darkMode) {
                 document.documentElement.classList.add('dark');
-                allDOM.sunIcon.classList.add('hidden');
-                allDOM.moonIcon.classList.remove('hidden');
+                if (allDOM.sunIcon) allDOM.sunIcon.classList.add('hidden');
+                if (allDOM.moonIcon) allDOM.moonIcon.classList.remove('hidden');
             } else {
                 document.documentElement.classList.remove('dark');
-                allDOM.sunIcon.classList.remove('hidden');
-                allDOM.moonIcon.classList.add('hidden');
+                if (allDOM.sunIcon) allDOM.sunIcon.classList.remove('hidden');
+                if (allDOM.moonIcon) allDOM.moonIcon.classList.add('hidden');
             }
         }
 
@@ -2143,8 +2259,11 @@
             applyTheme();
             saveData();
             if (!allDOM.dashboardModal.classList.contains('hidden')) {
-                 const activeRange = document.querySelector('.dashboard-range-btn.bg-sky-500')?.onclick.toString().match(/'(.*?)'/)[1] || 'today';
-                 renderDashboard(activeRange);
+                const activeBtn = document.querySelector('.dashboard-range-btn.bg-sky-500');
+                if (activeBtn) {
+                    const match = activeBtn.getAttribute('onclick')?.match(/'(.*?)'/) || ['', 'today'];
+                    renderDashboard(match[1]);
+                }
             }
         }
 
@@ -2154,45 +2273,57 @@
             document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active-tab'));
             const activeTab = Array.from(document.querySelectorAll('.category-tab')).find(tab => tab.textContent.toLowerCase().includes(category));
             if(activeTab) activeTab.classList.add('active-tab');
-            renderMenu(allDOM.searchBar.value);
+            renderMenu(allDOM.searchBar ? allDOM.searchBar.value : '');
         }
 
+        // Inisialisasi
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
             
-            // Tampilkan login terlebih dahulu, shift modal akan muncul setelah login jika perlu
-            document.getElementById('login-modal').style.display = 'flex';
-            allDOM.mainContainer.classList.add('opacity-20', 'pointer-events-none');
+            // Tampilkan login
+            const loginModal = document.getElementById('login-modal');
+            if (loginModal) loginModal.style.display = 'flex';
+            if (allDOM.mainContainer) {
+                allDOM.mainContainer.classList.add('opacity-20', 'pointer-events-none');
+            }
             
             applyTheme();
-            allDOM.headerStoreName.textContent = settings.storeName;
-            allDOM.taxRateDisplay.textContent = settings.taxRate;
+            if (allDOM.headerStoreName) allDOM.headerStoreName.textContent = settings.storeName;
+            if (allDOM.taxRateDisplay) allDOM.taxRateDisplay.textContent = settings.taxRate;
             
-            allDOM.searchBar.addEventListener('input', (e) => {
-                renderMenu(e.target.value);
-                allDOM.searchClearBtn.classList.toggle('hidden', e.target.value === '');
-            });
-            allDOM.searchClearBtn.addEventListener('click', () => {
-                allDOM.searchBar.value = '';
-                allDOM.searchClearBtn.classList.add('hidden');
-                renderMenu();
-            });
-            allDOM.darkModeToggle.addEventListener('click', toggleTheme);
-            allDOM.customerSearchInput.addEventListener('input', (e) => renderCustomerList(e.target.value));
+            if (allDOM.searchBar) {
+                allDOM.searchBar.addEventListener('input', (e) => {
+                    renderMenu(e.target.value);
+                    if (allDOM.searchClearBtn) allDOM.searchClearBtn.classList.toggle('hidden', e.target.value === '');
+                });
+            }
+            if (allDOM.searchClearBtn) {
+                allDOM.searchClearBtn.addEventListener('click', () => {
+                    if (allDOM.searchBar) allDOM.searchBar.value = '';
+                    if (allDOM.searchClearBtn) allDOM.searchClearBtn.classList.add('hidden');
+                    renderMenu('');
+                });
+            }
+            if (allDOM.darkModeToggle) allDOM.darkModeToggle.addEventListener('click', toggleTheme);
+            if (allDOM.customerSearchInput) {
+                allDOM.customerSearchInput.addEventListener('input', (e) => renderCustomerList(e.target.value));
+            }
 
             // Isi dropdown kasir di dashboard
-            setTimeout(() => {
-                const uniqueCashiers = [...new Set(transactions.map(tx => tx.cashierName))];
-                uniqueCashiers.forEach(name => {
-                    const option = document.createElement('option');
-                    option.value = name;
-                    option.textContent = name;
-                    dashboardCashierFilter.appendChild(option);
-                });
-                dashboardCashierFilter.addEventListener('change', () => renderDashboard('today'));
-            }, 500);
+            if (dashboardCashierFilter) {
+                setTimeout(() => {
+                    const uniqueCashiers = [...new Set(transactions.map(tx => tx.cashierName))];
+                    uniqueCashiers.forEach(name => {
+                        const option = document.createElement('option');
+                        option.value = name;
+                        option.textContent = name;
+                        dashboardCashierFilter.appendChild(option);
+                    });
+                    dashboardCashierFilter.addEventListener('change', () => renderDashboard('today'));
+                }, 500);
+            }
 
-            renderMenu(); 
+            renderMenu(''); 
             renderCart(); 
             filterMenu('semua'); 
             setOrderType('Dine-In');
