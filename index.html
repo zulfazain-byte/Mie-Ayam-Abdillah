@@ -116,7 +116,7 @@
                         <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
                         <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="hidden text-slate-600 dark:text-slate-300"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                     </button>
-                    <button onclick="showInventoryModal()" id="inventory-btn" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Manajemen Stok">
+                    <button onclick="showInventoryModal()" id="inventory-btn" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Manajemen Stok & Menu">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                     </button>
                     <button onclick="showSettingsModal()" id="settings-btn" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Pengaturan">
@@ -417,17 +417,62 @@
         </div>
     </div>
 
-    <!-- Inventory Modal -->
+    <!-- Inventory Modal (dengan tombol Edit) -->
     <div id="inventory-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-4xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
             <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Manajemen Stok & HPP</h3>
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Manajemen Stok & Menu</h3>
                 <button onclick="closeModal('inventory-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button>
             </div>
             <div id="inventory-list" class="flex-grow overflow-y-auto pr-2 -mr-2"></div>
             <div class="mt-6 flex justify-end">
                 <button onclick="closeModal('inventory-modal')" class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-2 px-5 font-bold transition">Selesai</button>
             </div>
+        </div>
+    </div>
+
+    <!-- Edit Menu Modal -->
+    <div id="edit-menu-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
+        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-md shadow-2xl modal-content">
+            <h3 class="text-2xl font-bold mb-6 text-center text-slate-900 dark:text-white" id="edit-menu-title">Edit Menu</h3>
+            <form id="edit-menu-form" onsubmit="event.preventDefault(); saveMenuEdit();">
+                <input type="hidden" id="edit-menu-id">
+                <div class="mb-4">
+                    <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Nama Menu</label>
+                    <input type="text" id="edit-menu-name" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Harga (Rp)</label>
+                    <input type="number" id="edit-menu-price" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" min="0" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Kategori</label>
+                    <select id="edit-menu-category" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition">
+                        <option value="mie">Mie</option>
+                        <option value="topping">Topping</option>
+                        <option value="minuman">Minuman</option>
+                    </select>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Gambar</label>
+                    <div class="flex items-center space-x-4">
+                        <img id="edit-menu-image-preview" src="https://placehold.co/80x80/e2e8f0/94a3b8?text=Preview" class="w-20 h-20 rounded-lg object-cover bg-slate-100 dark:bg-slate-700">
+                        <input type="file" id="edit-menu-image" accept="image/*" class="block w-full text-sm text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-sky-50 file:text-sky-700 hover:file:bg-sky-100">
+                    </div>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Stok</label>
+                    <input type="number" id="edit-menu-stock" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" min="0" required>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">HPP (Rp)</label>
+                    <input type="number" id="edit-menu-hpp" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" min="0">
+                </div>
+                <div class="flex justify-end space-x-4">
+                    <button type="button" onclick="closeModal('edit-menu-modal')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl py-2 px-5 font-bold transition">Batal</button>
+                    <button type="submit" class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-2 px-5 font-bold transition">Simpan</button>
+                </div>
+            </form>
         </div>
     </div>
 
@@ -680,11 +725,14 @@
 
     <script>
         // ==================== ICONS & DATABASE ====================
-        const ICONS = { note: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.4z"></path><path d="M13 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>`, minus: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`, plus: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>` };
-        
+        const ICONS = {
+            note: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.4z"></path><path d="M13 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>`,
+            minus: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`,
+            plus: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`
+        };
+
         // Data Menu Mie Ayam Abdillah
         let initialMenuItems = [
-            // Mie (category: 'mie')
             { id: 1, name: 'Mie Ayam Biasa', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/ef4444/white?text=Mie+Ayam+Biasa', stock: 20, hpp: 6000 },
             { id: 2, name: 'Mie Ayam Bakso', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/f97316/white?text=Mie+Ayam+Bakso', stock: 15, hpp: 8000 },
             { id: 3, name: 'Mie Ayam Ceker', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/84cc16/white?text=Mie+Ayam+Ceker', stock: 25, hpp: 8000 },
@@ -701,7 +749,6 @@
             { id: 14, name: 'Mie Ayam Keju', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/facc15/white?text=Mie+Ayam+Keju', stock: 18, hpp: 7500 },
             { id: 15, name: 'Mie Ayam Telur', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/e11d48/white?text=Mie+Ayam+Telur', stock: 15, hpp: 6000 },
             { id: 16, name: 'Mie Ayam Jamur', price: 14000, category: 'mie', image: 'https://placehold.co/300x300/be123c/white?text=Mie+Ayam+Jamur', stock: 15, hpp: 7000 },
-            // Topping
             { id: 17, name: 'Bakso', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/8b5cf6/white?text=Bakso', stock: 50, hpp: 1000 },
             { id: 18, name: 'Pangsit', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/a855f7/white?text=Pangsit', stock: 50, hpp: 1000 },
             { id: 19, name: 'Ceker', price: 3000, category: 'topping', image: 'https://placehold.co/300x300/f59e0b/white?text=Ceker', stock: 40, hpp: 1500 },
@@ -710,7 +757,6 @@
             { id: 22, name: 'Jamur', price: 5000, category: 'topping', image: 'https://placehold.co/300x300/ec4899/white?text=Jamur', stock: 30, hpp: 2500 },
             { id: 23, name: 'Sosis', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/f97316/white?text=Sosis', stock: 100, hpp: 1000 },
             { id: 24, name: 'Makaroni', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/0ea5e9/white?text=Makaroni', stock: 100, hpp: 500 },
-            // Minuman
             { id: 25, name: 'Es Teh Manis', price: 3000, category: 'minuman', image: 'https://placehold.co/300x300/3b82f6/white?text=Es+Teh+Manis', stock: 50, hpp: 1000 },
             { id: 26, name: 'Es Jeruk', price: 4000, category: 'minuman', image: 'https://placehold.co/300x300/06b6d4/white?text=Es+Jeruk', stock: 50, hpp: 1500 },
             { id: 27, name: 'Pop Ice', price: 5000, category: 'minuman', image: 'https://placehold.co/300x300/a855f7/white?text=Pop+Ice', stock: 50, hpp: 2500 },
@@ -734,7 +780,7 @@
         let salesChart = null;
         let hourlySalesChart = null;
         let currentTable = null;
-        let tables = Array.from({ length: 12 }, (_, i) => ({ id: i + 1, name: `M${i + 1}`, status: 'available' })); // status: 'available', 'occupied', 'needsCleaning'
+        let tables = Array.from({ length: 12 }, (_, i) => ({ id: i + 1, name: `M${i + 1}`, status: 'available' }));
         let settings = {
             storeName: 'Mie Ayam Abdillah',
             storeAddress: 'Jl. Mie Ayam No. 1, Wonosobo',
@@ -751,7 +797,7 @@
         let currentPaymentMethod = 'Tunai';
         const spiceLevelCosts = { 1: 0, 2: 0, 3: 2000, 4: 4000, 5: 6000 };
 
-        // --- FITUR TAMBAHAN (tanpa login) ---
+        // --- FITUR TAMBAHAN ---
         let shiftHistory = [];
 
         // --- DOM ELEMENTS ---
@@ -834,9 +880,8 @@
             }, 3000);
         }
 
-        // --- RENDER FUNCTIONS (OPTIMIZED) ---
+        // --- RENDER FUNCTIONS ---
         function renderMenu(searchTerm = '') {
-            // Tampilkan skeleton
             menuSkeleton.classList.remove('hidden');
             allDOM.menuGrid.classList.add('hidden');
             
@@ -899,7 +944,6 @@
             const currentCart = splitBillState.active ? splitBillState.newCart : cart;
             const subtotal = currentCart.reduce((sum, item) => sum + (item.finalPrice * item.quantity), 0);
             let discountValue = 0;
-            // Disable discount during split bill
             if (!splitBillState.active) {
                  discountValue = discount.type === 'percentage' ? subtotal * (discount.value / 100) : discount.value;
                  discountValue = Math.min(subtotal, discountValue);
@@ -990,7 +1034,6 @@
             renderMenu(allDOM.searchBar.value); renderCart(); saveData();
         }
         
-        // Fungsi addNoteToItem dengan opsi cepat
         function addNoteToItem(cartId) {
             const itemInCart = cart.find(item => item.cartId === cartId);
             if (itemInCart) {
@@ -1167,7 +1210,6 @@
                 if(customer) customerName = customer.name;
             }
 
-            // Ambil kode QRIS jika metode QRIS
             let qrisCode = null;
             if (currentPaymentMethod === 'QRIS') {
                 qrisCode = qrisInput.value.trim();
@@ -1177,7 +1219,6 @@
                 }
             }
 
-            // Ambil catatan pesanan
             const orderNoteText = orderNote.value.trim();
 
             const transaction = { 
@@ -1235,7 +1276,6 @@
             showModal('receipt-modal'); 
             closeModal('payment-modal'); 
             
-            // Reset input QRIS dan catatan
             qrisInput.value = '';
             orderNote.value = '';
         }
@@ -1586,7 +1626,6 @@
         }
 
         function renderDashboard(range, event) {
-            // Set active class
             document.querySelectorAll('.dashboard-range-btn').forEach(btn => btn.classList.remove('bg-sky-500', 'text-white'));
             if(event) {
                 event.target.classList.add('bg-sky-500', 'text-white');
@@ -1594,7 +1633,6 @@
                 document.querySelector(`.dashboard-range-btn[onclick*="'${range}'"]`).classList.add('bg-sky-500', 'text-white');
             }
             
-            // Tentukan rentang tanggal
             const now = new Date();
             let startDate, endDate = new Date(now);
             if (range === 'today') {
@@ -1613,7 +1651,6 @@
             startDate.setHours(0,0,0,0);
             endDate.setHours(23,59,59,999);
             
-            // Filter berdasarkan kasir
             const cashierFilter = dashboardCashierFilter.value;
             let filteredTx = transactions.filter(tx => {
                 const txDate = new Date(tx.date);
@@ -1671,12 +1708,10 @@
             const gridColor = isDarkMode ? '#334155' : '#e2e8f0';
             const textColor = isDarkMode ? '#cbd5e1' : '#64748b';
             
-            // Daily Sales Chart
             const ctxSales = document.getElementById('salesChart').getContext('2d');
             if(salesChart) salesChart.destroy();
             salesChart = new Chart(ctxSales, { type: 'bar', data: { datasets: [{ label: 'Pendapatan (Rp)', data: chartData, backgroundColor: 'rgba(14, 165, 233, 0.6)', borderColor: 'rgba(14, 165, 233, 1)', borderWidth: 1, borderRadius: 8 }] }, options: { scales: { y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } }, x: { type: 'time', time: { unit: 'day' }, grid: { display: false }, ticks: { color: textColor } } }, plugins: { legend: { display: false } } } });
 
-            // Hourly Sales Chart
             const ctxHourly = document.getElementById('hourlySalesChart').getContext('2d');
             if(hourlySalesChart) hourlySalesChart.destroy();
             hourlySalesChart = new Chart(ctxHourly, { type: 'bar', data: { labels: Array.from({length: 24}, (_, i) => `${i}:00`), datasets: [{ label: 'Pendapatan (Rp)', data: salesByHour, backgroundColor: 'rgba(132, 204, 22, 0.6)', borderColor: 'rgba(132, 204, 22, 1)', borderWidth: 1, borderRadius: 8 }] }, options: { scales: { y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } }, x: { grid: { display: false }, ticks: { color: textColor } } }, plugins: { legend: { display: false } } } });
@@ -1882,10 +1917,11 @@
             location.reload(); 
         }
 
+        // --- INVENTORY (dengan tombol edit) ---
         function showInventoryModal() { renderInventory(); showModal('inventory-modal'); }
         function renderInventory() {
             allDOM.inventoryList.innerHTML = menuItems.map(item => 
-                `<div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center p-3 rounded-lg odd:bg-slate-50 dark:odd:bg-slate-900/50">
+                `<div class="grid grid-cols-1 md:grid-cols-5 gap-4 items-center p-3 rounded-lg odd:bg-slate-50 dark:odd:bg-slate-900/50">
                     <div class="md:col-span-2 flex items-center">
                         <img src="${item.image}" class="w-10 h-10 rounded-md object-cover mr-4">
                         <span class="font-semibold">${item.name}</span>
@@ -1894,10 +1930,13 @@
                         <label class="text-sm font-semibold text-slate-500">Stok:</label>
                         <input type="number" id="stock-update-${item.id}" class="w-20 bg-slate-100 dark:bg-slate-700 rounded-md p-2 text-center" value="${item.stock}">
                     </div>
-                    <div class="flex items-center justify-start md:justify-end space-x-2">
-                         <label class="text-sm font-semibold text-slate-500">HPP (Rp):</label>
+                    <div class="flex items-center justify-start md:justify-center space-x-2">
+                        <label class="text-sm font-semibold text-slate-500">HPP:</label>
                         <input type="number" id="hpp-update-${item.id}" class="w-24 bg-slate-100 dark:bg-slate-700 rounded-md p-2 text-center" value="${item.hpp || 0}">
+                    </div>
+                    <div class="flex items-center justify-end space-x-2">
                         <button onclick="updateItemDetails(${item.id})" class="bg-sky-500 text-white font-semibold px-3 py-2 rounded-lg text-sm">Simpan</button>
+                        <button onclick="openEditMenuModal(${item.id})" class="bg-amber-500 text-white font-semibold px-3 py-2 rounded-lg text-sm">Edit</button>
                     </div>
                 </div>`
             ).join('');
@@ -1916,37 +1955,78 @@
                 showToast(`Detail ${item.name} diperbarui!`, 'success');
                 saveData();
                 renderMenu();
+                renderInventory();
             }
         }
 
-        function showEndOfDayReport() {
-            const now = new Date();
-            const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-            const todaysTransactions = transactions.filter(tx => new Date(tx.date) >= startOfToday);
-            
-            const totalRevenue = todaysTransactions.reduce((sum, tx) => sum + tx.total, 0);
-            const paymentMethods = todaysTransactions.reduce((acc, tx) => {
-                acc[tx.paymentMethod] = (acc[tx.paymentMethod] || 0) + tx.total;
-                return acc;
-            }, {});
+        // --- EDIT MENU ---
+        let currentEditItemId = null;
 
-            document.getElementById('eod-store-name').textContent = settings.storeName;
-            document.getElementById('eod-date').textContent = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
-            document.getElementById('eod-cashier-name').textContent = settings.cashierName;
-            document.getElementById('eod-total-revenue').textContent = formatRupiah(totalRevenue);
-            document.getElementById('eod-total-transactions').textContent = todaysTransactions.length;
-            
-            const paymentMethodsEl = document.getElementById('eod-payment-methods');
-            paymentMethodsEl.innerHTML = '';
-            Object.keys(paymentMethods).forEach(method => {
-                paymentMethodsEl.innerHTML += `<div class="flex justify-between border-b pb-1"><span class="text-slate-600">${method}:</span><span class="font-semibold">${formatRupiah(paymentMethods[method])}</span></div>`;
-            });
-            
-            showModal('eod-report-modal');
+        function openEditMenuModal(itemId) {
+            const item = menuItems.find(i => i.id === itemId);
+            if (!item) return;
+            currentEditItemId = itemId;
+            document.getElementById('edit-menu-id').value = item.id;
+            document.getElementById('edit-menu-name').value = item.name;
+            document.getElementById('edit-menu-price').value = item.price;
+            document.getElementById('edit-menu-category').value = item.category;
+            document.getElementById('edit-menu-stock').value = item.stock;
+            document.getElementById('edit-menu-hpp').value = item.hpp || 0;
+            document.getElementById('edit-menu-image-preview').src = item.image;
+            showModal('edit-menu-modal');
         }
-        function printEndOfDayReport() { window.print(); }
 
-        // --- FITUR TAMBAHAN: SHIFT, CSV, DLL ---
+        async function saveMenuEdit() {
+            const id = parseInt(document.getElementById('edit-menu-id').value);
+            const name = document.getElementById('edit-menu-name').value.trim();
+            const price = parseInt(document.getElementById('edit-menu-price').value);
+            const category = document.getElementById('edit-menu-category').value;
+            const stock = parseInt(document.getElementById('edit-menu-stock').value);
+            const hpp = parseInt(document.getElementById('edit-menu-hpp').value) || 0;
+            const imageFile = document.getElementById('edit-menu-image').files[0];
+
+            if (!name || isNaN(price) || price < 0 || isNaN(stock) || stock < 0) {
+                showToast('Isi data dengan benar!', 'error');
+                return;
+            }
+
+            const itemIndex = menuItems.findIndex(i => i.id === id);
+            if (itemIndex === -1) return;
+
+            let imageBase64 = menuItems[itemIndex].image;
+            if (imageFile) {
+                try {
+                    imageBase64 = await new Promise((resolve, reject) => {
+                        const reader = new FileReader();
+                        reader.readAsDataURL(imageFile);
+                        reader.onload = () => resolve(reader.result);
+                        reader.onerror = reject;
+                    });
+                } catch (error) {
+                    console.error('Gagal membaca gambar:', error);
+                    showToast('Gagal memuat gambar', 'error');
+                    return;
+                }
+            }
+
+            menuItems[itemIndex] = {
+                ...menuItems[itemIndex],
+                name,
+                price,
+                category,
+                stock,
+                hpp,
+                image: imageBase64
+            };
+
+            saveData();
+            renderMenu(allDOM.searchBar.value);
+            renderInventory();
+            closeModal('edit-menu-modal');
+            showToast('Menu berhasil diperbarui!', 'success');
+        }
+
+        // --- SHIFT MANAGEMENT ---
         function showClockInModal() {
             document.getElementById('clockin-cashier').value = settings.cashierName;
             document.getElementById('clockin-startcash').value = 0;
@@ -2032,6 +2112,7 @@
             `).join('');
         }
 
+        // --- EKSPOR CSV ---
         function exportToCSV() {
             if (transactions.length === 0) {
                 showToast('Tidak ada data untuk diekspor', 'error');
@@ -2050,6 +2131,57 @@
             a.click();
             window.URL.revokeObjectURL(url);
             showToast('Data diekspor sebagai CSV', 'success');
+        }
+
+        // --- EOD REPORT ---
+        function showEndOfDayReport() {
+            const now = new Date();
+            const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+            const todaysTransactions = transactions.filter(tx => new Date(tx.date) >= startOfToday);
+            
+            const totalRevenue = todaysTransactions.reduce((sum, tx) => sum + tx.total, 0);
+            const paymentMethods = todaysTransactions.reduce((acc, tx) => {
+                acc[tx.paymentMethod] = (acc[tx.paymentMethod] || 0) + tx.total;
+                return acc;
+            }, {});
+
+            document.getElementById('eod-store-name').textContent = settings.storeName;
+            document.getElementById('eod-date').textContent = now.toLocaleDateString('id-ID', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+            document.getElementById('eod-cashier-name').textContent = settings.cashierName;
+            document.getElementById('eod-total-revenue').textContent = formatRupiah(totalRevenue);
+            document.getElementById('eod-total-transactions').textContent = todaysTransactions.length;
+            
+            const paymentMethodsEl = document.getElementById('eod-payment-methods');
+            paymentMethodsEl.innerHTML = '';
+            Object.keys(paymentMethods).forEach(method => {
+                paymentMethodsEl.innerHTML += `<div class="flex justify-between border-b pb-1"><span class="text-slate-600">${method}:</span><span class="font-semibold">${formatRupiah(paymentMethods[method])}</span></div>`;
+            });
+            
+            showModal('eod-report-modal');
+        }
+        function printEndOfDayReport() { window.print(); }
+
+        // --- THEME ---
+        function applyTheme() {
+            if (settings.darkMode) {
+                document.documentElement.classList.add('dark');
+                allDOM.sunIcon.classList.add('hidden');
+                allDOM.moonIcon.classList.remove('hidden');
+            } else {
+                document.documentElement.classList.remove('dark');
+                allDOM.sunIcon.classList.remove('hidden');
+                allDOM.moonIcon.classList.add('hidden');
+            }
+        }
+
+        function toggleTheme() {
+            settings.darkMode = !settings.darkMode;
+            applyTheme();
+            saveData();
+            if (!allDOM.dashboardModal.classList.contains('hidden')) {
+                 const activeRange = document.querySelector('.dashboard-range-btn.bg-sky-500')?.onclick.toString().match(/'(.*?)'/)[1] || 'today';
+                 renderDashboard(activeRange);
+            }
         }
 
         // --- DATA PERSISTENCE ---
@@ -2082,30 +2214,7 @@
             }
         }
 
-        // --- THEME/UI LOGIC ---
-        function applyTheme() {
-            if (settings.darkMode) {
-                document.documentElement.classList.add('dark');
-                allDOM.sunIcon.classList.add('hidden');
-                allDOM.moonIcon.classList.remove('hidden');
-            } else {
-                document.documentElement.classList.remove('dark');
-                allDOM.sunIcon.classList.remove('hidden');
-                allDOM.moonIcon.classList.add('hidden');
-            }
-        }
-
-        function toggleTheme() {
-            settings.darkMode = !settings.darkMode;
-            applyTheme();
-            saveData();
-            if (!allDOM.dashboardModal.classList.contains('hidden')) {
-                 const activeRange = document.querySelector('.dashboard-range-btn.bg-sky-500')?.onclick.toString().match(/'(.*?)'/)[1] || 'today';
-                 renderDashboard(activeRange);
-            }
-        }
-
-        // --- INITIALIZATION ---
+        // --- FILTER MENU ---
         function filterMenu(category) {
             currentFilter = category;
             document.querySelectorAll('.category-tab').forEach(tab => tab.classList.remove('active-tab'));
@@ -2114,10 +2223,10 @@
             renderMenu(allDOM.searchBar.value);
         }
 
+        // --- INITIALIZATION ---
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
             
-            // Cek apakah shift sudah aktif, jika tidak tampilkan shift modal
             if (!currentShift.active) {
                 allDOM.shiftModal.style.display = 'flex';
                 allDOM.mainContainer.classList.add('opacity-20', 'pointer-events-none');
@@ -2142,7 +2251,6 @@
             allDOM.darkModeToggle.addEventListener('click', toggleTheme);
             allDOM.customerSearchInput.addEventListener('input', (e) => renderCustomerList(e.target.value));
 
-            // Isi dropdown kasir di dashboard
             setTimeout(() => {
                 const uniqueCashiers = [...new Set(transactions.map(tx => tx.cashierName))];
                 uniqueCashiers.forEach(name => {
