@@ -79,112 +79,15 @@
         .dark .skeleton { background: linear-gradient(90deg, #2d3748 25%, #4a5568 50%, #2d3748 75%); background-size: 200% 100%; }
         @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
 
-        /* ========== PERBAIKAN RESPONSIF ========== */
-        /* Base mobile-first */
-        .flex-col.lg\:flex-row {
-            flex-direction: column;
+        /* Responsif untuk layar kecil */
+        @media (max-width: 1024px) {
+            .flex-col.lg:flex-row { flex-direction: column; }
+            .w-full.lg:w-3\/5, .w-full.lg:w-2\/5 { width: 100%; }
+            .h-screen { height: auto; min-height: 100vh; }
+            .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
         }
-        .w-full.lg\:w-3\/5, .w-full.lg\:w-2\/5 {
-            width: 100%;
-        }
-        .h-screen {
-            height: auto;
-            min-height: 100vh;
-        }
-        /* Grid menu: 2 kolom di mobile, 3 di tablet, 4 di desktop */
-        .grid-cols-2 {
-            grid-template-columns: repeat(2, minmax(0, 1fr));
-        }
-        @media (min-width: 640px) {
-            .grid-cols-2 {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
-            }
-        }
-        @media (min-width: 1024px) {
-            .flex-col.lg\:flex-row {
-                flex-direction: row;
-            }
-            .w-full.lg\:w-3\/5 {
-                width: 60%;
-            }
-            .w-full.lg\:w-2\/5 {
-                width: 40%;
-            }
-            .h-screen {
-                height: 100vh;
-            }
-            .grid-cols-2 {
-                grid-template-columns: repeat(4, minmax(0, 1fr));
-            }
-        }
-
-        /* Penyesuaian padding dan margin untuk mobile */
-        .p-4 {
-            padding: 1rem;
-        }
-        .sm\:p-6 {
-            padding: 1.5rem;
-        }
-        /* Tombol header agar tidak tumpuk */
-        .space-x-2 > :not([hidden]) ~ :not([hidden]) {
-            margin-left: 0.5rem;
-        }
-        /* Pastikan konten tidak overflow */
-        .overflow-hidden {
-            overflow: hidden;
-        }
-        .overflow-y-auto {
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-        }
-        /* Ukuran font di mobile */
-        .text-sm {
-            font-size: 0.875rem;
-        }
-        /* Tombol aksi lebih besar di mobile */
-        .py-3\.5 {
-            padding-top: 1rem;
-            padding-bottom: 1rem;
-        }
-        /* Modal di mobile */
         @media (max-width: 640px) {
-            .modal-content {
-                max-width: 95% !important;
-                padding: 1rem !important;
-            }
-            #scanner {
-                max-width: 90% !important;
-            }
-            /* Atur ulang grid di modal split bill */
-            .grid-cols-1.md\:grid-cols-2 {
-                grid-template-columns: 1fr;
-            }
-            /* Perkecil teks judul */
-            .text-2xl {
-                font-size: 1.5rem;
-            }
-            .text-3xl {
-                font-size: 2rem;
-            }
-        }
-
-        /* Memperbaiki tampilan item di keranjang */
-        #order-list .flex.items-center {
-            flex-wrap: wrap;
-        }
-        #order-list .flex.items-center .flex-grow {
-            min-width: 120px;
-        }
-        #order-list .flex.items-center .space-x-2 {
-            margin-top: 0.5rem;
-            justify-content: flex-end;
-            width: 100%;
-        }
-        @media (min-width: 480px) {
-            #order-list .flex.items-center .space-x-2 {
-                width: auto;
-                margin-top: 0;
-            }
+            .modal-content { max-width: 95%; padding: 1rem; }
         }
     </style>
 </head>
