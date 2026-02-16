@@ -2,15 +2,18 @@
 <html lang="id">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
     <title>Kasir Mie Ayam Abdillah - Pro</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍜</text></svg>">
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#0ea5e9">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns/dist/chartjs-adapter-date-fns.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/quagga@0.12.1/dist/quagga.min.js"></script>
     <script>
         tailwind.config = { darkMode: 'class' }
     </script>
@@ -75,6 +78,17 @@
         .skeleton { background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%); background-size: 200% 100%; animation: loading 1.5s infinite; border-radius: 8px; }
         .dark .skeleton { background: linear-gradient(90deg, #2d3748 25%, #4a5568 50%, #2d3748 75%); background-size: 200% 100%; }
         @keyframes loading { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* Responsif untuk layar kecil */
+        @media (max-width: 1024px) {
+            .flex-col.lg:flex-row { flex-direction: column; }
+            .w-full.lg:w-3\/5, .w-full.lg:w-2\/5 { width: 100%; }
+            .h-screen { height: auto; min-height: 100vh; }
+            .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+        }
+        @media (max-width: 640px) {
+            .modal-content { max-width: 95%; padding: 1rem; }
+        }
     </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 antialiased">
@@ -96,10 +110,10 @@
     <div id="toast-container"></div>
 
     <!-- Main Container -->
-    <div id="main-container" class="flex flex-col lg:flex-row h-screen opacity-20 pointer-events-none">
+    <div id="main-container" class="flex flex-col lg:flex-row h-screen opacity-20 pointer-events-none overflow-hidden">
         <!-- Left Panel: Menu & Categories -->
-        <div class="w-full lg:w-3/5 p-4 sm:p-6 flex flex-col">
-            <header class="mb-6 flex justify-between items-center">
+        <div class="w-full lg:w-3/5 p-4 sm:p-6 flex flex-col overflow-hidden">
+            <header class="mb-6 flex justify-between items-center flex-wrap gap-2">
                 <div class="flex items-center gap-4">
                     <div class="w-14 h-14 bg-amber-100 dark:bg-amber-900/50 rounded-2xl flex items-center justify-center text-3xl shadow-md">🍜</div>
                     <div>
@@ -107,7 +121,7 @@
                         <p class="text-slate-500 dark:text-slate-400 mt-1 text-sm sm:text-base">Pilih menu untuk ditambahkan ke pesanan.</p>
                     </div>
                 </div>
-                <div class="flex items-center space-x-2">
+                <div class="flex items-center space-x-2 flex-wrap">
                     <button onclick="showActiveOrdersModal()" class="relative p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Pesanan Aktif">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                         <span id="active-orders-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center hidden">0</span>
@@ -122,6 +136,10 @@
                     <button onclick="showSettingsModal()" id="settings-btn" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Pengaturan">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
                     </button>
+                    <!-- Tombol Scan Barcode -->
+                    <button onclick="toggleScanner()" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Scan Barcode">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><path d="M21 16v2a2 2 0 0 1-2 2h-5"/><path d="M3 16v2a2 2 0 0 0 2 2h5"/><path d="M21 8V6a2 2 0 0 0-2-2h-5"/><path d="M3 8V6a2 2 0 0 1 2-2h5"/><rect x="7" y="12" width="3" height="8"/><rect x="14" y="12" width="3" height="8"/></svg>
+                    </button>
                 </div>
             </header>
             
@@ -131,11 +149,11 @@
                 <button id="search-clear-btn" class="absolute right-4 top-1/2 -translate-y-1/2 h-5 w-5 text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 transition hidden">&times;</button>
             </div>
             
-            <div class="flex space-x-2 sm:space-x-3 mb-6 p-1.5 bg-slate-200/80 dark:bg-slate-800 rounded-full text-sm sm:text-base">
-                <button onclick="filterMenu('semua')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Semua</button>
-                <button onclick="filterMenu('mie')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Mie</button>
-                <button onclick="filterMenu('topping')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Topping</button>
-                <button onclick="filterMenu('minuman')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300">Minuman</button>
+            <div class="flex space-x-2 sm:space-x-3 mb-6 p-1.5 bg-slate-200/80 dark:bg-slate-800 rounded-full text-sm sm:text-base overflow-x-auto">
+                <button onclick="filterMenu('semua')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300 whitespace-nowrap">Semua</button>
+                <button onclick="filterMenu('mie')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300 whitespace-nowrap">Mie</button>
+                <button onclick="filterMenu('topping')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300 whitespace-nowrap">Topping</button>
+                <button onclick="filterMenu('minuman')" class="category-tab w-full py-2 px-3 rounded-full text-slate-600 dark:text-slate-300 font-semibold transition-all duration-300 whitespace-nowrap">Minuman</button>
             </div>
 
             <!-- Skeleton loader for menu -->
@@ -147,7 +165,7 @@
         </div>
 
         <!-- Right Panel: Cart -->
-        <div class="w-full lg:w-2/5 bg-white dark:bg-slate-800/50 p-4 sm:p-6 flex flex-col shadow-2xl shadow-slate-300/50 dark:shadow-black/50">
+        <div class="w-full lg:w-2/5 bg-white dark:bg-slate-800/50 p-4 sm:p-6 flex flex-col shadow-2xl shadow-slate-300/50 dark:shadow-black/50 overflow-hidden">
             <div class="flex justify-between items-center mb-4">
                  <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Pesanan Saat Ini</h2>
                  <div id="table-display" class="hidden font-bold text-lg bg-amber-100 text-amber-800 px-4 py-1.5 rounded-lg">
@@ -155,7 +173,7 @@
                  </div>
             </div>
             
-            <div class="grid grid-cols-1 gap-4 mb-4">
+            <div class="grid grid-cols-1 gap-4 mb-4 overflow-y-auto">
                  <div>
                      <label class="block text-slate-500 dark:text-slate-400 mb-2 text-sm font-semibold">Tipe Pesanan</label>
                      <div class="grid grid-cols-3 gap-2 bg-slate-100 dark:bg-slate-900 p-1 rounded-lg">
@@ -185,7 +203,7 @@
                 </div>
             </div>
 
-            <div id="order-list" class="flex-grow overflow-y-auto -mr-2 pr-2">
+            <div id="order-list" class="flex-grow overflow-y-auto -mr-2 pr-2 min-h-0">
                  <p id="empty-cart-message" class="text-slate-400 dark:text-slate-500 text-center mt-16">Keranjang masih kosong.</p>
             </div>
             
@@ -218,6 +236,9 @@
             </div>
         </div>
     </div>
+
+    <!-- Video Scanner -->
+    <video id="scanner" style="width:100%; max-width:400px; display:none; position:fixed; top:50%; left:50%; transform:translate(-50%,-50%); z-index:1000; border-radius:1rem; border:4px solid #0ea5e9;"></video>
 
     <!-- ==================== MODALS ==================== -->
 
@@ -267,7 +288,7 @@
         </div>
     </div>
 
-    <!-- Payment Modal (dengan QRIS dan catatan) -->
+    <!-- Payment Modal -->
     <div id="payment-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
          <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm sm:max-w-md shadow-2xl modal-content">
              <h3 class="text-2xl font-bold mb-6 text-center text-slate-900 dark:text-white">Detail Pembayaran</h3>
@@ -303,7 +324,7 @@
                      <label for="qris-code" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Kode QRIS / ID Transaksi</label>
                      <input type="text" id="qris-code" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" placeholder="Masukkan kode atau ID">
                  </div>
-                 <!-- Catatan untuk seluruh pesanan (opsional) -->
+                 <!-- Catatan untuk seluruh pesanan -->
                  <div class="mb-4">
                      <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Catatan Pesanan (opsional)</label>
                      <textarea id="order-note" rows="2" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" placeholder="Contoh: Tidak pakai bawang, Pedas ekstra..."></textarea>
@@ -335,7 +356,7 @@
         </div>
     </div>
 
-    <!-- History Modal (dengan tombol Export CSV) -->
+    <!-- History Modal -->
     <div id="history-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-3xl shadow-2xl flex flex-col modal-content" style="height: 85vh;">
             <div class="flex justify-between items-center mb-6">
@@ -349,7 +370,7 @@
         </div>
     </div>
 
-    <!-- Dashboard Modal (dengan filter kasir dan rentang kustom) -->
+    <!-- Dashboard Modal -->
     <div id="dashboard-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-6xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
             <div class="flex justify-between items-center mb-6">
@@ -417,7 +438,7 @@
         </div>
     </div>
 
-    <!-- Inventory Modal (dengan tombol Edit) -->
+    <!-- Inventory Modal -->
     <div id="inventory-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-4xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
             <div class="flex justify-between items-center mb-6">
@@ -467,6 +488,10 @@
                 <div class="mb-4">
                     <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">HPP (Rp)</label>
                     <input type="number" id="edit-menu-hpp" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" min="0">
+                </div>
+                <div class="mb-4">
+                    <label class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Barcode</label>
+                    <input type="text" id="edit-menu-barcode" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 focus:border-sky-500 focus:outline-none transition" placeholder="8991234567890">
                 </div>
                 <div class="flex justify-end space-x-4">
                     <button type="button" onclick="closeModal('edit-menu-modal')" class="bg-slate-200 hover:bg-slate-300 text-slate-800 dark:bg-slate-700 dark:hover:bg-slate-600 dark:text-slate-200 rounded-xl py-2 px-5 font-bold transition">Batal</button>
@@ -540,31 +565,36 @@
         </div>
     </div>
 
-    <!-- Settings Modal (dengan tab Shift) -->
+    <!-- Settings Modal (dengan tab baru) -->
     <div id="settings-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-lg sm:max-w-2xl shadow-2xl modal-content">
             <h3 class="text-2xl font-bold mb-6 text-slate-900 dark:text-white">Pengaturan Aplikasi</h3>
             
             <div class="border-b border-slate-200 dark:border-slate-700 mb-6">
-                <nav class="-mb-px flex space-x-6" aria-label="Tabs">
+                <nav class="-mb-px flex space-x-6 overflow-x-auto" aria-label="Tabs">
                     <button onclick="switchSettingsTab(event, 'umum')" class="settings-tab active whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Umum</button>
                     <button onclick="switchSettingsTab(event, 'finansial')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Finansial</button>
                     <button onclick="switchSettingsTab(event, 'struk')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Struk</button>
                     <button onclick="switchSettingsTab(event, 'data')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Data & Laporan</button>
                     <button onclick="switchSettingsTab(event, 'shift')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Shift</button>
+                    <button onclick="switchSettingsTab(event, 'level')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Level Pedas</button>
+                    <button onclick="switchSettingsTab(event, 'meja')" class="settings-tab whitespace-nowrap py-3 px-1 border-b-2 font-medium text-sm">Meja</button>
                 </nav>
             </div>
 
             <div id="settings-content">
+                <!-- Tab Umum -->
                 <div id="settings-tab-umum" class="settings-tab-content space-y-4">
                     <div><label for="setting-store-name" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Nama Toko</label><input type="text" id="setting-store-name" class="w-full bg-slate-100 dark:bg-slate-700 rounded-lg p-2.5 border-2 border-transparent focus:border-sky-500 focus:outline-none transition"></div>
                     <div><label for="setting-store-address" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Alamat Toko</label><input type="text" id="setting-store-address" class="w-full bg-slate-100 dark:bg-slate-700 rounded-lg p-2.5 border-2 border-transparent focus:border-sky-500 focus:outline-none transition"></div>
                     <div><label for="setting-cashier-name" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Nama Kasir</label><input type="text" id="setting-cashier-name" class="w-full bg-slate-100 dark:bg-slate-700 rounded-lg p-2.5 border-2 border-transparent focus:border-sky-500 focus:outline-none transition"></div>
                 </div>
+                <!-- Tab Finansial -->
                 <div id="settings-tab-finansial" class="settings-tab-content space-y-4 hidden">
                     <div><label for="setting-tax-rate" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Tarif Pajak (%)</label><input type="number" id="setting-tax-rate" min="0" class="w-full bg-slate-100 dark:bg-slate-700 rounded-lg p-2.5 border-2 border-transparent focus:border-sky-500 focus:outline-none transition"></div>
                     <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><label for="setting-tax-enabled" class="font-semibold text-slate-700 dark:text-slate-200">Aktifkan Pajak</label><input type="checkbox" id="setting-tax-enabled" class="h-6 w-6 rounded text-sky-600 focus:ring-sky-500"></div>
                 </div>
+                <!-- Tab Struk -->
                 <div id="settings-tab-struk" class="settings-tab-content space-y-4 hidden">
                     <div>
                         <label for="setting-receipt-logo" class="block text-slate-500 dark:text-slate-400 mb-2 font-semibold">Logo Toko</label>
@@ -586,6 +616,7 @@
                         <div class="flex items-center justify-between bg-slate-50 dark:bg-slate-700/50 p-3 rounded-lg"><label for="setting-receipt-show-order-type" class="font-semibold text-slate-700 dark:text-slate-200">Tampilkan Tipe Pesanan</label><input type="checkbox" id="setting-receipt-show-order-type" class="h-5 w-5 rounded text-sky-600 focus:ring-sky-500"></div>
                     </div>
                 </div>
+                <!-- Tab Data & Laporan -->
                 <div id="settings-tab-data" class="settings-tab-content space-y-4 hidden">
                     <div class="p-4 bg-slate-50 dark:bg-slate-700/50 rounded-lg">
                         <h4 class="font-bold text-slate-800 dark:text-slate-200">Ekspor Semua Data</h4>
@@ -598,6 +629,7 @@
                         <button onclick="confirmResetData()" class="bg-red-500 hover:bg-red-600 text-white rounded-lg py-2 px-4 font-bold transition text-sm">Reset Data Aplikasi</button>
                     </div>
                 </div>
+                <!-- Tab Shift -->
                 <div id="settings-tab-shift" class="settings-tab-content space-y-4 hidden">
                     <div class="p-4 bg-lime-50 dark:bg-lime-900/30 rounded-lg">
                         <h4 class="font-bold text-lime-800 dark:text-lime-300">Manajemen Shift</h4>
@@ -609,6 +641,28 @@
                             <div id="shift-history-list" class="max-h-40 overflow-y-auto text-sm space-y-1"></div>
                         </div>
                     </div>
+                </div>
+                <!-- Tab Level Pedas -->
+                <div id="settings-tab-level" class="settings-tab-content space-y-4 hidden">
+                    <h4 class="font-bold text-slate-800 dark:text-slate-200">Biaya Tambahan Level Pedas</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Atur biaya tambahan untuk setiap level pedas (Rp).</p>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div><label class="block text-slate-500 dark:text-slate-400 mb-1">Level 1</label><input type="number" id="setting-spice-1" class="w-full bg-slate-100 dark:bg-slate-700 rounded-lg p-2" value="0"></div>
+                        <div><label class="block text-slate-500 dark:text-slate-400 mb-1">Level 2</label><input type="number" id="setting-spice-2" class="w-full bg-slate-100 dark:bg-slate-700 rounded-lg p-2" value="0"></div>
+                        <div><label class="block text-slate-500 dark:text-slate-400 mb-1">Level 3</label><input type="number" id="setting-spice-3" class="w-full bg-slate-100 dark:bg-slate-700 rounded-lg p-2" value="2000"></div>
+                        <div><label class="block text-slate-500 dark:text-slate-400 mb-1">Level 4</label><input type="number" id="setting-spice-4" class="w-full bg-slate-100 dark:bg-slate-700 rounded-lg p-2" value="4000"></div>
+                        <div><label class="block text-slate-500 dark:text-slate-400 mb-1">Level 5</label><input type="number" id="setting-spice-5" class="w-full bg-slate-100 dark:bg-slate-700 rounded-lg p-2" value="6000"></div>
+                    </div>
+                </div>
+                <!-- Tab Meja -->
+                <div id="settings-tab-meja" class="settings-tab-content space-y-4 hidden">
+                    <h4 class="font-bold text-slate-800 dark:text-slate-200">Jumlah Meja</h4>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-3">Atur jumlah meja yang tersedia (min 1, max 20).</p>
+                    <div class="flex items-center space-x-4">
+                        <input type="number" id="setting-table-count" min="1" max="20" class="w-24 bg-slate-100 dark:bg-slate-700 rounded-lg p-2 text-center" value="12">
+                        <button onclick="updateTableCount()" class="bg-sky-500 hover:bg-sky-600 text-white rounded-lg py-2 px-4 font-bold transition">Terapkan</button>
+                    </div>
+                    <p class="text-xs text-slate-400 mt-2">Perubahan akan langsung menyesuaikan tata letak meja.</p>
                 </div>
             </div>
 
@@ -724,43 +778,43 @@
     </div>
 
     <script>
-        // ==================== ICONS & DATABASE ====================
+        // ==================== ICONS ====================
         const ICONS = {
             note: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.4 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8.4z"></path><path d="M13 2v6h6"></path><path d="M16 13H8"></path><path d="M16 17H8"></path></svg>`,
             minus: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line></svg>`,
             plus: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>`
         };
 
-        // Data Menu Mie Ayam Abdillah
+        // Data Menu Mie Ayam Abdillah (dengan barcode)
         let initialMenuItems = [
-            { id: 1, name: 'Mie Ayam Biasa', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/ef4444/white?text=Mie+Ayam+Biasa', stock: 20, hpp: 6000 },
-            { id: 2, name: 'Mie Ayam Bakso', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/f97316/white?text=Mie+Ayam+Bakso', stock: 15, hpp: 8000 },
-            { id: 3, name: 'Mie Ayam Ceker', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/84cc16/white?text=Mie+Ayam+Ceker', stock: 25, hpp: 8000 },
-            { id: 4, name: 'Mie Ayam Pangsit', price: 13000, category: 'mie', image: 'https://placehold.co/300x300/10b981/white?text=Mie+Ayam+Pangsit', stock: 20, hpp: 6500 },
-            { id: 5, name: 'Mie Ayam Spesial', price: 18000, category: 'mie', image: 'https://placehold.co/300x300/6366f1/white?text=Mie+Ayam+Spesial', stock: 18, hpp: 9000 },
-            { id: 6, name: 'Mie Ayam Yamin', price: 14000, category: 'mie', image: 'https://placehold.co/300x300/8b5cf6/white?text=Mie+Ayam+Yamin', stock: 15, hpp: 7000 },
-            { id: 7, name: 'Mie Ayam Iritasi', price: 11000, category: 'mie', image: 'https://placehold.co/300x300/a855f7/white?text=Mie+Ayam+Iritasi', stock: 20, hpp: 5500 },
-            { id: 8, name: 'Mie Ayam Komplit', price: 20000, category: 'mie', image: 'https://placehold.co/300x300/ec4899/white?text=Mie+Ayam+Komplit', stock: 22, hpp: 10000 },
-            { id: 9, name: 'Mie Ayam Polos', price: 10000, category: 'mie', image: 'https://placehold.co/300x300/f43f5e/white?text=Mie+Ayam+Polos', stock: 22, hpp: 5000 },
-            { id: 10, name: 'Mie Ayam Goreng', price: 13000, category: 'mie', image: 'https://placehold.co/300x300/ef4444/white?text=Mie+Ayam+Goreng', stock: 15, hpp: 6500 },
-            { id: 11, name: 'Mie Ayam Kuah', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/0ea5e9/white?text=Mie+Ayam+Kuah', stock: 20, hpp: 6000 },
-            { id: 12, name: 'Mie Ayam Original', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/06b6d4/white?text=Mie+Ayam+Original', stock: 20, hpp: 6000 },
-            { id: 13, name: 'Mie Ayam Pedes', price: 13000, category: 'mie', image: 'https://placehold.co/300x300/f59e0b/white?text=Mie+Ayam+Pedes', stock: 15, hpp: 6500 },
-            { id: 14, name: 'Mie Ayam Keju', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/facc15/white?text=Mie+Ayam+Keju', stock: 18, hpp: 7500 },
-            { id: 15, name: 'Mie Ayam Telur', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/e11d48/white?text=Mie+Ayam+Telur', stock: 15, hpp: 6000 },
-            { id: 16, name: 'Mie Ayam Jamur', price: 14000, category: 'mie', image: 'https://placehold.co/300x300/be123c/white?text=Mie+Ayam+Jamur', stock: 15, hpp: 7000 },
-            { id: 17, name: 'Bakso', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/8b5cf6/white?text=Bakso', stock: 50, hpp: 1000 },
-            { id: 18, name: 'Pangsit', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/a855f7/white?text=Pangsit', stock: 50, hpp: 1000 },
-            { id: 19, name: 'Ceker', price: 3000, category: 'topping', image: 'https://placehold.co/300x300/f59e0b/white?text=Ceker', stock: 40, hpp: 1500 },
-            { id: 20, name: 'Telur', price: 3000, category: 'topping', image: 'https://placehold.co/300x300/10b981/white?text=Telur', stock: 40, hpp: 1500 },
-            { id: 21, name: 'Dumpling', price: 3000, category: 'topping', image: 'https://placehold.co/300x300/6366f1/white?text=Dumpling', stock: 40, hpp: 1500 },
-            { id: 22, name: 'Jamur', price: 5000, category: 'topping', image: 'https://placehold.co/300x300/ec4899/white?text=Jamur', stock: 30, hpp: 2500 },
-            { id: 23, name: 'Sosis', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/f97316/white?text=Sosis', stock: 100, hpp: 1000 },
-            { id: 24, name: 'Makaroni', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/0ea5e9/white?text=Makaroni', stock: 100, hpp: 500 },
-            { id: 25, name: 'Es Teh Manis', price: 3000, category: 'minuman', image: 'https://placehold.co/300x300/3b82f6/white?text=Es+Teh+Manis', stock: 50, hpp: 1000 },
-            { id: 26, name: 'Es Jeruk', price: 4000, category: 'minuman', image: 'https://placehold.co/300x300/06b6d4/white?text=Es+Jeruk', stock: 50, hpp: 1500 },
-            { id: 27, name: 'Pop Ice', price: 5000, category: 'minuman', image: 'https://placehold.co/300x300/a855f7/white?text=Pop+Ice', stock: 50, hpp: 2500 },
-            { id: 28, name: 'Nutrisari', price: 4000, category: 'minuman', image: 'https://placehold.co/300x300/f97316/white?text=Nutrisari', stock: 50, hpp: 2000 },
+            { id: 1, name: 'Mie Ayam Biasa', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/ef4444/white?text=Mie+Ayam+Biasa', stock: 20, hpp: 6000, barcode: '8991234567890' },
+            { id: 2, name: 'Mie Ayam Bakso', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/f97316/white?text=Mie+Ayam+Bakso', stock: 15, hpp: 8000, barcode: '8991234567891' },
+            { id: 3, name: 'Mie Ayam Ceker', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/84cc16/white?text=Mie+Ayam+Ceker', stock: 25, hpp: 8000, barcode: '8991234567892' },
+            { id: 4, name: 'Mie Ayam Pangsit', price: 13000, category: 'mie', image: 'https://placehold.co/300x300/10b981/white?text=Mie+Ayam+Pangsit', stock: 20, hpp: 6500, barcode: '8991234567893' },
+            { id: 5, name: 'Mie Ayam Spesial', price: 18000, category: 'mie', image: 'https://placehold.co/300x300/6366f1/white?text=Mie+Ayam+Spesial', stock: 18, hpp: 9000, barcode: '8991234567894' },
+            { id: 6, name: 'Mie Ayam Yamin', price: 14000, category: 'mie', image: 'https://placehold.co/300x300/8b5cf6/white?text=Mie+Ayam+Yamin', stock: 15, hpp: 7000, barcode: '8991234567895' },
+            { id: 7, name: 'Mie Ayam Iritasi', price: 11000, category: 'mie', image: 'https://placehold.co/300x300/a855f7/white?text=Mie+Ayam+Iritasi', stock: 20, hpp: 5500, barcode: '8991234567896' },
+            { id: 8, name: 'Mie Ayam Komplit', price: 20000, category: 'mie', image: 'https://placehold.co/300x300/ec4899/white?text=Mie+Ayam+Komplit', stock: 22, hpp: 10000, barcode: '8991234567897' },
+            { id: 9, name: 'Mie Ayam Polos', price: 10000, category: 'mie', image: 'https://placehold.co/300x300/f43f5e/white?text=Mie+Ayam+Polos', stock: 22, hpp: 5000, barcode: '8991234567898' },
+            { id: 10, name: 'Mie Ayam Goreng', price: 13000, category: 'mie', image: 'https://placehold.co/300x300/ef4444/white?text=Mie+Ayam+Goreng', stock: 15, hpp: 6500, barcode: '8991234567899' },
+            { id: 11, name: 'Mie Ayam Kuah', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/0ea5e9/white?text=Mie+Ayam+Kuah', stock: 20, hpp: 6000, barcode: '8991234567800' },
+            { id: 12, name: 'Mie Ayam Original', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/06b6d4/white?text=Mie+Ayam+Original', stock: 20, hpp: 6000, barcode: '8991234567801' },
+            { id: 13, name: 'Mie Ayam Pedes', price: 13000, category: 'mie', image: 'https://placehold.co/300x300/f59e0b/white?text=Mie+Ayam+Pedes', stock: 15, hpp: 6500, barcode: '8991234567802' },
+            { id: 14, name: 'Mie Ayam Keju', price: 15000, category: 'mie', image: 'https://placehold.co/300x300/facc15/white?text=Mie+Ayam+Keju', stock: 18, hpp: 7500, barcode: '8991234567803' },
+            { id: 15, name: 'Mie Ayam Telur', price: 12000, category: 'mie', image: 'https://placehold.co/300x300/e11d48/white?text=Mie+Ayam+Telur', stock: 15, hpp: 6000, barcode: '8991234567804' },
+            { id: 16, name: 'Mie Ayam Jamur', price: 14000, category: 'mie', image: 'https://placehold.co/300x300/be123c/white?text=Mie+Ayam+Jamur', stock: 15, hpp: 7000, barcode: '8991234567805' },
+            { id: 17, name: 'Bakso', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/8b5cf6/white?text=Bakso', stock: 50, hpp: 1000, barcode: '8991234567806' },
+            { id: 18, name: 'Pangsit', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/a855f7/white?text=Pangsit', stock: 50, hpp: 1000, barcode: '8991234567807' },
+            { id: 19, name: 'Ceker', price: 3000, category: 'topping', image: 'https://placehold.co/300x300/f59e0b/white?text=Ceker', stock: 40, hpp: 1500, barcode: '8991234567808' },
+            { id: 20, name: 'Telur', price: 3000, category: 'topping', image: 'https://placehold.co/300x300/10b981/white?text=Telur', stock: 40, hpp: 1500, barcode: '8991234567809' },
+            { id: 21, name: 'Dumpling', price: 3000, category: 'topping', image: 'https://placehold.co/300x300/6366f1/white?text=Dumpling', stock: 40, hpp: 1500, barcode: '8991234567810' },
+            { id: 22, name: 'Jamur', price: 5000, category: 'topping', image: 'https://placehold.co/300x300/ec4899/white?text=Jamur', stock: 30, hpp: 2500, barcode: '8991234567811' },
+            { id: 23, name: 'Sosis', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/f97316/white?text=Sosis', stock: 100, hpp: 1000, barcode: '8991234567812' },
+            { id: 24, name: 'Makaroni', price: 2000, category: 'topping', image: 'https://placehold.co/300x300/0ea5e9/white?text=Makaroni', stock: 100, hpp: 500, barcode: '8991234567813' },
+            { id: 25, name: 'Es Teh Manis', price: 3000, category: 'minuman', image: 'https://placehold.co/300x300/3b82f6/white?text=Es+Teh+Manis', stock: 50, hpp: 1000, barcode: '8991234567814' },
+            { id: 26, name: 'Es Jeruk', price: 4000, category: 'minuman', image: 'https://placehold.co/300x300/06b6d4/white?text=Es+Jeruk', stock: 50, hpp: 1500, barcode: '8991234567815' },
+            { id: 27, name: 'Pop Ice', price: 5000, category: 'minuman', image: 'https://placehold.co/300x300/a855f7/white?text=Pop+Ice', stock: 50, hpp: 2500, barcode: '8991234567816' },
+            { id: 28, name: 'Nutrisari', price: 4000, category: 'minuman', image: 'https://placehold.co/300x300/f97316/white?text=Nutrisari', stock: 50, hpp: 2000, barcode: '8991234567817' },
         ];
         let menuItems = JSON.parse(JSON.stringify(initialMenuItems));
 
@@ -791,37 +845,54 @@
             storeLogo: null,
             receiptShowCashier: true,
             receiptShowOrderType: true,
-            darkMode: false
+            darkMode: false,
+            spiceLevelCosts: { 1: 0, 2: 0, 3: 2000, 4: 4000, 5: 6000 },
+            tableCount: 12
         };
         let pendingItemForLevel = null;
         let currentPaymentMethod = 'Tunai';
-        const spiceLevelCosts = { 1: 0, 2: 0, 3: 2000, 4: 4000, 5: 6000 };
 
         // --- FITUR TAMBAHAN ---
         let shiftHistory = [];
+        let scannerActive = false;
 
-        // --- DOM ELEMENTS ---
+        // --- DOM ELEMENTS (disingkat, tapi dalam kode asli semua harus ada) ---
         const allDOM = {
             mainContainer: document.getElementById('main-container'),
             shiftModal: document.getElementById('shift-modal'),
-            menuGrid: document.getElementById('menu-grid'), orderList: document.getElementById('order-list'),
-            subtotalEl: document.getElementById('subtotal'), taxEl: document.getElementById('tax'),
-            totalEl: document.getElementById('total'), payButton: document.getElementById('pay-button'),
+            menuGrid: document.getElementById('menu-grid'),
+            orderList: document.getElementById('order-list'),
+            subtotalEl: document.getElementById('subtotal'),
+            taxEl: document.getElementById('tax'),
+            totalEl: document.getElementById('total'),
+            payButton: document.getElementById('pay-button'),
             holdButton: document.getElementById('hold-button'),
-            emptyCartMessage: document.getElementById('empty-cart-message'), paymentModal: document.getElementById('payment-modal'),
-            totalTagihanInput: document.getElementById('total-tagihan'), uangDiterimaInput: document.getElementById('uang-diterima'),
-            kembalianEl: document.getElementById('kembalian'), confirmPaymentButton: document.getElementById('confirm-payment-button'),
-            receiptModal: document.getElementById('receipt-modal'), historyModal: document.getElementById('history-modal'),
-            dashboardModal: document.getElementById('dashboard-modal'), discountModal: document.getElementById('discount-modal'),
+            emptyCartMessage: document.getElementById('empty-cart-message'),
+            paymentModal: document.getElementById('payment-modal'),
+            totalTagihanInput: document.getElementById('total-tagihan'),
+            uangDiterimaInput: document.getElementById('uang-diterima'),
+            kembalianEl: document.getElementById('kembalian'),
+            confirmPaymentButton: document.getElementById('confirm-payment-button'),
+            receiptModal: document.getElementById('receipt-modal'),
+            historyModal: document.getElementById('history-modal'),
+            dashboardModal: document.getElementById('dashboard-modal'),
+            discountModal: document.getElementById('discount-modal'),
             discountAmountEl: document.getElementById('discount-amount'),
-            customerNameDisplay: document.getElementById('customer-name-display'), clearCustomerBtn: document.getElementById('clear-customer-btn'),
+            customerNameDisplay: document.getElementById('customer-name-display'),
+            clearCustomerBtn: document.getElementById('clear-customer-btn'),
             customerSelectionArea: document.getElementById('customer-selection-area'),
-            tableModal: document.getElementById('table-modal'), tableGrid: document.getElementById('table-grid'),
-            tableManagementSection: document.getElementById('table-management-section'), tableDisplay: document.getElementById('table-display'),
-            tableNumberDisplay: document.getElementById('table-number-display'), settingsModal: document.getElementById('settings-modal'),
-            inventoryModal: document.getElementById('inventory-modal'), inventoryList: document.getElementById('inventory-list'),
-            headerStoreName: document.getElementById('header-store-name'), taxRateDisplay: document.getElementById('tax-rate-display'),
-            spiceLevelModal: document.getElementById('spice-level-modal'), spiceModalTitle: document.getElementById('spice-modal-title'),
+            tableModal: document.getElementById('table-modal'),
+            tableGrid: document.getElementById('table-grid'),
+            tableManagementSection: document.getElementById('table-management-section'),
+            tableDisplay: document.getElementById('table-display'),
+            tableNumberDisplay: document.getElementById('table-number-display'),
+            settingsModal: document.getElementById('settings-modal'),
+            inventoryModal: document.getElementById('inventory-modal'),
+            inventoryList: document.getElementById('inventory-list'),
+            headerStoreName: document.getElementById('header-store-name'),
+            taxRateDisplay: document.getElementById('tax-rate-display'),
+            spiceLevelModal: document.getElementById('spice-level-modal'),
+            spiceModalTitle: document.getElementById('spice-modal-title'),
             taxRow: document.getElementById('tax-row'),
             searchBar: document.getElementById('search-bar'),
             searchClearBtn: document.getElementById('search-clear-btn'),
@@ -843,7 +914,6 @@
             endOfShiftReportModal: document.getElementById('end-of-shift-report-modal'),
         };
 
-        // Elemen tambahan
         const qrisSection = document.getElementById('qris-payment-section');
         const qrisInput = document.getElementById('qris-code');
         const orderNote = document.getElementById('order-note');
@@ -864,6 +934,7 @@
         }
 
         function showToast(message, type = 'info') {
+            playSound(type);
             const container = document.getElementById('toast-container');
             const toast = document.createElement('div');
             let bgColor = 'bg-slate-900';
@@ -878,6 +949,19 @@
                 toast.classList.remove('show');
                 setTimeout(() => container.removeChild(toast), 300);
             }, 3000);
+        }
+
+        // Fungsi suara notifikasi
+        function playSound(type) {
+            const sounds = {
+                success: 'https://www.soundjay.com/misc/sounds/bell-ringing-05.mp3',
+                error: 'https://www.soundjay.com/misc/sounds/buzzer-or-wrong-answer-01.mp3',
+                add: 'https://www.soundjay.com/misc/sounds/beep-07.mp3',
+                info: 'https://www.soundjay.com/misc/sounds/beep-09.mp3'
+            };
+            if (sounds[type]) {
+                new Audio(sounds[type]).play().catch(e => console.log('Audio play failed:', e));
+            }
         }
 
         // --- RENDER FUNCTIONS ---
@@ -983,9 +1067,8 @@
         function renderSpiceLevelCosts() {
             for (let i = 1; i <= 5; i++) {
                 const costEl = document.getElementById(`spice-cost-${i}`);
-                const cost = spiceLevelCosts[i];
-                if (cost > 0) { costEl.textContent = `+${formatRupiah(cost)}`; } 
-                else { costEl.textContent = 'Gratis'; }
+                const cost = settings.spiceLevelCosts[i] || 0;
+                costEl.textContent = cost > 0 ? `+${formatRupiah(cost)}` : 'Gratis';
             }
         }
 
@@ -1000,7 +1083,7 @@
             const itemData = menuItems.find(item => item.id === itemId);
             if (itemData.stock <= 0) { showToast('Stok produk habis!', 'error'); return; }
 
-            const spiceCost = level ? (spiceLevelCosts[level] || 0) : 0;
+            const spiceCost = level ? (settings.spiceLevelCosts[level] || 0) : 0;
             const finalPrice = itemData.price + spiceCost;
             
             const existingCartItem = cart.find(item => item.id === itemId && item.level === level && !item.note);
@@ -1011,6 +1094,7 @@
                 cart.push({ ...itemData, quantity: 1, note: '', level: level, spiceCost: spiceCost, finalPrice: finalPrice, cartId: Date.now() });
             }
             itemData.stock--;
+            playSound('add');
             showToast(`${itemData.name} ${level ? `Lv. ${level}`: ''} ditambahkan`);
             renderMenu(allDOM.searchBar.value); renderCart(); saveData();
         }
@@ -1043,15 +1127,6 @@
                     itemInCart.note = note; 
                     renderCart(); 
                 }
-            }
-        }
-
-        function setQuickNote(cartId, note) {
-            const item = cart.find(i => i.cartId === cartId);
-            if (item) {
-                item.note = note;
-                renderCart();
-                showToast(`Catatan: ${note}`, 'success');
             }
         }
 
@@ -1099,6 +1174,73 @@
             }
         }
         
+        // --- SCANNER BARCODE ---
+        function toggleScanner() {
+            if (scannerActive) {
+                Quagga.stop();
+                document.getElementById('scanner').style.display = 'none';
+                scannerActive = false;
+            } else {
+                startScanner();
+            }
+        }
+
+        function startScanner() {
+            const video = document.getElementById('scanner');
+            video.style.display = 'block';
+            scannerActive = true;
+
+            Quagga.init({
+                inputStream: {
+                    name: "Live",
+                    type: "LiveStream",
+                    target: video,
+                    constraints: {
+                        width: 640,
+                        height: 480,
+                        facingMode: "environment"
+                    }
+                },
+                decoder: {
+                    readers: ["ean_reader", "code_128_reader", "code_39_reader"]
+                }
+            }, function(err) {
+                if (err) {
+                    console.error(err);
+                    showToast('Gagal mengakses kamera', 'error');
+                    video.style.display = 'none';
+                    scannerActive = false;
+                    return;
+                }
+                Quagga.start();
+            });
+
+            Quagga.onDetected(data => {
+                const barcode = data.codeResult.code;
+                const item = menuItems.find(i => i.barcode === barcode);
+                if (item) {
+                    addToCart(item.id);
+                    showToast(`Item ${item.name} ditambahkan`, 'success');
+                } else {
+                    showToast('Barcode tidak ditemukan', 'error');
+                }
+                Quagga.stop();
+                video.style.display = 'none';
+                scannerActive = false;
+            });
+        }
+
+        // --- SERVICE WORKER (PWA) ---
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js').then(reg => {
+                    console.log('Service Worker registered', reg);
+                }).catch(err => {
+                    console.log('Service Worker registration failed', err);
+                });
+            });
+        }
+
         // --- MODAL & PAYMENT LOGIC ---
         function showModal(modalId) {
             const modal = document.getElementById(modalId);
@@ -1839,11 +1981,20 @@
             document.getElementById('setting-tax-rate').value = settings.taxRate;
             document.getElementById('setting-tax-enabled').checked = settings.taxEnabled;
             document.getElementById('setting-receipt-footer').value = settings.receiptFooter;
-            
             document.getElementById('logo-preview').src = settings.storeLogo || 'https://placehold.co/80x80/e2e8f0/94a3b8?text=Logo';
             document.getElementById('setting-receipt-show-cashier').checked = settings.receiptShowCashier;
             document.getElementById('setting-receipt-show-order-type').checked = settings.receiptShowOrderType;
             document.getElementById('setting-receipt-logo').value = '';
+
+            // Isi level pedas
+            document.getElementById('setting-spice-1').value = settings.spiceLevelCosts[1] || 0;
+            document.getElementById('setting-spice-2').value = settings.spiceLevelCosts[2] || 0;
+            document.getElementById('setting-spice-3').value = settings.spiceLevelCosts[3] || 2000;
+            document.getElementById('setting-spice-4').value = settings.spiceLevelCosts[4] || 4000;
+            document.getElementById('setting-spice-5').value = settings.spiceLevelCosts[5] || 6000;
+
+            // Isi jumlah meja
+            document.getElementById('setting-table-count').value = settings.tableCount || 12;
 
             showModal('settings-modal');
             switchSettingsTab(null, 'umum');
@@ -1856,7 +2007,6 @@
             settings.taxRate = parseFloat(document.getElementById('setting-tax-rate').value) || 10;
             settings.taxEnabled = document.getElementById('setting-tax-enabled').checked;
             settings.receiptFooter = document.getElementById('setting-receipt-footer').value;
-            
             settings.receiptShowCashier = document.getElementById('setting-receipt-show-cashier').checked;
             settings.receiptShowOrderType = document.getElementById('setting-receipt-show-order-type').checked;
 
@@ -1874,6 +2024,22 @@
                     console.error("Error reading logo file:", error);
                     showToast('Gagal memuat logo.', 'error');
                 }
+            }
+
+            // Simpan level pedas
+            settings.spiceLevelCosts = {
+                1: parseInt(document.getElementById('setting-spice-1').value) || 0,
+                2: parseInt(document.getElementById('setting-spice-2').value) || 0,
+                3: parseInt(document.getElementById('setting-spice-3').value) || 2000,
+                4: parseInt(document.getElementById('setting-spice-4').value) || 4000,
+                5: parseInt(document.getElementById('setting-spice-5').value) || 6000
+            };
+
+            // Simpan jumlah meja (akan diterapkan nanti)
+            const newTableCount = parseInt(document.getElementById('setting-table-count').value) || 12;
+            if (newTableCount !== settings.tableCount) {
+                settings.tableCount = newTableCount;
+                updateTableCount();
             }
             
             allDOM.headerStoreName.textContent = settings.storeName;
@@ -1898,6 +2064,28 @@
             const button = event ? event.target : document.querySelector(`.settings-tab[onclick*="'${tabName}'"]`);
             if (button) button.classList.add('active');
         }
+
+        function updateTableCount() {
+            const newCount = settings.tableCount;
+            // Update array tables
+            if (newCount > tables.length) {
+                // Tambah meja
+                for (let i = tables.length + 1; i <= newCount; i++) {
+                    tables.push({ id: i, name: `M${i}`, status: 'available' });
+                }
+            } else if (newCount < tables.length) {
+                // Kurangi meja, pastikan tidak ada meja yang sedang digunakan
+                const usedTables = tables.slice(newCount).some(t => t.status !== 'available' && heldOrders.some(o => o.table === t.id));
+                if (usedTables) {
+                    showToast('Tidak bisa mengurangi meja karena ada meja yang masih digunakan!', 'error');
+                    return;
+                }
+                tables = tables.slice(0, newCount);
+            }
+            renderTables(); // perbarui tampilan jika modal sedang terbuka
+            saveData();
+        }
+
         function exportData() {
             const dataStr = JSON.stringify({ transactions, menuItems, settings, customers, heldOrders, currentShift, shiftHistory }, null, 2);
             const dataUri = 'data:application/json;charset=utf-8,'+ encodeURIComponent(dataStr);
@@ -1917,7 +2105,7 @@
             location.reload(); 
         }
 
-        // --- INVENTORY (dengan tombol edit) ---
+        // --- INVENTORY ---
         function showInventoryModal() { renderInventory(); showModal('inventory-modal'); }
         function renderInventory() {
             allDOM.inventoryList.innerHTML = menuItems.map(item => 
@@ -1972,6 +2160,7 @@
             document.getElementById('edit-menu-category').value = item.category;
             document.getElementById('edit-menu-stock').value = item.stock;
             document.getElementById('edit-menu-hpp').value = item.hpp || 0;
+            document.getElementById('edit-menu-barcode').value = item.barcode || '';
             document.getElementById('edit-menu-image-preview').src = item.image;
             showModal('edit-menu-modal');
         }
@@ -1983,6 +2172,7 @@
             const category = document.getElementById('edit-menu-category').value;
             const stock = parseInt(document.getElementById('edit-menu-stock').value);
             const hpp = parseInt(document.getElementById('edit-menu-hpp').value) || 0;
+            const barcode = document.getElementById('edit-menu-barcode').value.trim();
             const imageFile = document.getElementById('edit-menu-image').files[0];
 
             if (!name || isNaN(price) || price < 0 || isNaN(stock) || stock < 0) {
@@ -2016,6 +2206,7 @@
                 category,
                 stock,
                 hpp,
+                barcode,
                 image: imageBase64
             };
 
@@ -2204,7 +2395,7 @@
                 const updatedMenuItems = initialMenuItems.map(initialItem => {
                     const savedItem = savedMenuItems.find(saved => saved.id === initialItem.id);
                     if (savedItem) {
-                        return { ...initialItem, stock: savedItem.stock, hpp: savedItem.hpp !== undefined ? savedItem.hpp : initialItem.hpp };
+                        return { ...initialItem, stock: savedItem.stock, hpp: savedItem.hpp !== undefined ? savedItem.hpp : initialItem.hpp, barcode: savedItem.barcode || initialItem.barcode };
                     }
                     return initialItem;
                 });
