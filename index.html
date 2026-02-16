@@ -79,26 +79,8 @@
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-900 dark:text-slate-200 antialiased">
 
-    <!-- Login Overlay -->
-    <div id="login-modal" class="fixed inset-0 bg-slate-900 bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-[70] p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl text-center">
-            <div class="w-20 h-20 bg-amber-100 dark:bg-amber-900/50 rounded-full flex items-center justify-center text-4xl mx-auto mb-4">🍜</div>
-            <h3 class="text-2xl font-bold mb-2 text-slate-900 dark:text-white">Mie Ayam Abdillah</h3>
-            <p class="text-slate-500 dark:text-slate-400 mb-6">Silakan login untuk memulai</p>
-            <div class="mb-4">
-                <select id="login-role" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3 mb-3">
-                    <option value="admin">Admin</option>
-                    <option value="kasir">Kasir</option>
-                </select>
-                <input type="password" id="login-password" class="w-full bg-white dark:bg-slate-700 border-2 border-slate-200 dark:border-slate-600 rounded-lg p-3" placeholder="Password">
-            </div>
-            <button onclick="handleLogin()" class="w-full bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-3 font-bold transition">Login</button>
-            <p class="text-xs text-slate-400 mt-4">Demo: admin123 / kasir123</p>
-        </div>
-    </div>
-
-    <!-- Shift Start Overlay (untuk admin) -->
-    <div id="shift-modal" class="fixed inset-0 bg-slate-900 bg-opacity-70 backdrop-blur-sm items-center justify-center z-[60] p-4 hidden">
+    <!-- Shift Start Overlay -->
+    <div id="shift-modal" class="fixed inset-0 bg-slate-900 bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-[60] p-4 hidden">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-sm shadow-2xl text-center">
             <h3 class="text-2xl font-bold mb-4 text-slate-900 dark:text-white">Mulai Shift Baru</h3>
             <p class="text-slate-500 dark:text-slate-400 mb-6">Masukkan jumlah modal awal tunai di laci kasir.</p>
@@ -139,10 +121,6 @@
                     </button>
                     <button onclick="showSettingsModal()" id="settings-btn" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition" title="Pengaturan">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 0 2l-.15.08a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.38a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1 0-2l.15-.08a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"></path><circle cx="12" cy="12" r="3"></circle></svg>
-                    </button>
-                    <!-- Tombol Kelola Menu (hanya untuk admin, akan ditampilkan setelah login) -->
-                    <button onclick="showManageMenuModal()" id="manage-menu-btn" class="p-3 bg-white dark:bg-slate-800 rounded-full shadow-md hover:bg-slate-100 dark:hover:bg-slate-700 transition hidden" title="Kelola Menu">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-slate-600 dark:text-slate-300"><path d="M12 5v14M5 12h14"/></svg>
                     </button>
                 </div>
             </header>
@@ -439,7 +417,7 @@
         </div>
     </div>
 
-    <!-- Inventory Modal (Stok & HPP) -->
+    <!-- Inventory Modal -->
     <div id="inventory-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
         <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-4xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
             <div class="flex justify-between items-center mb-6">
@@ -450,20 +428,6 @@
             <div class="mt-6 flex justify-end">
                 <button onclick="closeModal('inventory-modal')" class="bg-sky-500 hover:bg-sky-600 text-white rounded-xl py-2 px-5 font-bold transition">Selesai</button>
             </div>
-        </div>
-    </div>
-
-    <!-- Manage Menu Modal (untuk CRUD menu) -->
-    <div id="manage-menu-modal" class="fixed inset-0 bg-slate-900 bg-opacity-30 modal-backdrop flex items-center justify-center hidden z-50 p-4">
-        <div class="bg-white dark:bg-slate-800 rounded-2xl p-8 w-full max-w-4xl shadow-2xl flex flex-col modal-content" style="height: 90vh;">
-            <div class="flex justify-between items-center mb-6">
-                <h3 class="text-2xl font-bold text-slate-900 dark:text-white">Kelola Menu</h3>
-                <button onclick="closeModal('manage-menu-modal')" class="text-3xl text-slate-400 hover:text-slate-600 transition">&times;</button>
-            </div>
-            <div class="mb-4 flex justify-end">
-                <button onclick="addNewMenuItem()" class="bg-green-500 hover:bg-green-600 text-white rounded-lg py-2 px-4 font-bold transition">+ Tambah Menu</button>
-            </div>
-            <div id="manage-menu-list" class="flex-grow overflow-y-auto pr-2 -mr-2 space-y-4"></div>
         </div>
     </div>
 
@@ -770,7 +734,7 @@
         let salesChart = null;
         let hourlySalesChart = null;
         let currentTable = null;
-        let tables = Array.from({ length: 12 }, (_, i) => ({ id: i + 1, name: `M${i + 1}`, status: 'available' }));
+        let tables = Array.from({ length: 12 }, (_, i) => ({ id: i + 1, name: `M${i + 1}`, status: 'available' })); // status: 'available', 'occupied', 'needsCleaning'
         let settings = {
             storeName: 'Mie Ayam Abdillah',
             storeAddress: 'Jl. Mie Ayam No. 1, Wonosobo',
@@ -787,9 +751,7 @@
         let currentPaymentMethod = 'Tunai';
         const spiceLevelCosts = { 1: 0, 2: 0, 3: 2000, 4: 4000, 5: 6000 };
 
-        // --- FITUR TAMBAHAN ---
-        let currentUser = { role: null, name: '' };
-        const validPasswords = { admin: 'admin123', kasir: 'kasir123' };
+        // --- FITUR TAMBAHAN (tanpa login) ---
         let shiftHistory = [];
 
         // --- DOM ELEMENTS ---
@@ -841,9 +803,6 @@
         const orderNote = document.getElementById('order-note');
         const menuSkeleton = document.getElementById('menu-skeleton');
         const dashboardCashierFilter = document.getElementById('dashboard-cashier-filter');
-        const manageMenuBtn = document.getElementById('manage-menu-btn');
-        const manageMenuModal = document.getElementById('manage-menu-modal');
-        const manageMenuList = document.getElementById('manage-menu-list');
 
         // ==================== UTILITY FUNCTIONS ====================
         const formatRupiah = (number) => new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(number);
@@ -1208,6 +1167,7 @@
                 if(customer) customerName = customer.name;
             }
 
+            // Ambil kode QRIS jika metode QRIS
             let qrisCode = null;
             if (currentPaymentMethod === 'QRIS') {
                 qrisCode = qrisInput.value.trim();
@@ -1217,6 +1177,7 @@
                 }
             }
 
+            // Ambil catatan pesanan
             const orderNoteText = orderNote.value.trim();
 
             const transaction = { 
@@ -1274,6 +1235,7 @@
             showModal('receipt-modal'); 
             closeModal('payment-modal'); 
             
+            // Reset input QRIS dan catatan
             qrisInput.value = '';
             orderNote.value = '';
         }
@@ -1624,6 +1586,7 @@
         }
 
         function renderDashboard(range, event) {
+            // Set active class
             document.querySelectorAll('.dashboard-range-btn').forEach(btn => btn.classList.remove('bg-sky-500', 'text-white'));
             if(event) {
                 event.target.classList.add('bg-sky-500', 'text-white');
@@ -1631,6 +1594,7 @@
                 document.querySelector(`.dashboard-range-btn[onclick*="'${range}'"]`).classList.add('bg-sky-500', 'text-white');
             }
             
+            // Tentukan rentang tanggal
             const now = new Date();
             let startDate, endDate = new Date(now);
             if (range === 'today') {
@@ -1649,6 +1613,7 @@
             startDate.setHours(0,0,0,0);
             endDate.setHours(23,59,59,999);
             
+            // Filter berdasarkan kasir
             const cashierFilter = dashboardCashierFilter.value;
             let filteredTx = transactions.filter(tx => {
                 const txDate = new Date(tx.date);
@@ -1706,10 +1671,12 @@
             const gridColor = isDarkMode ? '#334155' : '#e2e8f0';
             const textColor = isDarkMode ? '#cbd5e1' : '#64748b';
             
+            // Daily Sales Chart
             const ctxSales = document.getElementById('salesChart').getContext('2d');
             if(salesChart) salesChart.destroy();
             salesChart = new Chart(ctxSales, { type: 'bar', data: { datasets: [{ label: 'Pendapatan (Rp)', data: chartData, backgroundColor: 'rgba(14, 165, 233, 0.6)', borderColor: 'rgba(14, 165, 233, 1)', borderWidth: 1, borderRadius: 8 }] }, options: { scales: { y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } }, x: { type: 'time', time: { unit: 'day' }, grid: { display: false }, ticks: { color: textColor } } }, plugins: { legend: { display: false } } } });
 
+            // Hourly Sales Chart
             const ctxHourly = document.getElementById('hourlySalesChart').getContext('2d');
             if(hourlySalesChart) hourlySalesChart.destroy();
             hourlySalesChart = new Chart(ctxHourly, { type: 'bar', data: { labels: Array.from({length: 24}, (_, i) => `${i}:00`), datasets: [{ label: 'Pendapatan (Rp)', data: salesByHour, backgroundColor: 'rgba(132, 204, 22, 0.6)', borderColor: 'rgba(132, 204, 22, 1)', borderWidth: 1, borderRadius: 8 }] }, options: { scales: { y: { beginAtZero: true, grid: { color: gridColor }, ticks: { color: textColor } }, x: { grid: { display: false }, ticks: { color: textColor } } }, plugins: { legend: { display: false } } } });
@@ -1952,110 +1919,6 @@
             }
         }
 
-        // --- FITUR KELOLA MENU (CRUD) ---
-        function showManageMenuModal() {
-            renderManageMenu();
-            showModal('manage-menu-modal');
-        }
-
-        function renderManageMenu() {
-            manageMenuList.innerHTML = menuItems.map(item => `
-                <div class="bg-slate-50 dark:bg-slate-900/50 p-4 rounded-lg" data-id="${item.id}">
-                    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center">
-                        <div class="md:col-span-2">
-                            <img src="${item.image}" class="w-16 h-16 object-cover rounded-lg">
-                        </div>
-                        <div class="md:col-span-3">
-                            <input type="text" class="menu-name w-full bg-white dark:bg-slate-700 rounded-lg p-2 border border-slate-200" value="${item.name}" placeholder="Nama">
-                        </div>
-                        <div class="md:col-span-2">
-                            <input type="number" class="menu-price w-full bg-white dark:bg-slate-700 rounded-lg p-2 border border-slate-200" value="${item.price}" placeholder="Harga">
-                        </div>
-                        <div class="md:col-span-2">
-                            <select class="menu-category w-full bg-white dark:bg-slate-700 rounded-lg p-2 border border-slate-200">
-                                <option value="mie" ${item.category === 'mie' ? 'selected' : ''}>Mie</option>
-                                <option value="topping" ${item.category === 'topping' ? 'selected' : ''}>Topping</option>
-                                <option value="minuman" ${item.category === 'minuman' ? 'selected' : ''}>Minuman</option>
-                            </select>
-                        </div>
-                        <div class="md:col-span-3 flex space-x-2">
-                            <button onclick="updateMenuItem(${item.id})" class="bg-sky-500 text-white px-3 py-2 rounded-lg text-sm">Simpan</button>
-                            <button onclick="deleteMenuItem(${item.id})" class="bg-red-500 text-white px-3 py-2 rounded-lg text-sm">Hapus</button>
-                            <label class="cursor-pointer bg-slate-200 hover:bg-slate-300 text-slate-800 px-3 py-2 rounded-lg text-sm">
-                                Upload
-                                <input type="file" class="hidden" accept="image/*" onchange="uploadMenuImage(event, ${item.id})">
-                            </label>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function updateMenuItem(id) {
-            const container = document.querySelector(`#manage-menu-list [data-id="${id}"]`);
-            if (!container) return;
-            const name = container.querySelector('.menu-name').value.trim();
-            const price = parseInt(container.querySelector('.menu-price').value);
-            const category = container.querySelector('.menu-category').value;
-            const item = menuItems.find(i => i.id === id);
-            if (item && name && price > 0) {
-                item.name = name;
-                item.price = price;
-                item.category = category;
-                saveData();
-                renderMenu();
-                showToast('Menu diperbarui', 'success');
-            }
-        }
-
-        function deleteMenuItem(id) {
-            showConfirm('Hapus Menu', 'Yakin ingin menghapus menu ini?', () => {
-                const index = menuItems.findIndex(i => i.id === id);
-                if (index !== -1) {
-                    menuItems.splice(index, 1);
-                    saveData();
-                    renderMenu();
-                    renderManageMenu();
-                    showToast('Menu dihapus', 'success');
-                }
-            });
-        }
-
-        function uploadMenuImage(event, id) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const item = menuItems.find(i => i.id === id);
-                if (item) {
-                    item.image = e.target.result;
-                    saveData();
-                    renderMenu();
-                    renderManageMenu();
-                    showToast('Gambar diperbarui', 'success');
-                }
-            };
-            reader.readAsDataURL(file);
-        }
-
-        function addNewMenuItem() {
-            const newId = Date.now();
-            const newItem = {
-                id: newId,
-                name: 'Menu Baru',
-                price: 10000,
-                category: 'mie',
-                image: 'https://placehold.co/300x300/ef4444/white?text=Menu+Baru',
-                stock: 10,
-                hpp: 5000
-            };
-            menuItems.push(newItem);
-            saveData();
-            renderManageMenu();
-            renderMenu();
-            showToast('Menu baru ditambahkan', 'success');
-        }
-
         function showEndOfDayReport() {
             const now = new Date();
             const startOfToday = new Date(now.getFullYear(), now.getMonth(), now.getDate());
@@ -2083,32 +1946,7 @@
         }
         function printEndOfDayReport() { window.print(); }
 
-        // --- FITUR TAMBAHAN: LOGIN, SHIFT, CSV, DLL ---
-        function handleLogin() {
-            const role = document.getElementById('login-role').value;
-            const pwd = document.getElementById('login-password').value;
-            if (pwd === validPasswords[role]) {
-                currentUser.role = role;
-                currentUser.name = role === 'admin' ? 'Admin' : 'Kasir';
-                document.getElementById('login-modal').classList.add('hidden');
-                if (!currentShift.active) {
-                    document.getElementById('shift-modal').classList.remove('hidden');
-                    document.getElementById('shift-modal').style.display = 'flex';
-                } else {
-                    document.getElementById('main-container').classList.remove('opacity-20', 'pointer-events-none');
-                }
-                if (role === 'admin') {
-                    document.getElementById('manage-menu-btn').classList.remove('hidden');
-                } else {
-                    document.getElementById('inventory-btn').style.display = 'none';
-                    document.getElementById('settings-btn').style.display = 'none';
-                }
-                showToast(`Selamat datang, ${currentUser.name}!`, 'success');
-            } else {
-                showToast('Password salah!', 'error');
-            }
-        }
-
+        // --- FITUR TAMBAHAN: SHIFT, CSV, DLL ---
         function showClockInModal() {
             document.getElementById('clockin-cashier').value = settings.cashierName;
             document.getElementById('clockin-startcash').value = 0;
@@ -2238,12 +2076,6 @@
                     }
                     return initialItem;
                 });
-                // Tambahkan menu baru yang mungkin ditambahkan melalui fitur kelola
-                savedMenuItems.forEach(saved => {
-                    if (!updatedMenuItems.find(i => i.id === saved.id)) {
-                        updatedMenuItems.push(saved);
-                    }
-                });
                 menuItems = updatedMenuItems;
             } else {
                 menuItems = JSON.parse(JSON.stringify(initialMenuItems));
@@ -2285,9 +2117,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             loadData();
             
-            // Tampilkan login terlebih dahulu
-            document.getElementById('login-modal').style.display = 'flex';
-            allDOM.mainContainer.classList.add('opacity-20', 'pointer-events-none');
+            // Cek apakah shift sudah aktif, jika tidak tampilkan shift modal
+            if (!currentShift.active) {
+                allDOM.shiftModal.style.display = 'flex';
+                allDOM.mainContainer.classList.add('opacity-20', 'pointer-events-none');
+            } else {
+                allDOM.shiftModal.style.display = 'none';
+                allDOM.mainContainer.classList.remove('opacity-20', 'pointer-events-none');
+            }
             
             applyTheme();
             allDOM.headerStoreName.textContent = settings.storeName;
@@ -2305,6 +2142,7 @@
             allDOM.darkModeToggle.addEventListener('click', toggleTheme);
             allDOM.customerSearchInput.addEventListener('input', (e) => renderCustomerList(e.target.value));
 
+            // Isi dropdown kasir di dashboard
             setTimeout(() => {
                 const uniqueCashiers = [...new Set(transactions.map(tx => tx.cashierName))];
                 uniqueCashiers.forEach(name => {
